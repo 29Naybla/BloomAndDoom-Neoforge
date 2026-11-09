@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.common.event;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
@@ -33,7 +33,7 @@ public class BnDZombiePlayerEvents {
         LivingEntity newTarget = event.getNewAboutToBeSetTarget();
 
         if(attacker instanceof Monster && newTarget instanceof Player player) {
-            if(player.getData(BnDDataAttachments.ZOMBIE)) {
+            if(((LivingEntityMixinAccess) player).BnD_isZombie()) {
                 event.setCanceled(true);
                 if(attacker.getLastHurtByMob() != null) {
                     event.setCanceled(!attacker.getLastHurtByMob().is(player));
@@ -44,21 +44,21 @@ public class BnDZombiePlayerEvents {
 
     @SubscribeEvent
     public static void zombiePlayerEndermanFriend(EnderManAngerEvent event){
-        if(event.getPlayer().getData(BnDDataAttachments.ZOMBIE)) {
+        if(((LivingEntityMixinAccess) event.getPlayer()).BnD_isZombie()) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public static void zombiePlayerSleep(CanPlayerSleepEvent event){
-        if(event.getEntity().getData(BnDDataAttachments.ZOMBIE) && event.getProblem() == Player.BedSleepingProblem.NOT_SAFE) {
+        if(((LivingEntityMixinAccess) event.getEntity()).BnD_isZombie() && event.getProblem() == Player.BedSleepingProblem.NOT_SAFE) {
             event.setProblem(null);
         }
     }
 
     @SubscribeEvent
     public static void zombieEntitySuffersSmite(LivingDamageEvent.Pre event){
-        if(!event.getEntity().getType().is(EntityTypeTags.UNDEAD) && event.getEntity().getData(BnDDataAttachments.ZOMBIE)){
+        if(!event.getEntity().getType().is(EntityTypeTags.UNDEAD) && ((LivingEntityMixinAccess) event.getEntity()).BnD_isZombie()){
 
             if(event.getContainer().getSource().getWeaponItem() != null && event.getContainer().getSource().getWeaponItem().is(ItemTags.WEAPON_ENCHANTABLE)){
                 var smite = event.getEntity().level().getServer().registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.SMITE);
@@ -74,7 +74,7 @@ public class BnDZombiePlayerEvents {
     @SubscribeEvent
     public static void zombiePlayerCureSelf(PlayerTickEvent.Pre event) {
         Player player = event.getEntity();
-        if(player.getData(BnDDataAttachments.ZOMBIE)) {
+        if(((LivingEntityMixinAccess) player).BnD_isZombie()) {
             if(player.hasEffect(MobEffects.WEAKNESS) && (player.getUseItem().is(BnDTags.Items.ZOMBIE_ANTIDOTE) && player.getUseItemRemainingTicks() <= 1)) {
                 player.removeEffect(MobEffects.WEAKNESS);
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ZOMBIE_VILLAGER_CURE, SoundSource.PLAYERS);
@@ -94,7 +94,7 @@ public class BnDZombiePlayerEvents {
             }
 
             if(player.hasEffect(MobEffects.DAMAGE_BOOST) && player.getEffect(MobEffects.DAMAGE_BOOST).getDuration() <= 1 && fromCuring){
-                player.removeData(BnDDataAttachments.ZOMBIE);
+                ((LivingEntityMixinAccess) player).BnD_setZombie(false);
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ZOMBIE_VILLAGER_CONVERTED, SoundSource.PLAYERS);
                 player.addEffect(new MobEffectInstance(
                         MobEffects.CONFUSION,

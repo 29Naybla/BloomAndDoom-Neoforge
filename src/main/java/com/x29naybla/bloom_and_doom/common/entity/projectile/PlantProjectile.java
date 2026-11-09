@@ -1,6 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.projectile;
 
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -56,7 +56,7 @@ public abstract class PlantProjectile extends ThrowableItemProjectile {
     protected void onHitEntity(@NotNull EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
-        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLAYS) || entity instanceof Player player && !player.getData(BnDDataAttachments.ZOMBIE))){
+        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLAYS) || entity instanceof Player player && !((LivingEntityMixinAccess) player).BnD_isZombie())){
             entity.hurt(this.damageSources().source(setDamageType(), this, this.getOwner()), 4);
             this.level().broadcastEntityEvent(this, (byte)3);
             shouldBreak = true;

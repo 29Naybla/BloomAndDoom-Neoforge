@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.ClientConfigs;
-import com.x29naybla.bloom_and_doom.common.entity.MarigoldEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Marigold;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -16,13 +16,13 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-public class MarigoldPetalsRenderer extends GeoRenderLayer<MarigoldEntity> {
-    public MarigoldPetalsRenderer(GeoRenderer<MarigoldEntity> entityRendererIn) {
+public class MarigoldPetalsRenderer extends GeoRenderLayer<Marigold> {
+    public MarigoldPetalsRenderer(GeoRenderer<Marigold> entityRendererIn) {
         super(entityRendererIn);
     }
 
     @Override
-    public void render(PoseStack poseStack, MarigoldEntity marigold, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+    public void render(PoseStack poseStack, Marigold marigold, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
         if (marigold.isInvisible()) {
             Minecraft minecraft = Minecraft.getInstance();
             boolean flag = minecraft.shouldEntityAppearGlowing(marigold);
@@ -38,8 +38,8 @@ public class MarigoldPetalsRenderer extends GeoRenderLayer<MarigoldEntity> {
                 int i1 = k % l;
                 int j1 = (k + 1) % l;
                 float f = ((float)(marigold.tickCount % j) + partialTick) / j;
-                int k1 = MarigoldEntity.getColor(DyeColor.byId(i1));
-                int l1 = MarigoldEntity.getColor(DyeColor.byId(j1));
+                int k1 = Marigold.getColor(DyeColor.byId(i1));
+                int l1 = Marigold.getColor(DyeColor.byId(j1));
                 i = FastColor.ARGB32.lerp(f, k1, l1);
             } else {
                 i = marigold.getColor().getTextureDiffuseColor();

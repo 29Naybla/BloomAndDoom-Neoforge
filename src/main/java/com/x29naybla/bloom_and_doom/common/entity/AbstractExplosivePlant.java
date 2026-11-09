@@ -1,7 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity;
 
 import com.x29naybla.bloom_and_doom.common.registry.BnDDamageTypes;
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.BnDExplosionDamageCalculator;
 import com.x29naybla.bloom_and_doom.common.entity.goal.BnDSwellGoal;
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class ExplosivePlant extends Plant{
+public class AbstractExplosivePlant extends AbstractPlant {
     private static final EntityDataAccessor<Integer> DATA_SWELL_DIR;
     private int oldSwell;
     private int swell;
@@ -37,7 +36,7 @@ public class ExplosivePlant extends Plant{
     private final Holder<SoundEvent> sound;
 
     //Properties
-    public ExplosivePlant(EntityType<? extends ExplosivePlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem, int explosionRadius, int damage, Holder<SoundEvent> sound) {
+    public AbstractExplosivePlant(EntityType<? extends AbstractExplosivePlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem, int explosionRadius, int damage, Holder<SoundEvent> sound) {
         super(entityType, level, substrate, seedPacket, pottedItem);
         this.seedPacket = seedPacket;
         this.pottedItem = pottedItem;
@@ -51,7 +50,7 @@ public class ExplosivePlant extends Plant{
     protected void registerGoals(){
         goalSelector.addGoal(1, new BnDSwellGoal(this));
         goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, false,
-                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || livingEntity.getData(BnDDataAttachments.ZOMBIE))));
+                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || ((LivingEntityMixinAccess) livingEntity).BnD_isZombie())));
         goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
@@ -80,10 +79,10 @@ public class ExplosivePlant extends Plant{
     }
 
     public void setTarget(@Nullable LivingEntity target) {
-        if (this instanceof PotatoMineEntity potatoMine && !potatoMine.getArmed() || this.isBaby()){
+        if (this instanceof PotatoMine potatoMine && !potatoMine.getArmed() || this.isBaby()){
             return;
         }
-        if (target != null && (target.hasData(BnDDataAttachments.ZOMBIE) || target.getType().is(BnDTags.Entities.PLANT_ENEMIES))) {
+        if (target != null && (((LivingEntityMixinAccess) target).BnD_isZombie() || target.getType().is(BnDTags.Entities.PLANT_ENEMIES))) {
             super.setTarget(target);
         }
     }
@@ -138,6 +137,6 @@ public class ExplosivePlant extends Plant{
     }
 
     static {
-        DATA_SWELL_DIR = SynchedEntityData.defineId(ExplosivePlant.class, EntityDataSerializers.INT);
+        DATA_SWELL_DIR = SynchedEntityData.defineId(AbstractExplosivePlant.class, EntityDataSerializers.INT);
     }
 }

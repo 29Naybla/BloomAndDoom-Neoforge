@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ZombieWolfEntity extends Wolf {
-    public ZombieWolfEntity(EntityType<? extends Wolf> entityType, Level level) {
+public class ZombieWolf extends Wolf {
+    public ZombieWolf(EntityType<? extends Wolf> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -73,12 +73,12 @@ public class ZombieWolfEntity extends Wolf {
     }
 
     @Override
-    public boolean canMate(Animal otherAnimal) {
+    public boolean canMate(@NotNull Animal otherAnimal) {
         return false;
     }
 
     @Override
-    public @Nullable Wolf getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+    public @Nullable Wolf getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob otherParent) {
         return BnDEntities.ZOMBIE_WOLF.get().create(level);
     }
 
@@ -88,12 +88,12 @@ public class ZombieWolfEntity extends Wolf {
         }
 
         @Override
-        public void playDestroyProgressSound(LevelAccessor level, BlockPos pos) {
-            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + ZombieWolfEntity.this.random.nextFloat() * 0.2F);
+        public void playDestroyProgressSound(LevelAccessor level, @NotNull BlockPos pos) {
+            level.playSound(null, pos, SoundEvents.ZOMBIE_DESTROY_EGG, SoundSource.HOSTILE, 0.5F, 0.9F + ZombieWolf.this.random.nextFloat() * 0.2F);
         }
 
         @Override
-        public void playBreakSound(Level level, BlockPos pos) {
+        public void playBreakSound(Level level, @NotNull BlockPos pos) {
             level.playSound(null, pos, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + level.random.nextFloat() * 0.2F);
         }
 
@@ -104,9 +104,9 @@ public class ZombieWolfEntity extends Wolf {
     }
 
     class ZWolfAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
-        private final ZombieWolfEntity zWolf;
+        private final ZombieWolf zWolf;
 
-        public ZWolfAvoidEntityGoal(ZombieWolfEntity zWolf, Class<T> entityClassToAvoid, float maxDist, double walkSpeedModifier, double sprintSpeedModifier) {
+        public ZWolfAvoidEntityGoal(ZombieWolf zWolf, Class<T> entityClassToAvoid, float maxDist, double walkSpeedModifier, double sprintSpeedModifier) {
             super(zWolf, entityClassToAvoid, maxDist, walkSpeedModifier, sprintSpeedModifier);
             this.zWolf = zWolf;
         }
@@ -117,18 +117,18 @@ public class ZombieWolfEntity extends Wolf {
         }
 
         private boolean avoidLlama(Llama llama) {
-            return llama.getStrength() >= ZombieWolfEntity.this.random.nextInt(5);
+            return llama.getStrength() >= ZombieWolf.this.random.nextInt(5);
         }
 
         @Override
         public void start() {
-            ZombieWolfEntity.this.setTarget(null);
+            ZombieWolf.this.setTarget(null);
             super.start();
         }
 
         @Override
         public void tick() {
-            ZombieWolfEntity.this.setTarget(null);
+            ZombieWolf.this.setTarget(null);
             super.tick();
         }
     }

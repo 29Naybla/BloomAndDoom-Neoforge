@@ -58,3 +58,9 @@ changelog:
 * fixed planters' broken textures with the "Bloom and Doom - Programmer Art" resourcepack
 * renamed the "Bloom and Doom - Programmer Art" resourcepack to "Gardener Pixels"
 * fixed potted plants placed on top of planters counting as if it was planted on it
+
+* renamed entity classes
+* dropped Amendments support
+* zombie players now have a special food bar for clear visual indication they are a zombie
+* villagers and wandering traders will flee from zombie players
+* villagers and wandering traders will no longer trade with zombie players

@@ -1,6 +1,5 @@
 package com.x29naybla.bloom_and_doom.common.entity;
 
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.PlantShootDoubleGoal;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.PeaProjectile;
@@ -13,9 +12,9 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class RepeaterEntity extends ShootingPlant {
+public class Repeater extends AbstractShootingPlant {
     //Properties
-    public RepeaterEntity(EntityType<? extends RepeaterEntity> entityType, Level level) {
+    public Repeater(EntityType<? extends Repeater> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_REPEATERS, BnDItems.REPEATER_SEED_PACKET.toStack(), BnDItems.POTTED_REPEATER.toStack());
     }
 
@@ -24,7 +23,7 @@ public class RepeaterEntity extends ShootingPlant {
     protected void registerGoals(){
         goalSelector.addGoal(1, new PlantShootDoubleGoal(this, 1.5F, 30, 8));
         goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false,
-                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || livingEntity.getData(BnDDataAttachments.ZOMBIE))));
+                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || ((LivingEntityMixinAccess) livingEntity).BnD_isZombie())));
         goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 

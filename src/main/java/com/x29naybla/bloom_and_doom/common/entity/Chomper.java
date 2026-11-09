@@ -16,8 +16,8 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class ChomperEntity extends Plant {
-    public static final EntityDataAccessor<Integer> CHEWING = SynchedEntityData.defineId(ChomperEntity.class, EntityDataSerializers.INT);
+public class Chomper extends AbstractPlant {
+    public static final EntityDataAccessor<Integer> CHEWING = SynchedEntityData.defineId(Chomper.class, EntityDataSerializers.INT);
     public final int maxChewTime = 350;
 
     protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.chomper.idle");
@@ -26,7 +26,7 @@ public class ChomperEntity extends Plant {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public ChomperEntity(EntityType<? extends Plant> entityType, Level level) {
+    public Chomper(EntityType<? extends AbstractPlant> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_CHOMPERS, BnDItems.CHOMPER_SEED_PACKET.toStack(), null);
     }
 
@@ -53,7 +53,7 @@ public class ChomperEntity extends Plant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends ChomperEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends Chomper> PlayState animController(final AnimationState<E> event) {
         if (getChewing() > 15) {
             event.setAnimation(CHOMP.thenLoop("animation.chomper.chew"));
         } else

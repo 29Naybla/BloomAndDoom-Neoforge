@@ -1,11 +1,8 @@
 package com.x29naybla.bloom_and_doom.common.item;
 
 import com.google.common.collect.Maps;
-import com.x29naybla.bloom_and_doom.common.entity.SproutEntity;
+import com.x29naybla.bloom_and_doom.common.entity.*;
 import com.x29naybla.bloom_and_doom.common.registry.BnDDataComponents;
-import com.x29naybla.bloom_and_doom.common.entity.MarigoldEntity;
-import com.x29naybla.bloom_and_doom.common.entity.Plant;
-import com.x29naybla.bloom_and_doom.common.entity.PotatoMineEntity;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
 import net.minecraft.ChatFormatting;
@@ -62,7 +59,7 @@ public class PottedPlantItem extends PlantHolderItem {
         map.put(DyeColor.PINK, Component.translatable("item.bloom_and_Doom.potted_marigold.pink").withStyle(ChatFormatting.GRAY));
     });
 
-    public PottedPlantItem(EntityType<? extends Plant> defaultType, Properties properties) {
+    public PottedPlantItem(EntityType<? extends AbstractPlant> defaultType, Properties properties) {
         super(defaultType, properties);
     }
 
@@ -100,10 +97,10 @@ public class PottedPlantItem extends PlantHolderItem {
 
         Direction direction = context.getClickedFace();
         if (level instanceof ServerLevel serverLevel) {
-            Plant plant = (Plant) this.getType(stack).create(serverLevel, EntityType.createDefaultStackConfig(serverLevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
+            AbstractPlant abstractPlant = (AbstractPlant) this.getType(stack).create(serverLevel, EntityType.createDefaultStackConfig(serverLevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
             Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
             AABB aabb = this.getType(stack).getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
-            if(serverLevel.noCollision(null, aabb) && level.getEntitiesOfClass(Plant.class, aabb).isEmpty()){
+            if(serverLevel.noCollision(null, aabb) && level.getEntitiesOfClass(AbstractPlant.class, aabb).isEmpty()){
                 if(serverLevel.isEmptyBlock(blockpos)) {
                     if (direction == Direction.DOWN) {
                         return InteractionResult.FAIL;
@@ -114,7 +111,7 @@ public class PottedPlantItem extends PlantHolderItem {
                         placePlant(stack, serverLevel, context, blockpos, true);
                         if (!player.isCreative()) player.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);
                         return InteractionResult.SUCCESS;
-                    } else if (plant.onRightSubstrate(serverLevel, blockpos)){
+                    } else if (abstractPlant.onRightSubstrate(serverLevel, blockpos)){
                         placePlant(stack, serverLevel, context, blockpos, false);
                         if (player != null && !player.isCreative()) {
                             ItemStack flowerPot = stack.get(DataComponents.BUNDLE_CONTENTS).getItemUnsafe(0);
@@ -131,28 +128,28 @@ public class PottedPlantItem extends PlantHolderItem {
     private void placePlant(ItemStack stack, ServerLevel serverlevel, UseOnContext context, BlockPos blockpos, Boolean onFlowerPot) {
         Entity entity = this.getType(stack).create(serverlevel, EntityType.createDefaultStackConfig(serverlevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
         if (entity != null) {
-            if (entity instanceof Plant plant) {
+            if (entity instanceof AbstractPlant abstractPlant) {
                 float f = (float)Mth.floor((Mth.wrapDegrees(context.getRotation()) + 22.5F) / 45.0F) * 45.0F;
                 if (onFlowerPot) {
-                    plant.moveTo(entity.getX(), entity.getY()+0.375, entity.getZ(), 0, 0);
+                    abstractPlant.moveTo(entity.getX(), entity.getY()+0.375, entity.getZ(), 0, 0);
                     serverlevel.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1F, 0.8F);
                 } else {
-                    plant.moveTo(entity.getX(), entity.getY(), entity.getZ(), 0, 0);
+                    abstractPlant.moveTo(entity.getX(), entity.getY(), entity.getZ(), 0, 0);
                     serverlevel.playSound(null, entity.getX(), entity.getY(), entity.getZ(), BnDSounds.POTTED_PLANT_PLANT.get(), SoundSource.BLOCKS, 0.75F, 0.8F);
                 }
-                plant.setYRot(f);
-                plant.setXRot(0);
-                if (stack.has(DataComponents.CUSTOM_NAME)) plant.setCustomName(stack.getHoverName());
-                if (stack.has(DataComponents.BASE_COLOR)) ((MarigoldEntity) plant).setColor(stack.get(DataComponents.BASE_COLOR));
+                abstractPlant.setYRot(f);
+                abstractPlant.setXRot(0);
+                if (stack.has(DataComponents.CUSTOM_NAME)) abstractPlant.setCustomName(stack.getHoverName());
+                if (stack.has(DataComponents.BASE_COLOR)) ((Marigold) abstractPlant).setColor(stack.get(DataComponents.BASE_COLOR));
                 if (stack.has(BnDDataComponents.AGE)) {
-                    plant.setAge(stack.get(BnDDataComponents.AGE));
-                } else if (plant instanceof SproutEntity) plant.setAge(BABY_START_AGE);
-                if (stack.has(BnDDataComponents.HEALTH)) plant.setHealth(stack.get(BnDDataComponents.HEALTH));
-                if (plant instanceof PotatoMineEntity potatoMine) potatoMine.setArmed(true);
-                plant.fromPlanter = true;
+                    abstractPlant.setAge(stack.get(BnDDataComponents.AGE));
+                } else if (abstractPlant instanceof SproutEntity) abstractPlant.setAge(BABY_START_AGE);
+                if (stack.has(BnDDataComponents.HEALTH)) abstractPlant.setHealth(stack.get(BnDDataComponents.HEALTH));
+                if (abstractPlant instanceof PotatoMine potatoMine) potatoMine.setArmed(true);
+                abstractPlant.fromPlanter = true;
 
                 serverlevel.addFreshEntityWithPassengers(entity);
-                plant.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
+                abstractPlant.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
             }
         }
     }

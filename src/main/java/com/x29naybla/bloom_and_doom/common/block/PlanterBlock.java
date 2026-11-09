@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.x29naybla.bloom_and_doom.common.block.entity.PlanterBlockEntity;
 import com.x29naybla.bloom_and_doom.common.tag.CommonTags;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
-import com.x29naybla.bloom_and_doom.common.entity.Plant;
+import com.x29naybla.bloom_and_doom.common.entity.AbstractPlant;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -110,7 +110,7 @@ public class PlanterBlock extends BaseEntityBlock {
                     }
                 } else
                     level.playSound(null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1.0F, 1.0F);
-            } else if (itemStack.isEmpty() && (level.getEntitiesOfClass(Plant.class, AABB.ofSize(pos.getCenter().add(0, 1, 0), 1, 1, 1))).isEmpty()){
+            } else if (itemStack.isEmpty() && (level.getEntitiesOfClass(AbstractPlant.class, AABB.ofSize(pos.getCenter().add(0, 1, 0), 1, 1, 1))).isEmpty()){
                 if(!substrate.isEmpty() && player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.AIR)){
                     ItemStack stackOnPlanter = planter.content.extractItem(0,1,false);
 

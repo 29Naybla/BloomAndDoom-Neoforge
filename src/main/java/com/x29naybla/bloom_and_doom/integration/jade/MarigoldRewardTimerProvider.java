@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.integration.jade;
 
-import com.x29naybla.bloom_and_doom.common.entity.MarigoldEntity;
-import com.x29naybla.bloom_and_doom.common.entity.Plant;
+import com.x29naybla.bloom_and_doom.common.entity.AbstractPlant;
+import com.x29naybla.bloom_and_doom.common.entity.Marigold;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -18,9 +18,9 @@ public enum MarigoldRewardTimerProvider implements IEntityComponentProvider, ISe
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
         CompoundTag compound = entityAccessor.getServerData();
-        Plant plant = (Plant) entityAccessor.getEntity();
+        AbstractPlant abstractPlant = (AbstractPlant) entityAccessor.getEntity();
 
-        if (entityAccessor.getServerData().contains("RewardTimer") && !plant.isBaby()) {
+        if (entityAccessor.getServerData().contains("RewardTimer") && !abstractPlant.isBaby()) {
             iTooltip.add(Component.translatable("bloom_and_doom.reward_timer", entityAccessor.getServerData().getInt("RewardTimer")));
             iTooltip.append(IThemeHelper.get().seconds(compound.getInt("RewardTimer"), 20));
         }
@@ -28,7 +28,7 @@ public enum MarigoldRewardTimerProvider implements IEntityComponentProvider, ISe
 
     @Override
     public void appendServerData(CompoundTag compoundTag, EntityAccessor entityAccessor) {
-        MarigoldEntity marigold = (MarigoldEntity) entityAccessor.getEntity();
+        Marigold marigold = (Marigold) entityAccessor.getEntity();
         compoundTag.putInt("RewardTimer", marigold.rewardTime);
     }
 

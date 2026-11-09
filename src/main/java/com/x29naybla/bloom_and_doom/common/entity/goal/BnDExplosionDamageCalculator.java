@@ -1,6 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Explosion;
@@ -23,7 +23,7 @@ public class BnDExplosionDamageCalculator extends ExplosionDamageCalculator {
 
     @Override
     public boolean shouldDamageEntity(@NotNull Explosion explosion, Entity entity) {
-        return entity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || entity.getData(BnDDataAttachments.ZOMBIE);
+        return entity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || ((LivingEntityMixinAccess) entity).BnD_isZombie();
     }
 
     @Override

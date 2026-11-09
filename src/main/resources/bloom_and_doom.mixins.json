@@ -1,12 +1,19 @@
 {
   "required": true,
-  "package": "com.x29naybla.bloom_and_doom.common.mixin",
+  "package": "com.x29naybla.bloom_and_doom.mixin",
   "mixins": [
+    "ArmadilloScaredByZombiePlayerMixin",
+    "LivingEntityMixin",
     "PickedUpItemTriggerMixin",
-    "ZombieSunSensitiveMixin",
-    "ArmadilloScaredByZombiePlayerMixin"
+    "VillagerHostilesSensorMixin",
+    "VillagerMixin",
+    "WanderingTraderMixin",
+    "ZombieSunSensitiveMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "GuiMixin"
+  ]
 }

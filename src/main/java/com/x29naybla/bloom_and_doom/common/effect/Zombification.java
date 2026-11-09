@@ -1,9 +1,9 @@
 package com.x29naybla.bloom_and_doom.common.effect;
 
-import com.x29naybla.bloom_and_doom.common.entity.ZombieWolfEntity;
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
+import com.x29naybla.bloom_and_doom.common.entity.ZombieWolf;
 import com.x29naybla.bloom_and_doom.common.registry.BnDEntities;
 import com.x29naybla.bloom_and_doom.common.registry.BnDEffects;
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -84,13 +84,13 @@ public class Zombification extends MobEffect {
                 return true;
 
             } else if(entity instanceof Player player) {
-                player.setData(BnDDataAttachments.ZOMBIE, true);
+                ((LivingEntityMixinAccess) player).BnD_setZombie(true);
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ZOMBIE_INFECT, SoundSource.PLAYERS);
                 return true;
 
-            } else if(entity instanceof Wolf wolf && !(wolf instanceof ZombieWolfEntity)) {
+            } else if(entity instanceof Wolf wolf && !(wolf instanceof ZombieWolf)) {
                 wolf.makeSound(SoundEvents.ZOMBIE_INFECT);
-                ZombieWolfEntity zWolf = wolf.convertTo(BnDEntities.ZOMBIE_WOLF.get(), true);
+                ZombieWolf zWolf = wolf.convertTo(BnDEntities.ZOMBIE_WOLF.get(), true);
                 if(zWolf != null) {
                     zWolf.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
                     EventHooks.onLivingConvert(wolf, zWolf);

@@ -11,12 +11,12 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SunShroomEntity extends SolarPlant {
+public class SunShroom extends AbstractSolarPlant {
     protected static final RawAnimation GENERATE = RawAnimation.begin().thenLoop("animation.flower.generate");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public SunShroomEntity(EntityType<? extends SunShroomEntity> entityType, Level level) {
+    public SunShroom(EntityType<? extends SunShroom> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SUN_SHROOMS, BnDItems.SUN_SHROOM_SEED_PACKET.toStack(), BnDItems.POTTED_SUN_SHROOM.toStack(), true);
         this.isMushroom = true;
         this.sunTime = maxSunTime*2;
@@ -34,7 +34,7 @@ public class SunShroomEntity extends SolarPlant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends SunShroomEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends SunShroom> PlayState animController(final AnimationState<E> event) {
         if (this.isGenerated()) {
             event.setAnimation(GENERATE);
 

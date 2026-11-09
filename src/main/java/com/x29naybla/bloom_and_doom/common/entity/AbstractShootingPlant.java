@@ -1,6 +1,5 @@
 package com.x29naybla.bloom_and_doom.common.entity;
 
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.PlantShootGoal;
 import net.minecraft.nbt.CompoundTag;
@@ -23,8 +22,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class ShootingPlant extends Plant implements RangedAttackMob {
-    protected static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(ShootingPlant.class, EntityDataSerializers.BOOLEAN);
+public class AbstractShootingPlant extends AbstractPlant implements RangedAttackMob {
+    protected static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(AbstractShootingPlant.class, EntityDataSerializers.BOOLEAN);
 
     protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.peashooter.idle");
     protected static final RawAnimation SHOOT = RawAnimation.begin().thenLoop("animation.peashooter.shoot");
@@ -32,7 +31,7 @@ public class ShootingPlant extends Plant implements RangedAttackMob {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public ShootingPlant(EntityType<? extends ShootingPlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem) {
+    public AbstractShootingPlant(EntityType<? extends AbstractShootingPlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem) {
         super(entityType, level, substrate, seedPacket, pottedItem);
         this.seedPacket = seedPacket;
         this.pottedItem = pottedItem;
@@ -42,7 +41,7 @@ public class ShootingPlant extends Plant implements RangedAttackMob {
     protected void registerGoals(){
         goalSelector.addGoal(1, new PlantShootGoal(this, 1.5F, 30, 8));
         goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false,
-                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || livingEntity.getData(BnDDataAttachments.ZOMBIE))));
+                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || ((LivingEntityMixinAccess) livingEntity).BnD_isZombie())));
         goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
@@ -56,7 +55,7 @@ public class ShootingPlant extends Plant implements RangedAttackMob {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends ShootingPlant> PlayState animController(final AnimationState<E> event) {
+    protected <E extends AbstractShootingPlant> PlayState animController(final AnimationState<E> event) {
         if(this.isShooting()){
             event.setAnimation(SHOOT);
             return PlayState.CONTINUE;

@@ -1,8 +1,7 @@
 package com.x29naybla.bloom_and_doom.integration.jade;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.ChomperEntity;
-import com.x29naybla.bloom_and_doom.common.entity.Plant;
+import com.x29naybla.bloom_and_doom.common.entity.Chomper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +18,7 @@ public enum ChewingTimerProvider implements IEntityComponentProvider, IServerDat
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
         CompoundTag compound = entityAccessor.getServerData();
-        ChomperEntity chomper = (ChomperEntity) entityAccessor.getEntity();
+        Chomper chomper = (Chomper) entityAccessor.getEntity();
 
         if (entityAccessor.getServerData().contains("Chewing") && !chomper.isBaby()) {
             iTooltip.add(Component.translatable(BloomAndDoom.MOD_ID+".chew_timer", entityAccessor.getServerData().getInt("Chewing")));
@@ -29,7 +28,7 @@ public enum ChewingTimerProvider implements IEntityComponentProvider, IServerDat
 
     @Override
     public void appendServerData(CompoundTag compoundTag, EntityAccessor entityAccessor) {
-        ChomperEntity chomper = (ChomperEntity) entityAccessor.getEntity();
+        Chomper chomper = (Chomper) entityAccessor.getEntity();
         compoundTag.putInt("Chewing", chomper.getChewing());
     }
 

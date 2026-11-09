@@ -1,7 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity;
 
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,13 +12,13 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class BonkChoyEntity extends Plant {
+public class BonkChoy extends AbstractPlant {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.bonk_choy.idle");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public BonkChoyEntity(EntityType<? extends Plant> entityType, Level level) {
+    public BonkChoy(EntityType<? extends AbstractPlant> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_BONK_CHOYS, BnDItems.BONK_CHOY_SEED_PACKET.toStack(), BnDItems.POTTED_BONK_CHOY.toStack());
     }
 
@@ -27,7 +26,7 @@ public class BonkChoyEntity extends Plant {
     protected void registerGoals(){
         goalSelector.addGoal(1, new MeleeAttackGoal(this, 1f, true));
         goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, false, true,
-                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || livingEntity.getData(BnDDataAttachments.ZOMBIE))));
+                (target) -> target instanceof LivingEntity livingEntity && (livingEntity.getType().is(BnDTags.Entities.PLANT_ENEMIES) || ((LivingEntityMixinAccess) livingEntity).BnD_isZombie())));
         goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
@@ -37,7 +36,7 @@ public class BonkChoyEntity extends Plant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends BonkChoyEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends BonkChoy> PlayState animController(final AnimationState<E> event) {
         event.setAnimation(IDLE);
         return PlayState.CONTINUE;
     }

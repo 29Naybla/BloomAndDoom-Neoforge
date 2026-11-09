@@ -27,7 +27,6 @@ public class BloomAndDoom {
         BnDEffects.MOB_EFFECTS.register(modEventBus);
         BnDPotions.POTIONS.register(modEventBus);
         BnDParticles.PARTICLE_TYPES.register(modEventBus);
-        BnDDataAttachments.ATTACHMENT_TYPES.register(modEventBus);
 
         BnDItems.register(modEventBus);
         BnDDataComponents.register(modEventBus);

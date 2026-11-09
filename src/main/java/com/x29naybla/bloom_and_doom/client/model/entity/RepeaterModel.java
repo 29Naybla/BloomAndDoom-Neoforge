@@ -2,13 +2,13 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.ClientConfigs;
-import com.x29naybla.bloom_and_doom.common.entity.RepeaterEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Repeater;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
-public class RepeaterModel extends GeoModel<RepeaterEntity> {
+public class RepeaterModel extends GeoModel<Repeater> {
     private final ResourceLocation model = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/repeater.geo.json");
     private final ResourceLocation model_baby = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/repeater_baby.geo.json");
     private final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/repeater.png");
@@ -16,22 +16,22 @@ public class RepeaterModel extends GeoModel<RepeaterEntity> {
     private final ResourceLocation animations = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "animations/entity/peashooter.animation.json");
 
     @Override
-    public ResourceLocation getModelResource(RepeaterEntity animatable) {
+    public ResourceLocation getModelResource(Repeater animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.model_baby; else return this.model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(RepeaterEntity animatable) {
+    public ResourceLocation getTextureResource(Repeater animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.texture_baby; else return this.texture;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(RepeaterEntity animatable) {
+    public ResourceLocation getAnimationResource(Repeater animatable) {
         return this.animations;
     }
 
     @Override
-    public void setCustomAnimations(RepeaterEntity animatable, long instanceId, AnimationState animationState) {
+    public void setCustomAnimations(Repeater animatable, long instanceId, AnimationState animationState) {
         GeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (!ClientConfigs.NEW_BABY_MODELS.get()) {

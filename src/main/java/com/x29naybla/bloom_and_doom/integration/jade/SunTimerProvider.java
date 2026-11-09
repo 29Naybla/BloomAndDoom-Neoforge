@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.integration.jade;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.SolarPlant;
+import com.x29naybla.bloom_and_doom.common.entity.AbstractSolarPlant;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -27,10 +27,10 @@ public enum SunTimerProvider implements IEntityComponentProvider, IServerDataPro
 
     @Override
     public void appendServerData(CompoundTag compoundTag, EntityAccessor entityAccessor) {
-        SolarPlant solarPlant = (SolarPlant) entityAccessor.getEntity();
-        compoundTag.putInt("SunTimer", solarPlant.sunTime);
-        compoundTag.putBoolean("IsBaby", solarPlant.isBaby());
-        compoundTag.putBoolean("CanBaby", solarPlant.canBaby);
+        AbstractSolarPlant abstractSolarPlant = (AbstractSolarPlant) entityAccessor.getEntity();
+        compoundTag.putInt("SunTimer", abstractSolarPlant.sunTime);
+        compoundTag.putBoolean("IsBaby", abstractSolarPlant.isBaby());
+        compoundTag.putBoolean("CanBaby", abstractSolarPlant.canBaby);
     }
 
     @Override

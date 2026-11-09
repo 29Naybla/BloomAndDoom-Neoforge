@@ -1,34 +1,34 @@
 package com.x29naybla.bloom_and_doom.client.model.entity;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.ChomperEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Chomper;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
-public class ChomperModel extends GeoModel<ChomperEntity> {
+public class ChomperModel extends GeoModel<Chomper> {
     private final ResourceLocation model = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/chomper/chomper.geo.json");
     private final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/chomper/chomper.png");
     private final ResourceLocation animations = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "animations/entity/chomper.animation.json");
 
     @Override
-    public ResourceLocation getModelResource(ChomperEntity animatable) {
+    public ResourceLocation getModelResource(Chomper animatable) {
         return this.model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(ChomperEntity animatable) {
+    public ResourceLocation getTextureResource(Chomper animatable) {
         return this.texture;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(ChomperEntity animatable) {
+    public ResourceLocation getAnimationResource(Chomper animatable) {
         return this.animations;
     }
 
     @Override
-    public void setCustomAnimations(ChomperEntity animatable, long instanceId, AnimationState animationState) {
+    public void setCustomAnimations(Chomper animatable, long instanceId, AnimationState animationState) {
        GeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (animatable.isBaby()) {

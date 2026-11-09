@@ -58,14 +58,14 @@ public class BnDEvents {
     public static void addAdditionalGoals(EntityJoinLevelEvent event){
         if (event.getEntity() instanceof  Monster monster){
             if (monster.getType().is(BnDTags.Entities.PLANT_ENEMIES)){
-                monster.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(monster, (WallNutEntity.class), true));
-                monster.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(monster, (PotatoMineEntity.class), true));
-                monster.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(monster, Plant.class, true));
+                monster.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(monster, (WallNut.class), true));
+                monster.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(monster, (PotatoMine.class), true));
+                monster.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(monster, AbstractPlant.class, true));
             }
         }
         if (event.getEntity() instanceof AbstractGolem golem) {
             golem.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(golem, LivingEntity.class, true,
-                    (target) -> target instanceof LivingEntity livingEntity && livingEntity.getData(BnDDataAttachments.ZOMBIE)));
+                    (target) -> target instanceof LivingEntity livingEntity && ((LivingEntityMixinAccess) livingEntity).BnD_isZombie()));
         }
     }
 
@@ -87,12 +87,12 @@ public class BnDEvents {
         if (event.getEntity().level().isClientSide || newTarget == null) return;
 
         if(attacker instanceof Creeper || attacker instanceof EnderMan){
-            if (newTarget instanceof Plant){
+            if (newTarget instanceof AbstractPlant){
                 event.setCanceled(true);
             }
         }
 
-        if(attacker instanceof Plant && newTarget instanceof TamableAnimal tamableAnimal && tamableAnimal.isTame()){
+        if(attacker instanceof AbstractPlant && newTarget instanceof TamableAnimal tamableAnimal && tamableAnimal.isTame()){
             event.setCanceled(true);
             if(attacker.getLastHurtByMob() != null) {
                 event.setCanceled(!attacker.getLastHurtByMob().is(tamableAnimal));
@@ -231,8 +231,8 @@ public class BnDEvents {
     public static void flowerPotOccupied(PlayerInteractEvent.RightClickBlock event){
         Block block = event.getLevel().getBlockState(event.getPos()).getBlock();
         if (block.defaultBlockState().is(CommonTags.Blocks.FLOWER_POTS)) {
-            List<Plant> plants = event.getLevel().getEntitiesOfClass(Plant.class, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(event.getPos())));
-            if (!plants.isEmpty()) {
+            List<AbstractPlant> abstractPlants = event.getLevel().getEntitiesOfClass(AbstractPlant.class, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(event.getPos())));
+            if (!abstractPlants.isEmpty()) {
                 event.setCanceled(true);
             }
         }

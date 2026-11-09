@@ -2,13 +2,13 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.ClientConfigs;
-import com.x29naybla.bloom_and_doom.common.entity.SnowPeaEntity;
+import com.x29naybla.bloom_and_doom.common.entity.SnowPea;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
-public class SnowPeaModel extends GeoModel<SnowPeaEntity> {
+public class SnowPeaModel extends GeoModel<SnowPea> {
     private final ResourceLocation model = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/snow_pea.geo.json");
     private final ResourceLocation model_baby = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/snow_pea_baby.geo.json");
     private final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/snow_pea.png");
@@ -16,22 +16,22 @@ public class SnowPeaModel extends GeoModel<SnowPeaEntity> {
     private final ResourceLocation animations = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "animations/entity/peashooter.animation.json");
 
     @Override
-    public ResourceLocation getModelResource(SnowPeaEntity animatable) {
+    public ResourceLocation getModelResource(SnowPea animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.model_baby; else return this.model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(SnowPeaEntity animatable) {
+    public ResourceLocation getTextureResource(SnowPea animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.texture_baby; else return this.texture;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(SnowPeaEntity animatable) {
+    public ResourceLocation getAnimationResource(SnowPea animatable) {
         return this.animations;
     }
 
     @Override
-    public void setCustomAnimations(SnowPeaEntity animatable, long instanceId, AnimationState animationState) {
+    public void setCustomAnimations(SnowPea animatable, long instanceId, AnimationState animationState) {
         GeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (!ClientConfigs.NEW_BABY_MODELS.get()) {

@@ -2,13 +2,13 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.ClientConfigs;
-import com.x29naybla.bloom_and_doom.common.entity.PeashooterEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Peashooter;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
-public class PeashooterModel extends GeoModel<PeashooterEntity> {
+public class PeashooterModel extends GeoModel<Peashooter> {
     private final ResourceLocation model = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/peashooter.geo.json");
     private final ResourceLocation model_baby = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/peashooter_baby.geo.json");
     private final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/peashooter.png");
@@ -16,22 +16,22 @@ public class PeashooterModel extends GeoModel<PeashooterEntity> {
     private final ResourceLocation animations = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "animations/entity/peashooter.animation.json");
 
     @Override
-    public ResourceLocation getModelResource(PeashooterEntity animatable) {
+    public ResourceLocation getModelResource(Peashooter animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.model_baby; else return this.model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(PeashooterEntity animatable) {
+    public ResourceLocation getTextureResource(Peashooter animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.texture_baby; else return this.texture;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(PeashooterEntity animatable) {
+    public ResourceLocation getAnimationResource(Peashooter animatable) {
         return this.animations;
     }
 
     @Override
-    public void setCustomAnimations(PeashooterEntity animatable, long instanceId, AnimationState animationState) {
+    public void setCustomAnimations(Peashooter animatable, long instanceId, AnimationState animationState) {
         GeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (!ClientConfigs.NEW_BABY_MODELS.get()) {

@@ -1,5 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.projectile;
 
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.registry.*;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
@@ -39,7 +40,7 @@ public class FrozenPeaProjectile extends PlantProjectile {
     protected void onHitEntity(@NotNull EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
-        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLAYS) || entity instanceof Player player && !player.getData(BnDDataAttachments.ZOMBIE))){
+        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLAYS) || entity instanceof Player player && !((LivingEntityMixinAccess) player).BnD_isZombie())){
             entity.hurt(this.damageSources().source(BnDDamageTypes.FROZEN_PEA_DAMAGE, this, this.getOwner()), 2);
             entity.extinguishFire();
             entity.setTicksFrozen(280);

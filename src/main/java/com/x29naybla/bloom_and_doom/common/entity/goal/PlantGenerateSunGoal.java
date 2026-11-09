@@ -1,18 +1,18 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.SolarPlant;
+import com.x29naybla.bloom_and_doom.common.entity.AbstractSolarPlant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import static com.x29naybla.bloom_and_doom.common.entity.Plant.DATA_IS_SLEEPING;
+import static com.x29naybla.bloom_and_doom.common.entity.AbstractPlant.DATA_IS_SLEEPING;
 
 public class PlantGenerateSunGoal extends Goal {
-    private final SolarPlant plant;
+    private final AbstractSolarPlant plant;
     private final SoundEvent sound;
 
-    public PlantGenerateSunGoal(SolarPlant plant, SoundEvent sound) {
+    public PlantGenerateSunGoal(AbstractSolarPlant plant, SoundEvent sound) {
         this.plant = plant;
         this.sound = sound;
     }

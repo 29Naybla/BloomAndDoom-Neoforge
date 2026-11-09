@@ -42,8 +42,8 @@ import software.bernie.geckolib.animation.AnimatableManager;
 
 import java.util.List;
 
-public class Plant extends TamableAnimal implements GeoEntity {
-    public static final EntityDataAccessor<Boolean> DATA_IS_SLEEPING = SynchedEntityData.defineId(Plant.class, EntityDataSerializers.BOOLEAN);
+public class AbstractPlant extends TamableAnimal implements GeoEntity {
+    public static final EntityDataAccessor<Boolean> DATA_IS_SLEEPING = SynchedEntityData.defineId(AbstractPlant.class, EntityDataSerializers.BOOLEAN);
     protected int ticksForSleepyParticles;
     public TagKey<Item> substrate;
     public int packetTime;
@@ -59,7 +59,7 @@ public class Plant extends TamableAnimal implements GeoEntity {
     private final boolean fromNight;
 
     //Properties
-    public Plant(EntityType<? extends Plant> entityType, Level level, TagKey<Item> substrate, @Nullable ItemStack seedPacket, @Nullable ItemStack pottedItem) {
+    public AbstractPlant(EntityType<? extends AbstractPlant> entityType, Level level, TagKey<Item> substrate, @Nullable ItemStack seedPacket, @Nullable ItemStack pottedItem) {
         super(entityType, level);
         this.packetTime = 12000;
         this.fromPlanter = false;
@@ -219,7 +219,7 @@ public class Plant extends TamableAnimal implements GeoEntity {
                         && (!(this.level().getBlockEntity(this.getOnPos()) instanceof PlanterBlockEntity planterBlock) || !planterBlock.content.getStackInSlot(0).is(BnDTags.Items.SUSTAINS_MUSHROOMS)));
             }
 
-            if (this instanceof SunflowerEntity) {
+            if (this instanceof Sunflower) {
                 setSleeping((this.level().isNight() || this.level().isRaining())
                         && !this.gotCoffee);
             }
@@ -312,10 +312,10 @@ public class Plant extends TamableAnimal implements GeoEntity {
         compound.putInt("PacketTime", this.packetTime);
     }
 
-    private static void saveDefaultDataToItemTag(Plant plant, ItemStack itemStack) {
-        if (plant.hasCustomName()) itemStack.set(DataComponents.CUSTOM_NAME, plant.getCustomName());
-        if (plant instanceof MarigoldEntity marigold) itemStack.set(DataComponents.BASE_COLOR, marigold.getColor());
-        if (plant.isBaby()) itemStack.set(BnDDataComponents.AGE, plant.getAge());
-        itemStack.set(BnDDataComponents.HEALTH, plant.getHealth());
+    private static void saveDefaultDataToItemTag(AbstractPlant abstractPlant, ItemStack itemStack) {
+        if (abstractPlant.hasCustomName()) itemStack.set(DataComponents.CUSTOM_NAME, abstractPlant.getCustomName());
+        if (abstractPlant instanceof Marigold marigold) itemStack.set(DataComponents.BASE_COLOR, marigold.getColor());
+        if (abstractPlant.isBaby()) itemStack.set(BnDDataComponents.AGE, abstractPlant.getAge());
+        itemStack.set(BnDDataComponents.HEALTH, abstractPlant.getHealth());
     }
 }

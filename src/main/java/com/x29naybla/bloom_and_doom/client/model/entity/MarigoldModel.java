@@ -2,13 +2,13 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.ClientConfigs;
-import com.x29naybla.bloom_and_doom.common.entity.MarigoldEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Marigold;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 
-public class MarigoldModel extends GeoModel<MarigoldEntity> {
+public class MarigoldModel extends GeoModel<Marigold> {
     private final ResourceLocation model = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/marigold/marigold.geo.json");
     private final ResourceLocation model_baby = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/marigold/marigold_baby.geo.json");
     private final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/marigold/marigold.png");
@@ -16,22 +16,22 @@ public class MarigoldModel extends GeoModel<MarigoldEntity> {
     private final ResourceLocation animations = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "animations/entity/flower.animation.json");
 
     @Override
-    public ResourceLocation getModelResource(MarigoldEntity animatable) {
+    public ResourceLocation getModelResource(Marigold animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.model_baby; else return this.model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(MarigoldEntity animatable) {
+    public ResourceLocation getTextureResource(Marigold animatable) {
         if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.texture_baby; else return this.texture;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(MarigoldEntity animatable) {
+    public ResourceLocation getAnimationResource(Marigold animatable) {
         return this.animations;
     }
 
     @Override
-    public void setCustomAnimations(MarigoldEntity animatable, long instanceId, AnimationState animationState) {
+    public void setCustomAnimations(Marigold animatable, long instanceId, AnimationState animationState) {
         GeoBone head = this.getAnimationProcessor().getBone("head");
 
         if (!ClientConfigs.NEW_BABY_MODELS.get()) {

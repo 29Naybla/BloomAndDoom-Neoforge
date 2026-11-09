@@ -25,20 +25,20 @@ public class BnDEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, BloomAndDoom.MOD_ID);
 
     public static final DeferredHolder<EntityType<?>, EntityType<SproutEntity>> SPROUT = register("sprout", SproutEntity::new, 0.3f, 0.4f);
-    public static final DeferredHolder<EntityType<?>, EntityType<SunflowerEntity>> SUNFLOWER = register("sunflower", SunflowerEntity::new, 0.7f, 0.9f);
-    public static final DeferredHolder<EntityType<?>, EntityType<MarigoldEntity>> MARIGOLD = register("marigold", MarigoldEntity::new, 0.7f, 0.9f);
-    public static final DeferredHolder<EntityType<?>, EntityType<PeashooterEntity>> PEASHOOTER = register("peashooter", PeashooterEntity::new, 0.5f, 0.9f);
-    public static final DeferredHolder<EntityType<?>, EntityType<SnowPeaEntity>> SNOW_PEA = register("snow_pea", SnowPeaEntity::new, 0.5f, 0.9f);
-    public static final DeferredHolder<EntityType<?>, EntityType<RepeaterEntity>> REPEATER = register("repeater", RepeaterEntity::new, 0.5f, 0.9f);
-    public static final DeferredHolder<EntityType<?>, EntityType<WallNutEntity>> WALL_NUT = register("wall_nut", WallNutEntity::new, 0.8f, 1.3f);
-    public static final DeferredHolder<EntityType<?>, EntityType<PotatoMineEntity>> POTATO_MINE = register("potato_mine", PotatoMineEntity::new, 0.7f, 0.7f);
-    public static final DeferredHolder<EntityType<?>, EntityType<ChomperEntity>> CHOMPER = register("chomper", ChomperEntity::new, 1f, 1.65f);
-    public static final DeferredHolder<EntityType<?>, EntityType<BonkChoyEntity>> BONK_CHOY = register("bonk_choy", BonkChoyEntity::new, 1f, 1f);
-    public static final DeferredHolder<EntityType<?>, EntityType<SunShroomEntity>> SUN_SHROOM = register("sun_shroom", SunShroomEntity::new, 0.7f, 0.9f);
-    public static final DeferredHolder<EntityType<?>, EntityType<PuffShroomEntity>> PUFF_SHROOM = register("puff_shroom", PuffShroomEntity::new, 0.5f, 0.5f);
-    public static final DeferredHolder<EntityType<?>, EntityType<DoomShroomEntity>> DOOM_SHROOM = register("doom_shroom", DoomShroomEntity::new, 0.7f, 1f);
+    public static final DeferredHolder<EntityType<?>, EntityType<Sunflower>> SUNFLOWER = register("sunflower", Sunflower::new, 0.7f, 0.9f);
+    public static final DeferredHolder<EntityType<?>, EntityType<Marigold>> MARIGOLD = register("marigold", Marigold::new, 0.7f, 0.9f);
+    public static final DeferredHolder<EntityType<?>, EntityType<Peashooter>> PEASHOOTER = register("peashooter", Peashooter::new, 0.5f, 0.9f);
+    public static final DeferredHolder<EntityType<?>, EntityType<SnowPea>> SNOW_PEA = register("snow_pea", SnowPea::new, 0.5f, 0.9f);
+    public static final DeferredHolder<EntityType<?>, EntityType<Repeater>> REPEATER = register("repeater", Repeater::new, 0.5f, 0.9f);
+    public static final DeferredHolder<EntityType<?>, EntityType<WallNut>> WALL_NUT = register("wall_nut", WallNut::new, 0.8f, 1.3f);
+    public static final DeferredHolder<EntityType<?>, EntityType<PotatoMine>> POTATO_MINE = register("potato_mine", PotatoMine::new, 0.7f, 0.7f);
+    public static final DeferredHolder<EntityType<?>, EntityType<Chomper>> CHOMPER = register("chomper", Chomper::new, 1f, 1.65f);
+    public static final DeferredHolder<EntityType<?>, EntityType<BonkChoy>> BONK_CHOY = register("bonk_choy", BonkChoy::new, 1f, 1f);
+    public static final DeferredHolder<EntityType<?>, EntityType<SunShroom>> SUN_SHROOM = register("sun_shroom", SunShroom::new, 0.7f, 0.9f);
+    public static final DeferredHolder<EntityType<?>, EntityType<PuffShroom>> PUFF_SHROOM = register("puff_shroom", PuffShroom::new, 0.5f, 0.5f);
+    public static final DeferredHolder<EntityType<?>, EntityType<DoomShroom>> DOOM_SHROOM = register("doom_shroom", DoomShroom::new, 0.7f, 1f);
 
-    public static final DeferredHolder<EntityType<?>, EntityType<ZombieWolfEntity>> ZOMBIE_WOLF = register("zombie_wolf", ZombieWolfEntity::new, 0.7f, 1f);
+    public static final DeferredHolder<EntityType<?>, EntityType<ZombieWolf>> ZOMBIE_WOLF = register("zombie_wolf", ZombieWolf::new, 0.7f, 1f);
 
     @SubscribeEvent
     public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -147,7 +147,7 @@ public class BnDEntities {
         event.put(BnDEntities.SUN_SHROOM.get(), sunflowerAttributes.build());
         event.put(BnDEntities.PUFF_SHROOM.get(), puffShroomAttributes.build());
         event.put(BnDEntities.DOOM_SHROOM.get(), doomShroomAttributes.build());
-        event.put(BnDEntities.ZOMBIE_WOLF.get(), ZombieWolfEntity.createAttributes().build());
+        event.put(BnDEntities.ZOMBIE_WOLF.get(), ZombieWolf.createAttributes().build());
     }
 
     public static final Supplier<EntityType<PeaProjectile>> PEA_PROJECTILE = ENTITY_TYPES.register("pea", () -> (

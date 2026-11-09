@@ -14,15 +14,15 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class PotatoMineEntity extends ExplosivePlant {
+public class PotatoMine extends AbstractExplosivePlant {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     protected static final RawAnimation ARMING = RawAnimation.begin().thenPlay("animation.potato_mine.arming");
-    protected static final EntityDataAccessor<Boolean> ARMED = SynchedEntityData.defineId(PotatoMineEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> ARMED = SynchedEntityData.defineId(PotatoMine.class, EntityDataSerializers.BOOLEAN);
     public int armingTime = 0;
     public int maxArmingTime = 40;
 
     //Properties
-    public PotatoMineEntity(EntityType<? extends PotatoMineEntity> entityType, Level level) {
+    public PotatoMine(EntityType<? extends PotatoMine> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_POTATO_MINES, BnDItems.POTATO_MINE_SEED_PACKET.toStack(), BnDItems.POTTED_POTATO_MINE.toStack(), 1, 180, BnDSounds.SPUDOW);
     }
 
@@ -49,7 +49,7 @@ public class PotatoMineEntity extends ExplosivePlant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends PotatoMineEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends PotatoMine> PlayState animController(final AnimationState<E> event) {
         if (!getArmed()){
             event.setAnimation(ARMING);
         }

@@ -1,15 +1,15 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.MarigoldEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Marigold;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public class MarigoldGenerateGoal extends Goal {
-    private final MarigoldEntity plant;
+    private final Marigold plant;
 
-    public MarigoldGenerateGoal(MarigoldEntity plant) {
+    public MarigoldGenerateGoal(Marigold plant) {
         this.plant = plant;
     }
 

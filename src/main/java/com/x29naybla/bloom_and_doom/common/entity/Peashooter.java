@@ -9,9 +9,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class PeashooterEntity extends ShootingPlant {
+public class Peashooter extends AbstractShootingPlant {
     //Properties
-    public PeashooterEntity(EntityType<? extends PeashooterEntity> entityType, Level level) {
+    public Peashooter(EntityType<? extends Peashooter> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_PEASHOOTERS, BnDItems.PEASHOOTER_SEED_PACKET.toStack(), BnDItems.POTTED_PEASHOOTER.toStack());
     }
 

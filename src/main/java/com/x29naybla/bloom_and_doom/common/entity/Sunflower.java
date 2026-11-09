@@ -11,13 +11,13 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SunflowerEntity extends SolarPlant {
+public class Sunflower extends AbstractSolarPlant {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.flower.idle");
     protected static final RawAnimation GENERATE = RawAnimation.begin().thenPlayAndHold("animation.flower.generate");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public SunflowerEntity(EntityType<? extends SunflowerEntity> entityType, Level level) {
+    public Sunflower(EntityType<? extends Sunflower> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SUNFLOWERS, BnDItems.SUNFLOWER_SEED_PACKET.toStack(), BnDItems.POTTED_SUNFLOWER.toStack(), false);
     }
 
@@ -33,7 +33,7 @@ public class SunflowerEntity extends SolarPlant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends SunflowerEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends Sunflower> PlayState animController(final AnimationState<E> event) {
         if (this.isGenerated()) {
             event.setAnimation(GENERATE);
 

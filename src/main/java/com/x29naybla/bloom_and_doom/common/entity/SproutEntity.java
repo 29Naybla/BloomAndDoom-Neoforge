@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
@@ -16,12 +17,12 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SproutEntity extends Plant {
+public class SproutEntity extends AbstractPlant {
     private int age;
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public SproutEntity(EntityType<? extends Plant> entityType, Level level) {
+    public SproutEntity(EntityType<? extends AbstractPlant> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SPROUTS, null, BnDItems.POTTED_SPROUT.toStack());
     }
 
@@ -51,13 +52,13 @@ public class SproutEntity extends Plant {
 
     //Data
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setAge(compound.getInt("Age"));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Age", this.age);
     }
@@ -83,7 +84,7 @@ public class SproutEntity extends Plant {
     private void ageUp() {
         if (this.level() instanceof ServerLevel serverlevel) {
             if (!net.neoforged.neoforge.event.EventHooks.canLivingConvert(this, EntityType.FROG, (timer) -> {})) return;
-            SunflowerEntity sunflower = BnDEntities.SUNFLOWER.get().create(this.level());
+            Sunflower sunflower = BnDEntities.SUNFLOWER.get().create(this.level());
             if (sunflower != null) {
                 net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, sunflower);
                 sunflower.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());

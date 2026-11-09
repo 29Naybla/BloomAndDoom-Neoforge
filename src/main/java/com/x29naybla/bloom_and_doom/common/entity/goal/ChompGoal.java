@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.ChomperEntity;
-import com.x29naybla.bloom_and_doom.common.registry.BnDDataAttachments;
+import com.x29naybla.bloom_and_doom.common.entity.Chomper;
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,13 +9,13 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 
 public final class ChompGoal extends Goal {
-    private final ChomperEntity chomper;
+    private final Chomper chomper;
 
     private final double radius;
 
     private Entity chomping;
 
-    public ChompGoal(ChomperEntity chomper, double radius) {
+    public ChompGoal(Chomper chomper, double radius) {
         this.chomper = chomper;
         this.radius = radius;
         var flags = getFlags();
@@ -54,6 +54,6 @@ public final class ChompGoal extends Goal {
     }
 
     public boolean canChomp(Entity entity) {
-        return (entity.getType().is(BnDTags.Entities.CAN_BE_CHOMPED) || entity.getData(BnDDataAttachments.ZOMBIE));
+        return (entity.getType().is(BnDTags.Entities.CAN_BE_CHOMPED) || ((LivingEntityMixinAccess) entity).BnD_isZombie());
     }
 }

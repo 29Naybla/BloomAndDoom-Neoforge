@@ -3,18 +3,19 @@ package com.x29naybla.bloom_and_doom.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.x29naybla.bloom_and_doom.ClientConfigs;
 import com.x29naybla.bloom_and_doom.client.model.entity.SunflowerModel;
-import com.x29naybla.bloom_and_doom.common.entity.SunflowerEntity;
+import com.x29naybla.bloom_and_doom.common.entity.Sunflower;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class SunflowerRenderer extends GeoEntityRenderer<SunflowerEntity> {
+public class SunflowerRenderer extends GeoEntityRenderer<Sunflower> {
     public SunflowerRenderer(EntityRendererProvider.Context context) {
         super(context, new SunflowerModel());
     }
 
     @Override
-    public void render(SunflowerEntity animatable, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    public void render(Sunflower animatable, float entityYaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
         if (animatable.isBaby() && !ClientConfigs.NEW_BABY_MODELS.get()) {
             poseStack.scale(0.6F, 0.6F, 0.6F);
         } else {

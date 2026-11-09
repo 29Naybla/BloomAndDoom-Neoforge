@@ -18,17 +18,17 @@ public class JadeIntegration implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerEntityDataProvider(SunTimerProvider.SUN, SolarPlant.class);
-        registration.registerEntityDataProvider(MarigoldRewardTimerProvider.MARIGOLD_REWARD, MarigoldEntity.class);
-        registration.registerEntityDataProvider(ChewingTimerProvider.CHEWING, ChomperEntity.class);
-        registration.registerEntityDataProvider(SeedPacketsTimerProvider.SEED_PACKETS, Plant.class);
+        registration.registerEntityDataProvider(SunTimerProvider.SUN, AbstractSolarPlant.class);
+        registration.registerEntityDataProvider(MarigoldRewardTimerProvider.MARIGOLD_REWARD, Marigold.class);
+        registration.registerEntityDataProvider(ChewingTimerProvider.CHEWING, Chomper.class);
+        registration.registerEntityDataProvider(SeedPacketsTimerProvider.SEED_PACKETS, AbstractPlant.class);
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerEntityComponent(SunTimerProvider.SUN, SolarPlant.class);
-        registration.registerEntityComponent(MarigoldRewardTimerProvider.MARIGOLD_REWARD, MarigoldEntity.class);
-        registration.registerEntityComponent(ChewingTimerProvider.CHEWING, ChomperEntity.class);
-        registration.registerEntityComponent(SeedPacketsTimerProvider.SEED_PACKETS, Plant.class);
+        registration.registerEntityComponent(SunTimerProvider.SUN, AbstractSolarPlant.class);
+        registration.registerEntityComponent(MarigoldRewardTimerProvider.MARIGOLD_REWARD, Marigold.class);
+        registration.registerEntityComponent(ChewingTimerProvider.CHEWING, Chomper.class);
+        registration.registerEntityComponent(SeedPacketsTimerProvider.SEED_PACKETS, AbstractPlant.class);
     }
 }

@@ -30,18 +30,18 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MarigoldEntity extends Plant {
+public class Marigold extends AbstractPlant {
     protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.flower.idle");
     protected static final RawAnimation GENERATE = RawAnimation.begin().thenPlayAndHold("animation.flower.generate");
-    protected static final EntityDataAccessor<Boolean> GENERATED = SynchedEntityData.defineId(MarigoldEntity.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> GENERATED = SynchedEntityData.defineId(Marigold.class, EntityDataSerializers.BOOLEAN);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    private static final EntityDataAccessor<Byte> DATA_PETALS_ID = SynchedEntityData.defineId(MarigoldEntity.class, EntityDataSerializers.BYTE);
-    private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.<DyeColor, Integer>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> p_29868_, MarigoldEntity::createMarigoldColor)));
+    private static final EntityDataAccessor<Byte> DATA_PETALS_ID = SynchedEntityData.defineId(Marigold.class, EntityDataSerializers.BYTE);
+    private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.<DyeColor, Integer>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> p_29868_, Marigold::createMarigoldColor)));
     public int rewardTime;
     public static DyeColor dyedColor;
 
     //Properties
-    public MarigoldEntity(EntityType<? extends MarigoldEntity> entityType, Level level) {
+    public Marigold(EntityType<? extends Marigold> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_MARIGOLDS, BnDItems.MARIGOLD_SEED_PACKET.toStack(), BnDItems.POTTED_MARIGOLD.toStack());
         this.rewardTime = 6000;
     }
@@ -94,7 +94,7 @@ public class MarigoldEntity extends Plant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends MarigoldEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends Marigold> PlayState animController(final AnimationState<E> event) {
         if (this.isGenerated()) {
             event.setAnimation(GENERATE);
 

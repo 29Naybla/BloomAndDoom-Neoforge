@@ -2,22 +2,38 @@ package com.x29naybla.bloom_and_doom.common.entity;
 
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
-import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class DoomShroomEntity extends ExplosivePlant {
+public class WallNut extends AbstractPlant {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public DoomShroomEntity(EntityType<? extends DoomShroomEntity> entityType, Level level) {
-        super(entityType, level, BnDTags.Items.SUSTAINS_DOOM_SHROOMS, BnDItems.DOOM_SHROOM_SEED_PACKET.toStack(), null, 4, 180, BnDSounds.DOOM);
-        this.isMushroom = true;
+    public WallNut(EntityType<? extends WallNut> entityType, Level level) {
+        super(entityType, level, BnDTags.Items.SUSTAINS_WALL_NUTS, BnDItems.WALL_NUT_SEED_PACKET.toStack(), null);
+    }
+
+    public boolean canCollideWith(@NotNull Entity entity) {
+        return canWallNutCollide(entity);
+    }
+
+    public static boolean canWallNutCollide(Entity entity) {
+        return (entity.canBeCollidedWith() || entity.isPushable());
+    }
+
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    //Goals and AI
+    protected void registerGoals(){
+        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
     }
 
     //GeckoLib
@@ -26,21 +42,12 @@ public class DoomShroomEntity extends ExplosivePlant {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
     }
 
-    protected <E extends DoomShroomEntity> PlayState animController(final AnimationState<E> event) {
+    protected <E extends WallNut> PlayState animController(final AnimationState<E> event) {
         return PlayState.CONTINUE;
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
-    }
-
-    //Data
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-    }
-
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
     }
 }

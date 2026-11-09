@@ -1,4 +1,4 @@
-package com.x29naybla.bloom_and_doom.common.mixin;
+package com.x29naybla.bloom_and_doom.mixin;
 
 import net.minecraft.advancements.critereon.PickedUpItemTrigger;
 import net.minecraft.server.level.ServerPlayer;
