@@ -10,19 +10,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SproutEntity extends AbstractPlant {
+public class Sprout extends AbstractPlant {
     private int age;
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
-    public SproutEntity(EntityType<? extends AbstractPlant> entityType, Level level) {
+    public Sprout(EntityType<? extends AbstractPlant> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SPROUTS, null, BnDItems.POTTED_SPROUT.toStack());
     }
 
@@ -33,21 +26,6 @@ public class SproutEntity extends AbstractPlant {
     @Override
     public void aiStep() {
         super.aiStep();
-    }
-
-    //GeckoLib
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
-    }
-
-    protected <E extends SproutEntity> PlayState animController(final AnimationState<E> event) {
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return geoCache;
     }
 
     //Data

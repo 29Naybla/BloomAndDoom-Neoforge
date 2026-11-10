@@ -64,3 +64,14 @@ changelog:
 * zombie players now have a special food bar for clear visual indication they are a zombie
 * villagers and wandering traders will flee from zombie players
 * villagers and wandering traders will no longer trade with zombie players
+
+* removed the new baby models config
+* fixed damage type tags not working
+* added the "bloom_and_doom:plant_damage" damage type tag
+* added "bloom_and_doom:frozen_pea_projectile" to the "minecraft:is_freezing" damage type tag
+* added "bloom_and_doom:pea_projectile", "bloom_and_doom:frozen_pea_projectile", and "bloom_and_doom:spore_projectile" to the "minecraft:is_projectile" damage type tag
+* added "#bloom_and_doom:plant_damage" to the "minecraft:bypasses_invulnerability" damage type tag
+* rewritten several classes to remove the dependency on GeckoLib
+^ some animations and models are not working as intended
+* fixed the Brainz Banner Pattern missing texture
+* changed the Brainz Banner name color to match the Ominous Banner

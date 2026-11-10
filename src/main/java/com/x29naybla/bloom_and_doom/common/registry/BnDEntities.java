@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 public class BnDEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, BloomAndDoom.MOD_ID);
 
-    public static final DeferredHolder<EntityType<?>, EntityType<SproutEntity>> SPROUT = register("sprout", SproutEntity::new, 0.3f, 0.4f);
+    public static final DeferredHolder<EntityType<?>, EntityType<Sprout>> SPROUT = register("sprout", Sprout::new, 0.3f, 0.4f);
     public static final DeferredHolder<EntityType<?>, EntityType<Sunflower>> SUNFLOWER = register("sunflower", Sunflower::new, 0.7f, 0.9f);
     public static final DeferredHolder<EntityType<?>, EntityType<Marigold>> MARIGOLD = register("marigold", Marigold::new, 0.7f, 0.9f);
     public static final DeferredHolder<EntityType<?>, EntityType<Peashooter>> PEASHOOTER = register("peashooter", Peashooter::new, 0.5f, 0.9f);

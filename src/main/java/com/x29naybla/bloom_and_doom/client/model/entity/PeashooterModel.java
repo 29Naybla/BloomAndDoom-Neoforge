@@ -1,49 +1,100 @@
 package com.x29naybla.bloom_and_doom.client.model.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.ClientConfigs;
+import com.x29naybla.bloom_and_doom.client.animation.PeashooterAnimation;
 import com.x29naybla.bloom_and_doom.common.entity.Peashooter;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.model.GeoModel;
+import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
-public class PeashooterModel extends GeoModel<Peashooter> {
-    private final ResourceLocation model = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/peashooter.geo.json");
-    private final ResourceLocation model_baby = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "geo/entity/peashooter/peashooter_baby.geo.json");
-    private final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/peashooter.png");
-    private final ResourceLocation texture_baby = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/peashooter_baby.png");
-    private final ResourceLocation animations = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "animations/entity/peashooter.animation.json");
+public class PeashooterModel<T extends Peashooter> extends HierarchicalModel<T> {
+    public static final ModelLayerLocation LAYER_LOCATION =
+            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "peashooter"), "main");
+    private final ModelPart peashooter;
+    private final ModelPart body;
+    private final ModelPart head;
 
-    @Override
-    public ResourceLocation getModelResource(Peashooter animatable) {
-        if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.model_baby; else return this.model;
+    public PeashooterModel(ModelPart root) {
+        this.peashooter = root.getChild("peashooter");
+        this.body = this.peashooter.getChild("body");
+        this.head = this.body.getChild("head");
+    }
+
+    public static LayerDefinition createBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition peashooter = partdefinition.addOrReplaceChild("peashooter", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+
+        PartDefinition base = peashooter.addOrReplaceChild("base", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
+
+        PartDefinition front_left_leaf = base.addOrReplaceChild("front_left_leaf", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -1.0F));
+
+        PartDefinition front_left_leaf_r1 = front_left_leaf.addOrReplaceChild("front_left_leaf_r1", CubeListBuilder.create().texOffs(16, 16).addBox(-3.0F, -1.0F, -4.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, 0.0F, -2.0F, -0.3927F, 0.0F, 0.0F));
+
+        PartDefinition front_right_leaf = base.addOrReplaceChild("front_right_leaf", CubeListBuilder.create(), PartPose.offset(-1.0F, 0.0F, 0.0F));
+
+        PartDefinition front_right_leaf_r1 = front_right_leaf.addOrReplaceChild("front_right_leaf_r1", CubeListBuilder.create().texOffs(27, 16).addBox(-4.0F, -1.0F, -2.0F, 6.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, 0.0F, -0.5F, 0.0F, 0.0F, 0.3927F));
+
+        PartDefinition back_right_leaf = base.addOrReplaceChild("back_right_leaf", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 1.0F));
+
+        PartDefinition back_right_leaf_r1 = back_right_leaf.addOrReplaceChild("back_right_leaf_r1", CubeListBuilder.create().texOffs(28, 21).addBox(-3.0F, -1.0F, -2.0F, 5.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, 0.0F, 2.0F, 0.3927F, 0.0F, 0.0F));
+
+        PartDefinition back_left_leaf = base.addOrReplaceChild("back_left_leaf", CubeListBuilder.create(), PartPose.offset(1.0F, 0.0F, 0.0F));
+
+        PartDefinition back_left_leaf_r1 = back_left_leaf.addOrReplaceChild("back_left_leaf_r1", CubeListBuilder.create().texOffs(17, 22).addBox(-2.0F, -1.0F, -3.0F, 6.0F, 0.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 0.0F, 0.5F, 0.0F, 0.0F, -0.3927F));
+
+        PartDefinition body = peashooter.addOrReplaceChild("body", CubeListBuilder.create().texOffs(13, 17).addBox(-1.0F, -8.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 23).addBox(-1.5F, -8.0F, -1.5F, 3.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -7.0F, -4.5F, 7.0F, 7.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, 0.0F));
+
+        PartDefinition leaf = head.addOrReplaceChild("leaf", CubeListBuilder.create(), PartPose.offset(0.0F, -5.0F, 3.25F));
+
+        PartDefinition leaf_r1 = leaf.addOrReplaceChild("leaf_r1", CubeListBuilder.create().texOffs(23, -4).addBox(0.5F, -1.0F, -1.0F, 0.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.5F, 1.0F, 0.0F, 0.2182F, 0.0F, 0.0F));
+
+        PartDefinition mouth = head.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 16).addBox(-2.1F, -2.0F, -3.5F, 4.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, -3.0F));
+
+        return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
     @Override
-    public ResourceLocation getTextureResource(Peashooter animatable) {
-        if (animatable.isBaby() && ClientConfigs.NEW_BABY_MODELS.get()) return this.texture_baby; else return this.texture;
+    public void setupAnim(@NotNull Peashooter peashooter, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.applyHeadRotation(netHeadYaw, headPitch);
+
+        this.animate(peashooter.idleAnimationState, PeashooterAnimation.PEASHOOTER_IDLE, ageInTicks);
+        this.animate(peashooter.shootingAnimationState, PeashooterAnimation.PEASHOOTER_SHOT, ageInTicks);
     }
 
-    @Override
-    public ResourceLocation getAnimationResource(Peashooter animatable) {
-        return this.animations;
+    private void applyHeadRotation(float headYaw, float headPitch) {
+        headYaw = Mth.clamp(headYaw, -15f, 15f);
+        headPitch = Mth.clamp(headPitch, -25f, 45f);
+
+        this.head.yRot = headYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180F);
     }
 
-    @Override
-    public void setCustomAnimations(Peashooter animatable, long instanceId, AnimationState animationState) {
-        GeoBone head = this.getAnimationProcessor().getBone("head");
 
-        if (!ClientConfigs.NEW_BABY_MODELS.get()) {
-            if (animatable.isBaby()) {
-                head.setScaleX(1.6F);
-                head.setScaleY(1.6F);
-                head.setScaleZ(1.6F);
-            } else {
-                head.setScaleX(1.0F);
-                head.setScaleY(1.0F);
-                head.setScaleZ(1.0F);
-            }
+    @Override
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        if (this.young) {
+            head.xScale = 1.6f;
+            head.yScale = 1.6f;
+            head.zScale = 1.6f;
         }
+        peashooter.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+    }
+
+    @Override
+    public @NotNull ModelPart root() {
+        return peashooter;
     }
 }

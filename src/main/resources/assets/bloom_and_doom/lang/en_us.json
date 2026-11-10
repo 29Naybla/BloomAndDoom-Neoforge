@@ -263,6 +263,7 @@
   "death.attack.frozen_pea": "%1$s got peapsicled",
   "death.attack.spore": "%1$s was sent to their spore-n point",
   "death.attack.plant_explosion": "%1$s got turned into mush",
+  "death.attack.plant_punch": "%1$s was punched into fertilizer",
 
   "creativetab.bloom_and_doom.blocks": "B&D Blocks",
   "creativetab.bloom_and_doom.items": "B&D Items",
@@ -382,6 +383,8 @@
   "tag.entity.bloom_and_doom.plant_enemies": "Plant Enemies",
   "tag.entity.bloom_and_doom.plant_allays": "Plant Allays",
 
+  "tag.damage_tye.bloom_and_doom.plant_damage": "Plant Damage",
+
   "bloom_and_doom.subtitles.item.seed_packets.plants": "Seed packet plants",
   "bloom_and_doom.subtitles.item.potted_plant.plants": "Potted plant replants",
   "bloom_and_doom.subtitles.item.watering_can.water": "Watering Can waters",
@@ -397,11 +400,6 @@
   "bloom_and_doom.subtitles.entity.doom_shroom.explodes": "Doom-shroom explodes",
   "bloom_and_doom.subtitles.entity.potato_mine.explodes": "Potato Mine explodes",
   "bloom_and_doom.subtitles.entity.plant.grows": "Plant grows",
-
-  "bloom_and_doom.configuration.new_baby_models": "New baby models",
-  "bloom_and_doom.configuration.pea_3d": "3D peas",
-  "bloom_and_doom.configuration.frozen_pea_3d": "3D frozen peas",
-  "bloom_and_doom.configuration.spore_3d": "3D spores",
 
   "bloom_and_doom.configuration.plants_lifespan": "Short-lived plants",
 

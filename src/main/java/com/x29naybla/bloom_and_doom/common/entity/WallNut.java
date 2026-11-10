@@ -7,12 +7,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class WallNut extends AbstractPlant {
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
 
     //Properties
     public WallNut(EntityType<? extends WallNut> entityType, Level level) {
@@ -36,18 +33,9 @@ public class WallNut extends AbstractPlant {
         this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
     }
 
-    //GeckoLib
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
-    }
-
-    protected <E extends WallNut> PlayState animController(final AnimationState<E> event) {
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return geoCache;
+    public void aiStep() {
+        super.aiStep();
+        this.idleAnimationState.animateWhen(isAlive(), tickCount);
     }
 }

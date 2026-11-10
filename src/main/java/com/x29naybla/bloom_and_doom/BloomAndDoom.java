@@ -48,7 +48,6 @@ public class BloomAndDoom {
             }
         });
 
-        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.SPEC);
         modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfigs.SPEC);
     }
 

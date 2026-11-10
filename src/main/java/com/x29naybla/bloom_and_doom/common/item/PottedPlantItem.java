@@ -143,7 +143,7 @@ public class PottedPlantItem extends PlantHolderItem {
                 if (stack.has(DataComponents.BASE_COLOR)) ((Marigold) abstractPlant).setColor(stack.get(DataComponents.BASE_COLOR));
                 if (stack.has(BnDDataComponents.AGE)) {
                     abstractPlant.setAge(stack.get(BnDDataComponents.AGE));
-                } else if (abstractPlant instanceof SproutEntity) abstractPlant.setAge(BABY_START_AGE);
+                } else if (abstractPlant instanceof Sprout) abstractPlant.setAge(BABY_START_AGE);
                 if (stack.has(BnDDataComponents.HEALTH)) abstractPlant.setHealth(stack.get(BnDDataComponents.HEALTH));
                 if (abstractPlant instanceof PotatoMine potatoMine) potatoMine.setArmed(true);
                 abstractPlant.fromPlanter = true;

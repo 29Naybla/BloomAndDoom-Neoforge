@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.client.event;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.ClientConfigs;
+import com.x29naybla.bloom_and_doom.client.model.entity.*;
 import com.x29naybla.bloom_and_doom.common.registry.BnDEntities;
 import com.x29naybla.bloom_and_doom.common.registry.BnDBlockEntities;
 import com.x29naybla.bloom_and_doom.client.renderer.block.PlanterBlockEntityRenderer;
@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -29,6 +28,24 @@ public class ClientSetupEvents {
     @SubscribeEvent
     public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(BnDBlockEntities.PLANTER_BE.get(), PlanterBlockEntityRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(SproutModel.LAYER_LOCATION, SproutModel::createBodyLayer);
+        event.registerLayerDefinition(SunflowerModel.LAYER_LOCATION, SunflowerModel::createBodyLayer);
+        event.registerLayerDefinition(MarigoldModel.LAYER_LOCATION, MarigoldModel::createBodyLayer);
+        event.registerLayerDefinition(MarigoldPetalsModel.LAYER_LOCATION, MarigoldPetalsModel::createBodyLayer);
+        event.registerLayerDefinition(PeashooterModel.LAYER_LOCATION, PeashooterModel::createBodyLayer);
+        event.registerLayerDefinition(SnowPeaModel.LAYER_LOCATION, SnowPeaModel::createBodyLayer);
+        event.registerLayerDefinition(RepeaterModel.LAYER_LOCATION, RepeaterModel::createBodyLayer);
+        event.registerLayerDefinition(WallNutModel.LAYER_LOCATION, WallNutModel::createBodyLayer);
+        event.registerLayerDefinition(PotatoMineModel.LAYER_LOCATION, PotatoMineModel::createBodyLayer);
+        event.registerLayerDefinition(ChomperModel.LAYER_LOCATION, ChomperModel::createBodyLayer);
+        event.registerLayerDefinition(BonkChoyModel.LAYER_LOCATION, BonkChoyModel::createBodyLayer);
+        event.registerLayerDefinition(SunShroomModel.LAYER_LOCATION, SunShroomModel::createBodyLayer);
+        event.registerLayerDefinition(PuffShroomModel.LAYER_LOCATION, PuffShroomModel::createBodyLayer);
+        event.registerLayerDefinition(DoomShroomModel.LAYER_LOCATION, DoomShroomModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -49,15 +66,9 @@ public class ClientSetupEvents {
 
         event.registerEntityRenderer(BnDEntities.ZOMBIE_WOLF.get(), WolfRenderer::new);
 
-        if (!ModList.get().isLoaded("amendments") || !ClientConfigs.PEAS_3D.get()) {
-            event.registerEntityRenderer(BnDEntities.PEA_PROJECTILE.get(), ThrownItemRenderer::new);
-        }
-        if (!ModList.get().isLoaded("amendments") || !ClientConfigs.FROZEN_PEAS_3D.get()) {
-            event.registerEntityRenderer(BnDEntities.FROZEN_PEA_PROJECTILE.get(), ThrownItemRenderer::new);
-        }
-        if (!ModList.get().isLoaded("amendments") || !ClientConfigs.SPORES_3D.get()) {
-            event.registerEntityRenderer(BnDEntities.SPORE_PROJECTILE.get(), ThrownItemRenderer::new);
-        }
+        event.registerEntityRenderer(BnDEntities.PEA_PROJECTILE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(BnDEntities.FROZEN_PEA_PROJECTILE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(BnDEntities.SPORE_PROJECTILE.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent

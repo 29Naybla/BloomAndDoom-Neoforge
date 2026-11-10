@@ -263,6 +263,7 @@
   "death.attack.frozen_pea": "%1$s заморожен горохом",
   "death.attack.spore": "Жизнь %1$s была оспорена",
   "death.attack.plant_explosion": "%1$s превратился в пюре",
+  "death.attack.plant_punch": "%1$s was punched into fertilizer",
 
   "creativetab.bloom_and_doom.blocks": "B&D: Блоки",
   "creativetab.bloom_and_doom.items": "B&D: Предметы",
@@ -382,6 +383,8 @@
   "tag.entity.bloom_and_doom.plant_enemies": "Враги растений",
   "tag.entity.bloom_and_doom.plant_allays": "Союзники растений",
 
+  "tag.damage_tye.bloom_and_doom.plant_damage": "Plant Damage",
+
   "bloom_and_doom.subtitles.item.seed_packets.plants": "Пакет семян сажает",
   "bloom_and_doom.subtitles.item.potted_plant.plants": "Горшечное растение пересаживается",
   "bloom_and_doom.subtitles.item.watering_can.water": "Лейка поливает",
@@ -397,11 +400,6 @@
   "bloom_and_doom.subtitles.entity.doom_shroom.explodes": "Гриб судьбы взрывается",
   "bloom_and_doom.subtitles.entity.potato_mine.explodes": "Картофельная мина взрывается",
   "bloom_and_doom.subtitles.entity.plant.grows": "Растение растёт",
-
-  "bloom_and_doom.configuration.new_baby_models": "New baby models",
-  "bloom_and_doom.configuration.pea_3d": "3D горошины",
-  "bloom_and_doom.configuration.frozen_pea_3d": "3D замороженные горошины",
-  "bloom_and_doom.configuration.spore_3d": "3D споры",
 
   "bloom_and_doom.configuration.plants_lifespan": "Недолговечные растения",
 

@@ -263,6 +263,7 @@
   "death.attack.frozen_pea": "%1$s foi congervilhado(a)",
   "death.attack.spore": "%1$s was sent to their spore-n point",
   "death.attack.plant_explosion": "%1$s foi transformado(a) em purê",
+  "death.attack.plant_punch": "%1$s was punched into fertilizer",
 
   "creativetab.bloom_and_doom.blocks": "B&D blocos",
   "creativetab.bloom_and_doom.items": "B&D itens",
@@ -382,6 +383,8 @@
   "tag.entity.bloom_and_doom.plant_enemies": "Inimigos das plantas",
   "tag.entity.bloom_and_doom.plant_allays": "Aliados das plantas",
 
+  "tag.damage_tye.bloom_and_doom.plant_damage": "Plant Damage",
+
   "bloom_and_doom.subtitles.item.seed_packets.plants": "Pacote de sementes planta",
   "bloom_and_doom.subtitles.item.potted_plant.plants": "Planta envasa replanta",
   "bloom_and_doom.subtitles.item.watering_can.water": "Regador rega",
@@ -397,11 +400,6 @@
   "bloom_and_doom.subtitles.entity.doom_shroom.explodes": "Ruinagumelo explode",
   "bloom_and_doom.subtitles.entity.potato_mine.explodes": "Batatamina explode",
   "bloom_and_doom.subtitles.entity.plant.grows": "Planta cresce",
-
-  "bloom_and_doom.configuration.new_baby_models": "Modelos novos para bebês",
-  "bloom_and_doom.configuration.pea_3d": "Ervilhas 3D",
-  "bloom_and_doom.configuration.frozen_pea_3d": "Ervilhas congeladas 3D",
-  "bloom_and_doom.configuration.spore_3d": "Esporos 3D",
 
   "bloom_and_doom.configuration.plants_lifespan": "Plantas de vida curta",
 

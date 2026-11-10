@@ -16,19 +16,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
 public class AbstractShootingPlant extends AbstractPlant implements RangedAttackMob {
+    public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+    public net.minecraft.world.entity.AnimationState shootingAnimationState = new net.minecraft.world.entity.AnimationState();
     protected static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(AbstractShootingPlant.class, EntityDataSerializers.BOOLEAN);
-
-    protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.peashooter.idle");
-    protected static final RawAnimation SHOOT = RawAnimation.begin().thenLoop("animation.peashooter.shoot");
-
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //Properties
     public AbstractShootingPlant(EntityType<? extends AbstractShootingPlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem) {
@@ -49,26 +43,11 @@ public class AbstractShootingPlant extends AbstractPlant implements RangedAttack
     public void performRangedAttack(@NotNull LivingEntity target, float distanceFactor) {
     }
 
-    //GeckoLib
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
-    }
-
-    protected <E extends AbstractShootingPlant> PlayState animController(final AnimationState<E> event) {
-        if(this.isShooting()){
-            event.setAnimation(SHOOT);
-            return PlayState.CONTINUE;
-
-        }else
-            event.setAnimation(IDLE);
-
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return geoCache;
+    public void aiStep() {
+        super.aiStep();
+        this.shootingAnimationState.animateWhen(isShooting(), tickCount);
+        this.idleAnimationState.animateWhen(isAlive(), tickCount);
     }
 
     //Data

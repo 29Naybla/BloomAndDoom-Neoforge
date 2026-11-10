@@ -21,20 +21,15 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Marigold extends AbstractPlant {
-    protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.flower.idle");
-    protected static final RawAnimation GENERATE = RawAnimation.begin().thenPlayAndHold("animation.flower.generate");
+    public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+    public net.minecraft.world.entity.AnimationState generatingAnimationState = new net.minecraft.world.entity.AnimationState();
     protected static final EntityDataAccessor<Boolean> GENERATED = SynchedEntityData.defineId(Marigold.class, EntityDataSerializers.BOOLEAN);
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Byte> DATA_PETALS_ID = SynchedEntityData.defineId(Marigold.class, EntityDataSerializers.BYTE);
     private static final Map<DyeColor, Integer> COLOR_BY_DYE = Maps.<DyeColor, Integer>newEnumMap(Arrays.stream(DyeColor.values()).collect(Collectors.toMap((p_29868_) -> p_29868_, Marigold::createMarigoldColor)));
     public int rewardTime;
@@ -88,26 +83,11 @@ public class Marigold extends AbstractPlant {
         return super.mobInteract(player, hand);
     }
 
-    //GeckoLib
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
-    }
-
-    protected <E extends Marigold> PlayState animController(final AnimationState<E> event) {
-        if (this.isGenerated()) {
-            event.setAnimation(GENERATE);
-
-            return PlayState.CONTINUE;
-        }
-        event.setAnimation(IDLE);
-
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return geoCache;
+    public void aiStep() {
+        super.aiStep();
+        this.generatingAnimationState.animateWhen(isGenerated(), tickCount);
+        this.idleAnimationState.animateWhen(isAlive(), tickCount);
     }
 
     //Data

@@ -8,14 +8,9 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class BonkChoy extends AbstractPlant {
-    protected static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.bonk_choy.idle");
-
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
 
     //Properties
     public BonkChoy(EntityType<? extends AbstractPlant> entityType, Level level) {
@@ -30,19 +25,9 @@ public class BonkChoy extends AbstractPlant {
         goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
-    //GeckoLib
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
-    }
-
-    protected <E extends BonkChoy> PlayState animController(final AnimationState<E> event) {
-        event.setAnimation(IDLE);
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return geoCache;
+    public void aiStep() {
+        super.aiStep();
+        this.idleAnimationState.animateWhen(isAlive(), tickCount);
     }
 }

@@ -10,13 +10,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class PotatoMine extends AbstractExplosivePlant {
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    protected static final RawAnimation ARMING = RawAnimation.begin().thenPlay("animation.potato_mine.arming");
     protected static final EntityDataAccessor<Boolean> ARMED = SynchedEntityData.defineId(PotatoMine.class, EntityDataSerializers.BOOLEAN);
     public int armingTime = 0;
     public int maxArmingTime = 40;
@@ -43,23 +38,20 @@ public class PotatoMine extends AbstractExplosivePlant {
         super.tick();
     }
 
-    //GeckoLib
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::animController));
+    public void aiStep() {
+        super.aiStep();
     }
 
+    //GeckoLib
+    /*
     protected <E extends PotatoMine> PlayState animController(final AnimationState<E> event) {
         if (!getArmed()){
             event.setAnimation(ARMING);
         }
         return PlayState.CONTINUE;
     }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return geoCache;
-    }
+     */
 
     //Data
     public boolean getArmed(){

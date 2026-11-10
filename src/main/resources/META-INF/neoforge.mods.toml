@@ -38,23 +38,16 @@ config="${mod_id}.mixins.json"
 
 # The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
 modId="neoforge"
 type="required"
 versionRange="[${neo_version},)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies."${mod_id}"]]
 modId="minecraft"
 type="required"
 versionRange="${minecraft_version_range}"
 ordering="NONE"
-side="BOTH"
-
-[[dependencies."${mod_id}"]]
-modId="geckolib"
-type="required"
-versionRange="[4.6.6,)"
-ordering="AFTER"
 side="BOTH"

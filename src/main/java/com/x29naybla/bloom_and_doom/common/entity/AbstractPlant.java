@@ -36,13 +36,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
 
 import java.util.List;
 
-public class AbstractPlant extends TamableAnimal implements GeoEntity {
+public class AbstractPlant extends TamableAnimal {
     public static final EntityDataAccessor<Boolean> DATA_IS_SLEEPING = SynchedEntityData.defineId(AbstractPlant.class, EntityDataSerializers.BOOLEAN);
     protected int ticksForSleepyParticles;
     public TagKey<Item> substrate;
@@ -147,7 +144,7 @@ public class AbstractPlant extends TamableAnimal implements GeoEntity {
                         this.getZ(), 2, 0, 0, 0, 0);
             }
             return InteractionResult.SUCCESS;
-        } else if(playerHand.isEmpty() && this.fromPlanter && this.level().getBlockState(this.getOnPos()).is(CommonTags.Blocks.FLOWER_POTS)) {
+        } else if(playerHand.isEmpty() && this.fromPlanter && this.level().getBlockState(this.getOnPos()).is(CommonTags.Blocks.FLOWER_POTS)&& this.pottedItem != null) {
             saveDefaultDataToItemTag(this, this.pottedItem);
             this.pottedItem.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(this.level().getBlockState(this.getOnPos()).getBlock().asItem().getDefaultInstance())));
 
@@ -183,7 +180,7 @@ public class AbstractPlant extends TamableAnimal implements GeoEntity {
             if(this.fromPlanter && onPlanter && !onFlowerPot) {
                 if (this.isAlive() && !this.isBaby() && --this.packetTime <= 0) {
                     this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                    this.spawnAtLocation(this.seedPacket);
+                    if (this.seedPacket != null) this.spawnAtLocation(this.seedPacket);
                     this.gameEvent(GameEvent.ENTITY_PLACE);
                     this.packetTime = 12000;
                 }
@@ -255,17 +252,6 @@ public class AbstractPlant extends TamableAnimal implements GeoEntity {
             serverLevel.sendParticles(ParticleTypes.POOF, this.getX(), this.getY() + 0.5,
                     this.getZ(), 2, 0, 0, 0, 0);
         }
-    }
-
-    //GeckoLib
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return null;
     }
 
     //Data

@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.1.20'
+    id 'net.neoforged.gradle.userdev' version '7.1.39'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -10,6 +10,13 @@ tasks.named('wrapper', Wrapper).configure {
 
 version = mod_version
 group = mod_group_id
+
+sourceSets.main.resources {
+    srcDir('src/generated/resources')
+
+    exclude("**/*.bbmodel")
+    exclude("src/generated/**/.cache")
+}
 
 repositories {
     mavenLocal()
@@ -21,13 +28,6 @@ repositories {
             }
         }
         filter { includeGroupAndSubgroups "maven.modrinth" }
-    }
-    maven {
-        name = 'GeckoLib'
-        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-        content {
-            includeGroup("software.bernie.geckolib")
-        }
     }
     maven {
         url = "https://www.cursemaven.com"
@@ -53,6 +53,8 @@ runs {
         systemProperty 'forge.logging.markers', 'REGISTRIES'
 
         systemProperty 'forge.logging.console.level', 'debug'
+
+        workingDirectory project.layout.projectDirectory.dir('run').dir(name)
 
         modSource project.sourceSets.main
     }
@@ -82,15 +84,12 @@ runs {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
-    implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:${geckolib_version}"
     implementation "maven.modrinth:jade:${jade_version}+neoforge"
     implementation "maven.modrinth:farmers-delight:${farmersdelight_version}"
 }
