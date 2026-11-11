@@ -1,19 +1,27 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.ShootingPlant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.SporeProjectile;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class PuffShroom extends AbstractShootingPlant {
+public class PuffShroom extends ShootingPlant {
     //Properties
     public PuffShroom(EntityType<? extends PuffShroom> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_PUFF_SHROOMS, BnDItems.PUFF_SHROOM_SEED_PACKET.toStack(), BnDItems.POTTED_PUFF_SHROOM.toStack());
         this.isMushroom = true;
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return ShootingPlant.createAttributes()
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 4);
     }
 
     //Goals and AI

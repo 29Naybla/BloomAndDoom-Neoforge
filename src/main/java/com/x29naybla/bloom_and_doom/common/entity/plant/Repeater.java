@@ -1,5 +1,7 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.ShootingPlant;
+import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.PlantShootDoubleGoal;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.PeaProjectile;
@@ -12,7 +14,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class Repeater extends AbstractShootingPlant {
+public class Repeater extends ShootingPlant {
     //Properties
     public Repeater(EntityType<? extends Repeater> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_REPEATERS, BnDItems.REPEATER_SEED_PACKET.toStack(), BnDItems.POTTED_REPEATER.toStack());

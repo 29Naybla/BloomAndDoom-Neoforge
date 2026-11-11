@@ -64,7 +64,7 @@ public class EntityTags extends EntityTypeTagsProvider {
                 .remove(EntityType.ZOMBIE_HORSE)
                 .remove(EntityType.BEE);
 
-        tag(BnDTags.Entities.PLANT_ALLAYS)
+        tag(BnDTags.Entities.PLANT_ALLIES)
                 .addTag(BnDTags.Entities.PLANTS)
                 .add(EntityType.BEE)
                 .add(EntityType.VILLAGER)

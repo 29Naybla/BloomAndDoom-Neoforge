@@ -1,6 +1,8 @@
 package com.x29naybla.bloom_and_doom.common.event;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
+import com.x29naybla.bloom_and_doom.common.entity.plant.PotatoMine;
+import com.x29naybla.bloom_and_doom.common.entity.plant.WallNut;
 import com.x29naybla.bloom_and_doom.common.item.ZombieBanner;
 import com.x29naybla.bloom_and_doom.common.registry.*;
 import com.x29naybla.bloom_and_doom.common.tag.CommonTags;
@@ -60,7 +62,7 @@ public class BnDEvents {
             if (monster.getType().is(BnDTags.Entities.PLANT_ENEMIES)){
                 monster.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(monster, (WallNut.class), true));
                 monster.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(monster, (PotatoMine.class), true));
-                monster.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(monster, AbstractPlant.class, true));
+                monster.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(monster, Plant.class, true));
             }
         }
         if (event.getEntity() instanceof AbstractGolem golem) {
@@ -87,12 +89,12 @@ public class BnDEvents {
         if (event.getEntity().level().isClientSide || newTarget == null) return;
 
         if(attacker instanceof Creeper || attacker instanceof EnderMan){
-            if (newTarget instanceof AbstractPlant){
+            if (newTarget instanceof Plant){
                 event.setCanceled(true);
             }
         }
 
-        if(attacker instanceof AbstractPlant && newTarget instanceof TamableAnimal tamableAnimal && tamableAnimal.isTame()){
+        if(attacker instanceof Plant && newTarget instanceof TamableAnimal tamableAnimal && tamableAnimal.isTame()){
             event.setCanceled(true);
             if(attacker.getLastHurtByMob() != null) {
                 event.setCanceled(!attacker.getLastHurtByMob().is(tamableAnimal));
@@ -231,7 +233,7 @@ public class BnDEvents {
     public static void flowerPotOccupied(PlayerInteractEvent.RightClickBlock event){
         Block block = event.getLevel().getBlockState(event.getPos()).getBlock();
         if (block.defaultBlockState().is(CommonTags.Blocks.FLOWER_POTS)) {
-            List<AbstractPlant> abstractPlants = event.getLevel().getEntitiesOfClass(AbstractPlant.class, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(event.getPos())));
+            List<Plant> abstractPlants = event.getLevel().getEntitiesOfClass(Plant.class, AABB.unitCubeFromLowerCorner(Vec3.atLowerCornerOf(event.getPos())));
             if (!abstractPlants.isEmpty()) {
                 event.setCanceled(true);
             }

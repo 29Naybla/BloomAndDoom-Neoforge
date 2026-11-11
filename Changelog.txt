@@ -75,3 +75,10 @@ changelog:
 ^ some animations and models are not working as intended
 * fixed the Brainz Banner Pattern missing texture
 * changed the Brainz Banner name color to match the Ominous Banner
+
+* renamed the tag "bloom_and_doom:plant_allays" to "bloom_and_doom:plant_allies"
+* improved how entity attributes are registered
+* fixed plants being able to be moved by water
+* reverted some class name changes
+* fixed the Wall-nut idle animation not playing
+* fixed the Bonk Choy idle animation not playing correctly

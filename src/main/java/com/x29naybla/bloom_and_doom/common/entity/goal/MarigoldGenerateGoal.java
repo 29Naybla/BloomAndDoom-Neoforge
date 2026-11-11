@@ -1,6 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.Marigold;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Marigold;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Items;

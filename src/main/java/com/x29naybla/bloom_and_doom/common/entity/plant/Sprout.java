@@ -1,5 +1,6 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.Plant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDEntities;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
@@ -11,11 +12,11 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class Sprout extends AbstractPlant {
+public class Sprout extends Plant {
     private int age;
 
     //Properties
-    public Sprout(EntityType<? extends AbstractPlant> entityType, Level level) {
+    public Sprout(EntityType<? extends Plant> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SPROUTS, null, BnDItems.POTTED_SPROUT.toStack());
     }
 

@@ -1,6 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.AbstractExplosivePlant;
+import com.x29naybla.bloom_and_doom.common.entity.ExplosivePlant;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -8,23 +8,23 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class BnDSwellGoal extends Goal{
-    private final AbstractExplosivePlant abstractExplosivePlant;
+    private final ExplosivePlant explosivePlant;
     @Nullable
     private LivingEntity target;
 
-    public BnDSwellGoal(AbstractExplosivePlant abstractExplosivePlant) {
-        this.abstractExplosivePlant = abstractExplosivePlant;
+    public BnDSwellGoal(ExplosivePlant explosivePlant) {
+        this.explosivePlant = explosivePlant;
         this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     public boolean canUse() {
-        LivingEntity livingentity = this.abstractExplosivePlant.getTarget();
-        return this.abstractExplosivePlant.getSwellDir() > 0 || livingentity != null && this.abstractExplosivePlant.distanceToSqr(livingentity) < (double)1.0F;
+        LivingEntity livingentity = this.explosivePlant.getTarget();
+        return this.explosivePlant.getSwellDir() > 0 || livingentity != null && this.explosivePlant.distanceToSqr(livingentity) < (double)1.0F;
     }
 
     public void start() {
-        this.abstractExplosivePlant.getNavigation().stop();
-        this.target = this.abstractExplosivePlant.getTarget();
+        this.explosivePlant.getNavigation().stop();
+        this.target = this.explosivePlant.getTarget();
     }
 
     public void stop() {
@@ -37,13 +37,13 @@ public class BnDSwellGoal extends Goal{
 
     public void tick() {
         if (this.target == null) {
-            this.abstractExplosivePlant.setSwellDir(-1);
-        } else if (this.abstractExplosivePlant.distanceToSqr(this.target) > (double)49.0F) {
-            this.abstractExplosivePlant.setSwellDir(-1);
-        } else if (!this.abstractExplosivePlant.getSensing().hasLineOfSight(this.target)) {
-            this.abstractExplosivePlant.setSwellDir(-1);
+            this.explosivePlant.setSwellDir(-1);
+        } else if (this.explosivePlant.distanceToSqr(this.target) > (double)49.0F) {
+            this.explosivePlant.setSwellDir(-1);
+        } else if (!this.explosivePlant.getSensing().hasLineOfSight(this.target)) {
+            this.explosivePlant.setSwellDir(-1);
         } else {
-            this.abstractExplosivePlant.setSwellDir(1);
+            this.explosivePlant.setSwellDir(1);
         }
 
     }

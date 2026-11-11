@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.client.model.entity.MarigoldModel;
 import com.x29naybla.bloom_and_doom.client.model.entity.MarigoldPetalsModel;
-import com.x29naybla.bloom_and_doom.common.entity.Marigold;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Marigold;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;

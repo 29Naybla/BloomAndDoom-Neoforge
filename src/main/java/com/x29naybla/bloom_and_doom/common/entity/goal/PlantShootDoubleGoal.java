@@ -1,6 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.AbstractShootingPlant;
+import com.x29naybla.bloom_and_doom.common.entity.ShootingPlant;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class PlantShootDoubleGoal extends Goal {
-    private final AbstractShootingPlant abstractShootingPlant;
+    private final ShootingPlant shootingPlant;
     @Nullable
     private LivingEntity target;
     private int attackTime;
@@ -22,16 +22,16 @@ public class PlantShootDoubleGoal extends Goal {
     private int shootTimer;
     private final float timerCap;
 
-    public PlantShootDoubleGoal(AbstractShootingPlant abstractShootingPlant, float timeInSeconds, int attackInterval, float attackRadius){
-        this(abstractShootingPlant, timeInSeconds, attackInterval, attackInterval, attackRadius);
+    public PlantShootDoubleGoal(ShootingPlant shootingPlant, float timeInSeconds, int attackInterval, float attackRadius){
+        this(shootingPlant, timeInSeconds, attackInterval, attackInterval, attackRadius);
     }
 
-    public PlantShootDoubleGoal(AbstractShootingPlant abstractShootingPlant, float timeInSeconds, int attackIntervalMin, int attackIntervalMax, float attackRadius){
+    public PlantShootDoubleGoal(ShootingPlant shootingPlant, float timeInSeconds, int attackIntervalMin, int attackIntervalMax, float attackRadius){
         this.attackTime = -1;
-        if (abstractShootingPlant == null) {
-            throw new IllegalArgumentException("PlantShootDoubleGoal requires Mob extends AbstractShootingPlant");
+        if (shootingPlant == null) {
+            throw new IllegalArgumentException("PlantShootDoubleGoal requires Mob extends ShootingPlant");
         } else {
-            this.abstractShootingPlant = abstractShootingPlant;
+            this.shootingPlant = shootingPlant;
             this.timerCap = timeInSeconds * 20;
             this.attackIntervalMin = attackIntervalMin;
             this.attackIntervalMax = attackIntervalMax;
@@ -43,8 +43,8 @@ public class PlantShootDoubleGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        LivingEntity livingentity = this.abstractShootingPlant.getTarget();
-        if (livingentity != null && livingentity.isAlive() && !this.abstractShootingPlant.isBaby()) {
+        LivingEntity livingentity = this.shootingPlant.getTarget();
+        if (livingentity != null && livingentity.isAlive() && !this.shootingPlant.isBaby()) {
             this.target = livingentity;
             return true;
         } else {
@@ -55,17 +55,17 @@ public class PlantShootDoubleGoal extends Goal {
     public void start() {
         super.start();
         shootTimer = 0;
-        abstractShootingPlant.setShooting(true);
+        shootingPlant.setShooting(true);
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (this.target != null) return this.canUse() || this.target.isAlive() && !this.abstractShootingPlant.getNavigation().isDone() && shootTimer++ <= timerCap;
+        if (this.target != null) return this.canUse() || this.target.isAlive() && !this.shootingPlant.getNavigation().isDone() && shootTimer++ <= timerCap;
         else return false;
     }
 
     public void stop() {
-        abstractShootingPlant.setShooting(false);
+        shootingPlant.setShooting(false);
         this.target = null;
         this.seeTime = 0;
         this.attackTime = -1;
@@ -77,8 +77,8 @@ public class PlantShootDoubleGoal extends Goal {
 
     public void tick() {
         if (this.target != null) {
-            double d0 = this.abstractShootingPlant.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-            boolean flag = this.abstractShootingPlant.getSensing().hasLineOfSight(this.target);
+            double d0 = this.shootingPlant.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+            boolean flag = this.shootingPlant.getSensing().hasLineOfSight(this.target);
             if (flag) {
                 ++this.seeTime;
             } else {
@@ -86,10 +86,10 @@ public class PlantShootDoubleGoal extends Goal {
             }
 
             if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 5) {
-                this.abstractShootingPlant.getNavigation().stop();
+                this.shootingPlant.getNavigation().stop();
             }
 
-            this.abstractShootingPlant.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+            this.shootingPlant.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
 
             --this.attackTime;
             if (this.attackTime == 3) {
@@ -99,7 +99,7 @@ public class PlantShootDoubleGoal extends Goal {
 
                 float f = (float)Math.sqrt(d0) / this.attackRadius;
                 float f1 = Mth.clamp(f, 0.1F, 1.0F);
-                this.abstractShootingPlant.performRangedAttack(this.target, f1);
+                this.shootingPlant.performRangedAttack(this.target, f1);
             }
             if (this.attackTime == 2) {
                 if (!flag) {
@@ -108,7 +108,7 @@ public class PlantShootDoubleGoal extends Goal {
 
                 float f = (float)Math.sqrt(d0) / this.attackRadius;
                 float f1 = Mth.clamp(f, 0.1F, 1.0F);
-                this.abstractShootingPlant.performRangedAttack(this.target, f1);
+                this.shootingPlant.performRangedAttack(this.target, f1);
                 this.attackTime = Mth.floor(f * (float)(this.attackIntervalMax - this.attackIntervalMin) + (float)this.attackIntervalMin);
             }
             if (this.attackTime < 0) {

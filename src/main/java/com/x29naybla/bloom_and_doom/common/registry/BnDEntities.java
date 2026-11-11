@@ -2,6 +2,7 @@ package com.x29naybla.bloom_and_doom.common.registry;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.common.entity.*;
+import com.x29naybla.bloom_and_doom.common.entity.plant.*;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.FrozenPeaProjectile;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.PeaProjectile;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.SporeProjectile;
@@ -9,9 +10,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -42,111 +40,19 @@ public class BnDEntities {
 
     @SubscribeEvent
     public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
-        AttributeSupplier.Builder sproutAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99);
-
-        AttributeSupplier.Builder sunflowerAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99);
-
-        AttributeSupplier.Builder marigoldAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99);
-
-        AttributeSupplier.Builder peashooterAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ATTACK_SPEED, 30)
-                .add(Attributes.ATTACK_DAMAGE, 2)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 9);
-
-        AttributeSupplier.Builder snowPeaAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ATTACK_SPEED, 30)
-                .add(Attributes.ATTACK_DAMAGE, 2)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 9);
-
-        AttributeSupplier.Builder repeaterAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ATTACK_SPEED, 30)
-                .add(Attributes.ATTACK_DAMAGE, 2)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 9);
-
-        AttributeSupplier.Builder wallNutAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 216)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99);
-
-        AttributeSupplier.Builder potatoMineAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 1);
-
-        AttributeSupplier.Builder chomperAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ATTACK_SPEED, 350)
-                .add(Attributes.ATTACK_DAMAGE, 4)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 2);
-
-        AttributeSupplier.Builder bonkChoyAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ATTACK_SPEED, 30)
-                .add(Attributes.ATTACK_DAMAGE, 3)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 2);
-
-        AttributeSupplier.Builder puffShroomAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ATTACK_SPEED, 30)
-                .add(Attributes.ATTACK_DAMAGE, 2)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 4);
-
-        AttributeSupplier.Builder doomShroomAttributes = PathfinderMob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED,-99)
-                .add(Attributes.MAX_HEALTH, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 1);
-
-        event.put(BnDEntities.SPROUT.get(), sproutAttributes.build());
-        event.put(BnDEntities.SUNFLOWER.get(), sunflowerAttributes.build());
-        event.put(BnDEntities.MARIGOLD.get(), marigoldAttributes.build());
-        event.put(BnDEntities.PEASHOOTER.get(), peashooterAttributes.build());
-        event.put(BnDEntities.SNOW_PEA.get(), snowPeaAttributes.build());
-        event.put(BnDEntities.REPEATER.get(), repeaterAttributes.build());
-        event.put(BnDEntities.WALL_NUT.get(), wallNutAttributes.build());
-        event.put(BnDEntities.POTATO_MINE.get(), potatoMineAttributes.build());
-        event.put(BnDEntities.CHOMPER.get(), chomperAttributes.build());
-        event.put(BnDEntities.BONK_CHOY.get(), bonkChoyAttributes.build());
-        event.put(BnDEntities.SUN_SHROOM.get(), sunflowerAttributes.build());
-        event.put(BnDEntities.PUFF_SHROOM.get(), puffShroomAttributes.build());
-        event.put(BnDEntities.DOOM_SHROOM.get(), doomShroomAttributes.build());
+        event.put(BnDEntities.SPROUT.get(), Sprout.createAttributes().build());
+        event.put(BnDEntities.SUNFLOWER.get(), Sunflower.createAttributes().build());
+        event.put(BnDEntities.MARIGOLD.get(), Marigold.createAttributes().build());
+        event.put(BnDEntities.PEASHOOTER.get(), Peashooter.createAttributes().build());
+        event.put(BnDEntities.SNOW_PEA.get(), SnowPea.createAttributes().build());
+        event.put(BnDEntities.REPEATER.get(), Repeater.createAttributes().build());
+        event.put(BnDEntities.WALL_NUT.get(), WallNut.createAttributes().build());
+        event.put(BnDEntities.POTATO_MINE.get(), PotatoMine.createAttributes().build());
+        event.put(BnDEntities.CHOMPER.get(), Chomper.createAttributes().build());
+        event.put(BnDEntities.BONK_CHOY.get(), BonkChoy.createAttributes().build());
+        event.put(BnDEntities.SUN_SHROOM.get(), SunShroom.createAttributes().build());
+        event.put(BnDEntities.PUFF_SHROOM.get(), PuffShroom.createAttributes().build());
+        event.put(BnDEntities.DOOM_SHROOM.get(), DoomShroom.createAttributes().build());
         event.put(BnDEntities.ZOMBIE_WOLF.get(), ZombieWolf.createAttributes().build());
     }
 

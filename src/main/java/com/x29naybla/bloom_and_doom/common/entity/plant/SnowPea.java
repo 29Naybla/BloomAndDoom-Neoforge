@@ -1,5 +1,6 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.ShootingPlant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.FrozenPeaProjectile;
@@ -9,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class SnowPea extends AbstractShootingPlant {
+public class SnowPea extends ShootingPlant {
     //Properties
     public SnowPea(EntityType<? extends SnowPea> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SNOW_PEAS, BnDItems.SNOW_PEA_SEED_PACKET.toStack(), BnDItems.POTTED_SNOW_PEA.toStack());

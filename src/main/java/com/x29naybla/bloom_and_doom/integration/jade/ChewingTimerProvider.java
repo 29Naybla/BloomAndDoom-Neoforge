@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.integration.jade;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.Chomper;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Chomper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

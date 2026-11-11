@@ -2,6 +2,8 @@ package com.x29naybla.bloom_and_doom.integration.jade;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.common.entity.*;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Chomper;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Marigold;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.*;
 
@@ -18,17 +20,17 @@ public class JadeIntegration implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerEntityDataProvider(SunTimerProvider.SUN, AbstractSolarPlant.class);
+        registration.registerEntityDataProvider(SunTimerProvider.SUN, SolarPlant.class);
         registration.registerEntityDataProvider(MarigoldRewardTimerProvider.MARIGOLD_REWARD, Marigold.class);
         registration.registerEntityDataProvider(ChewingTimerProvider.CHEWING, Chomper.class);
-        registration.registerEntityDataProvider(SeedPacketsTimerProvider.SEED_PACKETS, AbstractPlant.class);
+        registration.registerEntityDataProvider(SeedPacketsTimerProvider.SEED_PACKETS, Plant.class);
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerEntityComponent(SunTimerProvider.SUN, AbstractSolarPlant.class);
+        registration.registerEntityComponent(SunTimerProvider.SUN, SolarPlant.class);
         registration.registerEntityComponent(MarigoldRewardTimerProvider.MARIGOLD_REWARD, Marigold.class);
         registration.registerEntityComponent(ChewingTimerProvider.CHEWING, Chomper.class);
-        registration.registerEntityComponent(SeedPacketsTimerProvider.SEED_PACKETS, AbstractPlant.class);
+        registration.registerEntityComponent(SeedPacketsTimerProvider.SEED_PACKETS, Plant.class);
     }
 }

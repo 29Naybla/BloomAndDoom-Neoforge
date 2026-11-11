@@ -1,5 +1,6 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.ShootingPlant;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.projectile.PeaProjectile;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
@@ -9,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class Peashooter extends AbstractShootingPlant {
+public class Peashooter extends ShootingPlant {
     //Properties
     public Peashooter(EntityType<? extends Peashooter> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_PEASHOOTERS, BnDItems.PEASHOOTER_SEED_PACKET.toStack(), BnDItems.POTTED_PEASHOOTER.toStack());

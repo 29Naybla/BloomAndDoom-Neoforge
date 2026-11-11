@@ -40,7 +40,7 @@ public class FrozenPeaProjectile extends PlantProjectile {
     protected void onHitEntity(@NotNull EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
-        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLAYS) || entity instanceof Player player && !((LivingEntityMixinAccess) player).BnD_isZombie())){
+        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLIES) || entity instanceof Player player && !((LivingEntityMixinAccess) player).BnD_isZombie())){
             entity.hurt(this.damageSources().source(BnDDamageTypes.FROZEN_PEA_DAMAGE, this, this.getOwner()), 2);
             entity.extinguishFire();
             entity.setTicksFrozen(280);

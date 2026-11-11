@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.client.animation.SunflowerAnimation;
-import com.x29naybla.bloom_and_doom.common.entity.Sunflower;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Sunflower;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -75,11 +75,11 @@ public class SunflowerModel<T extends Sunflower> extends HierarchicalModel<T> {
     }
 
     private void applyHeadRotation(float headYaw, float headPitch) {
-        headYaw = Mth.clamp(headYaw, -15f, 15f);
+        headYaw = Mth.clamp(headYaw, -25f, 25f);
         headPitch = Mth.clamp(headPitch, -25f, 45f);
 
         this.head.yRot = headYaw * ((float)Math.PI / 180F);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        this.head.xRot += headPitch * ((float)Math.PI / 180F);
     }
 
     @Override

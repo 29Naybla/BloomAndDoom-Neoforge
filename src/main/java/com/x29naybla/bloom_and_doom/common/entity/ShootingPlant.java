@@ -9,6 +9,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.RangedAttackMob;
@@ -19,16 +21,23 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class AbstractShootingPlant extends AbstractPlant implements RangedAttackMob {
+public class ShootingPlant extends Plant implements RangedAttackMob {
     public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
     public net.minecraft.world.entity.AnimationState shootingAnimationState = new net.minecraft.world.entity.AnimationState();
-    protected static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(AbstractShootingPlant.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> SHOOTING = SynchedEntityData.defineId(ShootingPlant.class, EntityDataSerializers.BOOLEAN);
 
     //Properties
-    public AbstractShootingPlant(EntityType<? extends AbstractShootingPlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem) {
+    public ShootingPlant(EntityType<? extends ShootingPlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem) {
         super(entityType, level, substrate, seedPacket, pottedItem);
         this.seedPacket = seedPacket;
         this.pottedItem = pottedItem;
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Plant.createAttributes()
+                .add(Attributes.ATTACK_SPEED, 30)
+                .add(Attributes.ATTACK_DAMAGE, 2)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 9);
     }
 
     //Goals and AI

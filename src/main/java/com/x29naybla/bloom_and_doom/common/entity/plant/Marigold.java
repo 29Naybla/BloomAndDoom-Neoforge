@@ -1,6 +1,7 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
 import com.google.common.collect.Maps;
+import com.x29naybla.bloom_and_doom.common.entity.Plant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.MarigoldGenerateGoal;
@@ -26,7 +27,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Marigold extends AbstractPlant {
+public class Marigold extends Plant {
     public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
     public net.minecraft.world.entity.AnimationState generatingAnimationState = new net.minecraft.world.entity.AnimationState();
     protected static final EntityDataAccessor<Boolean> GENERATED = SynchedEntityData.defineId(Marigold.class, EntityDataSerializers.BOOLEAN);

@@ -3,7 +3,7 @@ package com.x29naybla.bloom_and_doom.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.client.model.entity.RepeaterModel;
-import com.x29naybla.bloom_and_doom.common.entity.Repeater;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Repeater;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

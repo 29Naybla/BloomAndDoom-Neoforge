@@ -3,22 +3,29 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.Chomper;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Chomper;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class ChomperModel<T extends Chomper> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
             new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "chomper"), "main");
     private final ModelPart chomper;
+    private final ModelPart body;
+    private final ModelPart neck;
+    private final ModelPart head;
 
     public ChomperModel(ModelPart root) {
         this.chomper = root.getChild("chomper");
+        this.body = this.chomper.getChild("body");
+        this.neck = this.body.getChild("neck");
+        this.head = this.neck.getChild("head");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -72,10 +79,24 @@ public class ChomperModel<T extends Chomper> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(@NotNull Chomper chomper, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.applyHeadRotation(netHeadYaw, headPitch);
+    }
+
+    private void applyHeadRotation(float headYaw, float headPitch) {
+        headYaw = Mth.clamp(headYaw, -15f, 15f);
+        headPitch = Mth.clamp(headPitch, -25f, 45f);
+
+        this.head.yRot = headYaw * ((float)Math.PI / 180F);
+        this.head.xRot += headPitch * ((float)Math.PI / 180F);
     }
 
     @Override
     public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        if (this.young) {
+            head.xScale = 1.6f;
+            head.yScale = 1.6f;
+            head.zScale = 1.6f;
+        }
         chomper.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 

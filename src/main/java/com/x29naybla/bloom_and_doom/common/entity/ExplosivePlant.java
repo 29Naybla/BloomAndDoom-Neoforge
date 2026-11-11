@@ -1,5 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity;
 
+import com.x29naybla.bloom_and_doom.common.entity.plant.PotatoMine;
 import com.x29naybla.bloom_and_doom.common.registry.BnDDamageTypes;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.BnDExplosionDamageCalculator;
@@ -16,6 +17,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.item.Item;
@@ -26,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class AbstractExplosivePlant extends AbstractPlant {
+public class ExplosivePlant extends Plant {
     private static final EntityDataAccessor<Integer> DATA_SWELL_DIR;
     private int oldSwell;
     private int swell;
@@ -36,7 +39,7 @@ public class AbstractExplosivePlant extends AbstractPlant {
     private final Holder<SoundEvent> sound;
 
     //Properties
-    public AbstractExplosivePlant(EntityType<? extends AbstractExplosivePlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem, int explosionRadius, int damage, Holder<SoundEvent> sound) {
+    public ExplosivePlant(EntityType<? extends ExplosivePlant> entityType, Level level, TagKey<Item> substrate, ItemStack seedPacket, @Nullable ItemStack pottedItem, int explosionRadius, int damage, Holder<SoundEvent> sound) {
         super(entityType, level, substrate, seedPacket, pottedItem);
         this.seedPacket = seedPacket;
         this.pottedItem = pottedItem;
@@ -44,6 +47,11 @@ public class AbstractExplosivePlant extends AbstractPlant {
         this.damage = damage;
         this.sound = sound;
         this.sound.value().getRange(2);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Plant.createAttributes()
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 1);
     }
 
     //Goals and AI
@@ -137,6 +145,6 @@ public class AbstractExplosivePlant extends AbstractPlant {
     }
 
     static {
-        DATA_SWELL_DIR = SynchedEntityData.defineId(AbstractExplosivePlant.class, EntityDataSerializers.INT);
+        DATA_SWELL_DIR = SynchedEntityData.defineId(ExplosivePlant.class, EntityDataSerializers.INT);
     }
 }

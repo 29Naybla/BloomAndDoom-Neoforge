@@ -56,7 +56,7 @@ public abstract class PlantProjectile extends ThrowableItemProjectile {
     protected void onHitEntity(@NotNull EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
-        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLAYS) || entity instanceof Player player && !((LivingEntityMixinAccess) player).BnD_isZombie())){
+        if (!(entity.getType().is(BnDTags.Entities.PLANT_ALLIES) || entity instanceof Player player && !((LivingEntityMixinAccess) player).BnD_isZombie())){
             entity.hurt(this.damageSources().source(setDamageType(), this, this.getOwner()), 4);
             this.level().broadcastEntityEvent(this, (byte)3);
             shouldBreak = true;

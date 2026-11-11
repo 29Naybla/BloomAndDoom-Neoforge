@@ -1,9 +1,9 @@
 package com.x29naybla.bloom_and_doom.common.item;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.AbstractPlant;
-import com.x29naybla.bloom_and_doom.common.entity.Marigold;
-import com.x29naybla.bloom_and_doom.common.entity.SunShroom;
+import com.x29naybla.bloom_and_doom.common.entity.Plant;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Marigold;
+import com.x29naybla.bloom_and_doom.common.entity.plant.SunShroom;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
 import net.minecraft.ChatFormatting;
@@ -36,7 +36,7 @@ public class SeedPacketItem extends PlantHolderItem {
     private final int sunAmount;
     public final int cooldown;
 
-    public SeedPacketItem(EntityType<? extends AbstractPlant> defaultType, int sunAmount, int cooldown, Properties properties) {
+    public SeedPacketItem(EntityType<? extends Plant> defaultType, int sunAmount, int cooldown, Properties properties) {
         super(properties);
         this.defaultType = defaultType;
         this.sunAmount = sunAmount;
@@ -74,7 +74,7 @@ public class SeedPacketItem extends PlantHolderItem {
                     ItemStack itemStack = context.getItemInHand();
                     Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
                     AABB aabb = this.getType(itemStack).getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
-                    if(level.noCollision(null, aabb) && level.getEntitiesOfClass(AbstractPlant.class, aabb).isEmpty()){
+                    if(level.noCollision(null, aabb) && level.getEntitiesOfClass(Plant.class, aabb).isEmpty()){
                         if(level instanceof ServerLevel serverLevel){
                             Entity entity = this.getType(itemStack).create(serverLevel, EntityType.createDefaultStackConfig(serverLevel, itemStack, context.getPlayer()), blockpos, MobSpawnType.SPAWN_EGG, false, false);
                             if (entity == null) {
@@ -84,7 +84,7 @@ public class SeedPacketItem extends PlantHolderItem {
                             entity.moveTo(entity.getX(), entity.getY(), entity.getZ(), 0, 0);
                             entity.setYRot(f);
                             entity.setXRot(0);
-                            if(entity instanceof AbstractPlant abstractPlant){
+                            if(entity instanceof Plant abstractPlant){
                                 if (abstractPlant.onRightSubstrate(level, blockpos)) {
                                     if (stack.has(DataComponents.CUSTOM_NAME)) abstractPlant.setCustomName(stack.getHoverName());
                                     if(onPlanter(level, blockpos)){

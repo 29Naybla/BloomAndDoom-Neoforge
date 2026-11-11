@@ -1,6 +1,6 @@
 package com.x29naybla.bloom_and_doom.common.entity.goal;
 
-import com.x29naybla.bloom_and_doom.common.entity.Chomper;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Chomper;
 import com.x29naybla.bloom_and_doom.common.entity.LivingEntityMixinAccess;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import net.minecraft.world.entity.Entity;

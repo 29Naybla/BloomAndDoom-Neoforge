@@ -1,5 +1,6 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.Plant;
 import com.x29naybla.bloom_and_doom.common.entity.goal.ChompGoal;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
@@ -9,17 +10,26 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class Chomper extends AbstractPlant {
+public class Chomper extends Plant {
     public static final EntityDataAccessor<Integer> CHEWING = SynchedEntityData.defineId(Chomper.class, EntityDataSerializers.INT);
     public final int maxChewTime = 350;
 
     //Properties
-    public Chomper(EntityType<? extends AbstractPlant> entityType, Level level) {
+    public Chomper(EntityType<? extends Plant> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_CHOMPERS, BnDItems.CHOMPER_SEED_PACKET.toStack(), null);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Plant.createAttributes()
+                .add(Attributes.ATTACK_SPEED, 350)
+                .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 2);
     }
 
     //Goals and AI

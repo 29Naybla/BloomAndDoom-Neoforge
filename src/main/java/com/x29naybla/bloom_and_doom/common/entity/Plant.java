@@ -2,6 +2,8 @@ package com.x29naybla.bloom_and_doom.common.entity;
 
 import com.x29naybla.bloom_and_doom.CommonConfigs;
 import com.x29naybla.bloom_and_doom.common.block.entity.PlanterBlockEntity;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Marigold;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Sunflower;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.registry.BnDDataComponents;
 import com.x29naybla.bloom_and_doom.common.tag.CommonTags;
@@ -25,6 +27,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -34,13 +38,14 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AbstractPlant extends TamableAnimal {
-    public static final EntityDataAccessor<Boolean> DATA_IS_SLEEPING = SynchedEntityData.defineId(AbstractPlant.class, EntityDataSerializers.BOOLEAN);
+public class Plant extends TamableAnimal {
+    public static final EntityDataAccessor<Boolean> DATA_IS_SLEEPING = SynchedEntityData.defineId(Plant.class, EntityDataSerializers.BOOLEAN);
     protected int ticksForSleepyParticles;
     public TagKey<Item> substrate;
     public int packetTime;
@@ -56,7 +61,7 @@ public class AbstractPlant extends TamableAnimal {
     private final boolean fromNight;
 
     //Properties
-    public AbstractPlant(EntityType<? extends AbstractPlant> entityType, Level level, TagKey<Item> substrate, @Nullable ItemStack seedPacket, @Nullable ItemStack pottedItem) {
+    public Plant(EntityType<? extends Plant> entityType, Level level, TagKey<Item> substrate, @Nullable ItemStack seedPacket, @Nullable ItemStack pottedItem) {
         super(entityType, level);
         this.packetTime = 12000;
         this.fromPlanter = false;
@@ -96,8 +101,21 @@ public class AbstractPlant extends TamableAnimal {
     }
 
     @Override
+    public void move(@NotNull MoverType type, @NotNull Vec3 pos) {
+        this.setPos(this.getX(), this.getY(), this.getZ());
+    }
+
+    @Override
     public boolean isFood(@NotNull ItemStack itemStack) {
         return false;
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MOVEMENT_SPEED,-99)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 99)
+                .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 99)
+                .add(Attributes.MAX_HEALTH, 16);
     }
 
     //Goals and AI
@@ -298,7 +316,7 @@ public class AbstractPlant extends TamableAnimal {
         compound.putInt("PacketTime", this.packetTime);
     }
 
-    private static void saveDefaultDataToItemTag(AbstractPlant abstractPlant, ItemStack itemStack) {
+    private static void saveDefaultDataToItemTag(Plant abstractPlant, ItemStack itemStack) {
         if (abstractPlant.hasCustomName()) itemStack.set(DataComponents.CUSTOM_NAME, abstractPlant.getCustomName());
         if (abstractPlant instanceof Marigold marigold) itemStack.set(DataComponents.BASE_COLOR, marigold.getColor());
         if (abstractPlant.isBaby()) itemStack.set(BnDDataComponents.AGE, abstractPlant.getAge());

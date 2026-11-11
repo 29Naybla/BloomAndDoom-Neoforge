@@ -1,5 +1,6 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.SolarPlant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.entity.goal.PlantGenerateSunGoal;
@@ -8,7 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.level.Level;
 
-public class Sunflower extends AbstractSolarPlant {
+public class Sunflower extends SolarPlant {
     public net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
     public net.minecraft.world.entity.AnimationState generatingAnimationState = new net.minecraft.world.entity.AnimationState();
 
@@ -26,7 +27,7 @@ public class Sunflower extends AbstractSolarPlant {
     @Override
     public void aiStep() {
         super.aiStep();
-        this.generatingAnimationState.animateWhen(this.sunTime == 0, tickCount);
+        this.generatingAnimationState.animateWhen(isGenerated(), tickCount);
         this.idleAnimationState.animateWhen(isAlive(), tickCount);
     }
 }

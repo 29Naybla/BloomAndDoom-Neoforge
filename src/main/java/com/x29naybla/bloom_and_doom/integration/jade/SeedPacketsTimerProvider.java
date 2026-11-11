@@ -1,7 +1,7 @@
 package com.x29naybla.bloom_and_doom.integration.jade;
 
 import com.x29naybla.bloom_and_doom.common.block.entity.PlanterBlockEntity;
-import com.x29naybla.bloom_and_doom.common.entity.AbstractPlant;
+import com.x29naybla.bloom_and_doom.common.entity.Plant;
 import com.x29naybla.bloom_and_doom.common.tag.CommonTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,7 +19,7 @@ public enum SeedPacketsTimerProvider implements IEntityComponentProvider, IServe
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
         CompoundTag compound = entityAccessor.getServerData();
-        AbstractPlant abstractPlant = (AbstractPlant) entityAccessor.getEntity();
+        Plant abstractPlant = (Plant) entityAccessor.getEntity();
 
         if (compound.contains("hasSeedPacket") && compound.contains("SeedPacketsTimer") && compound.getBoolean("isFromPlanter") && compound.getBoolean("onPlanter") && !(compound.getBoolean("onFlowerPot")) && !(abstractPlant.isBaby())) {
             iTooltip.add(Component.translatable("bloom_and_doom.seed_packets_timer", entityAccessor.getServerData().getInt("SeedPacketsTimer")));
@@ -29,7 +29,7 @@ public enum SeedPacketsTimerProvider implements IEntityComponentProvider, IServe
 
     @Override
     public void appendServerData(CompoundTag compoundTag, EntityAccessor entityAccessor) {
-        AbstractPlant abstractPlant = (AbstractPlant) entityAccessor.getEntity();
+        Plant abstractPlant = (Plant) entityAccessor.getEntity();
         compoundTag.putInt("SeedPacketsTimer", abstractPlant.packetTime);
         compoundTag.putBoolean("isFromPlanter", abstractPlant.fromPlanter);
         if (abstractPlant.seedPacket != null) {

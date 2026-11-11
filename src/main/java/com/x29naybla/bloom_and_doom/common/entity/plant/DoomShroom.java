@@ -1,5 +1,6 @@
-package com.x29naybla.bloom_and_doom.common.entity;
+package com.x29naybla.bloom_and_doom.common.entity.plant;
 
+import com.x29naybla.bloom_and_doom.common.entity.ExplosivePlant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
@@ -8,7 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class DoomShroom extends AbstractExplosivePlant {
+public class DoomShroom extends ExplosivePlant {
     //Properties
     public DoomShroom(EntityType<? extends DoomShroom> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_DOOM_SHROOMS, BnDItems.DOOM_SHROOM_SEED_PACKET.toStack(), null, 4, 180, BnDSounds.DOOM);

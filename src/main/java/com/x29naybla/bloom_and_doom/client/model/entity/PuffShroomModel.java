@@ -3,7 +3,7 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
-import com.x29naybla.bloom_and_doom.common.entity.PuffShroom;
+import com.x29naybla.bloom_and_doom.common.entity.plant.PuffShroom;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;

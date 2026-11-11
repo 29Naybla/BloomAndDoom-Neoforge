@@ -2,6 +2,9 @@ package com.x29naybla.bloom_and_doom.common.item;
 
 import com.google.common.collect.Maps;
 import com.x29naybla.bloom_and_doom.common.entity.*;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Marigold;
+import com.x29naybla.bloom_and_doom.common.entity.plant.PotatoMine;
+import com.x29naybla.bloom_and_doom.common.entity.plant.Sprout;
 import com.x29naybla.bloom_and_doom.common.registry.BnDDataComponents;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
@@ -59,7 +62,7 @@ public class PottedPlantItem extends PlantHolderItem {
         map.put(DyeColor.PINK, Component.translatable("item.bloom_and_Doom.potted_marigold.pink").withStyle(ChatFormatting.GRAY));
     });
 
-    public PottedPlantItem(EntityType<? extends AbstractPlant> defaultType, Properties properties) {
+    public PottedPlantItem(EntityType<? extends Plant> defaultType, Properties properties) {
         super(defaultType, properties);
     }
 
@@ -97,10 +100,10 @@ public class PottedPlantItem extends PlantHolderItem {
 
         Direction direction = context.getClickedFace();
         if (level instanceof ServerLevel serverLevel) {
-            AbstractPlant abstractPlant = (AbstractPlant) this.getType(stack).create(serverLevel, EntityType.createDefaultStackConfig(serverLevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
+            Plant abstractPlant = (Plant) this.getType(stack).create(serverLevel, EntityType.createDefaultStackConfig(serverLevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
             Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
             AABB aabb = this.getType(stack).getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
-            if(serverLevel.noCollision(null, aabb) && level.getEntitiesOfClass(AbstractPlant.class, aabb).isEmpty()){
+            if(serverLevel.noCollision(null, aabb) && level.getEntitiesOfClass(Plant.class, aabb).isEmpty()){
                 if(serverLevel.isEmptyBlock(blockpos)) {
                     if (direction == Direction.DOWN) {
                         return InteractionResult.FAIL;
@@ -128,7 +131,7 @@ public class PottedPlantItem extends PlantHolderItem {
     private void placePlant(ItemStack stack, ServerLevel serverlevel, UseOnContext context, BlockPos blockpos, Boolean onFlowerPot) {
         Entity entity = this.getType(stack).create(serverlevel, EntityType.createDefaultStackConfig(serverlevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
         if (entity != null) {
-            if (entity instanceof AbstractPlant abstractPlant) {
+            if (entity instanceof Plant abstractPlant) {
                 float f = (float)Mth.floor((Mth.wrapDegrees(context.getRotation()) + 22.5F) / 45.0F) * 45.0F;
                 if (onFlowerPot) {
                     abstractPlant.moveTo(entity.getX(), entity.getY()+0.375, entity.getZ(), 0, 0);
