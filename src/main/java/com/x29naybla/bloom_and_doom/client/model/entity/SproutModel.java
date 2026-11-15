@@ -9,12 +9,11 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class SproutModel<T extends Sprout> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "sprout"), "main");
+            new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("sprout"), "main");
     private final ModelPart sprout;
 
     public SproutModel(ModelPart root) {

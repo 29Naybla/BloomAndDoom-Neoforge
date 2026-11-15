@@ -19,8 +19,8 @@ import java.util.Map;
 public class AlmanacScreen extends Screen {
     private AlmanacPage lPage;
     private AlmanacPage rPage;
-    public static final ResourceLocation ALMANAC_BACKGROUND_RIGHT = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/gui/almanac/almanac_background_right.png");
-    public static final ResourceLocation ALMANAC_BACKGROUND_LEFT = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/gui/almanac/almanac_background_left.png");
+    public static final ResourceLocation ALMANAC_BACKGROUND_RIGHT = BloomAndDoom.locationWithBnDNamespace("textures/gui/almanac/almanac_background_right.png");
+    public static final ResourceLocation ALMANAC_BACKGROUND_LEFT = BloomAndDoom.locationWithBnDNamespace("textures/gui/almanac/almanac_background_left.png");
 
     public AlmanacScreen(Component title) {
         super(title);

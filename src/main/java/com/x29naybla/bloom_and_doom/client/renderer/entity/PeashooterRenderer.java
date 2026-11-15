@@ -27,6 +27,6 @@ public class PeashooterRenderer extends MobRenderer<Peashooter, PeashooterModel<
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Peashooter peashooter) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/peashooter.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/peashooter/peashooter.png");
     }
 }

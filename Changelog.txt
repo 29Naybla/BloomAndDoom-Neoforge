@@ -82,3 +82,15 @@ changelog:
 * reverted some class name changes
 * fixed the Wall-nut idle animation not playing
 * fixed the Bonk Choy idle animation not playing correctly
+
+* fixed baby chompers able to chomp
+* jade integration chomping timer fixed
+* chomper animation restored
+* sprouts will into baby plants // fixed
+* grass block on planters now are properly tinted
+* grass tint will be applied to blocks in the newly made "bloom_and_doom:tinted_grass_blocks" item tag, for now by default it supports only Grounded
+* improved planters
+* reworked Potted Marigold and Potted Sprout tooltip structure
+* gave the Potted Marigold item a visual tint to match the plant
+* Potato mines now have a triggered animation
+* replaced "ResourceLocation.fromNamespaceAndPath" with a new "locationWithBnDNamespace" method in preparation for porting the mod for newer versions

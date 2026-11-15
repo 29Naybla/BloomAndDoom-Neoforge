@@ -31,9 +31,9 @@ public class ZombieWolf extends Wolf {
     @Override
     public @NotNull ResourceLocation getTexture() {
         if (this.isTame()) {
-            return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/zombie_wolf/wolf_zombie_tame.png");
+            return BloomAndDoom.locationWithBnDNamespace("textures/entity/zombie_wolf/wolf_zombie_tame.png");
         } else {
-            return this.isAngry() ? ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/zombie_wolf/wolf_zombie_angry.png") : ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/zombie_wolf/wolf_zombie.png");
+            return this.isAngry() ? BloomAndDoom.locationWithBnDNamespace("textures/entity/zombie_wolf/wolf_zombie_angry.png") : BloomAndDoom.locationWithBnDNamespace("textures/entity/zombie_wolf/wolf_zombie.png");
         }
     }
 

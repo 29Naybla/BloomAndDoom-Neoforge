@@ -24,6 +24,7 @@
   "item.bloom_and_doom.seed_packet.bad_substrate": "This can't be planted here",
 
   "item.bloom_and_doom.potted_sprout": "Potted Sprout",
+  "item.bloom_and_doom.potted_sprout.random": "Random",
   "item.bloom_and_doom.potted_sunflower": "Potted Sunflower",
   "item.bloom_and_doom.potted_marigold": "Potted Marigold",
   "item.bloom_and_Doom.potted_marigold.white": "White Marigold",
@@ -334,6 +335,8 @@
   "effect.bloom_and_doom.zombification": "Zombification",
 
   "bloom_and_doom.description.seed_packets_sun_cost": "Sun Cost: ",
+  "bloom_and_doom.description.potted_sprout_growth": "Will Grow Into:",
+  "bloom_and_doom.description.potted_marigold_color": "Color:",
 
   "tag.item.bloom_and_doom.planter_substrates": "Planter Substrates",
   "tag.item.bloom_and_doom.sustains_mushrooms": "Sustains Mushrooms",

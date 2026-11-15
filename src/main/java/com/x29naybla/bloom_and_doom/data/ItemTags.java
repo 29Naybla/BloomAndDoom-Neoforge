@@ -42,6 +42,13 @@ public class ItemTags extends ItemTagsProvider {
                 .addOptional(ResourceLocation.parse("farmersdelight:organic_compost"))
                 .addOptional(ResourceLocation.parse("farmersdelight:rich_soil"));
 
+        tag(BnDTags.Items.TINTED_GRASS_BLOCKS)
+                .add(Items.GRASS_BLOCK)
+                .addOptional(ResourceLocation.parse("grounded:grassy_silt"))
+                .addOptional(ResourceLocation.parse("grounded:grassy_earthen_clay"))
+                .addOptional(ResourceLocation.parse("grounded:grassy_sandy_dirt"))
+                .addOptional(ResourceLocation.parse("grounded:grassy_permafrost"));
+
         tag(BnDTags.Items.SUSTAINS_SPROUTS)
                 .addTag(net.minecraft.tags.ItemTags.DIRT);
         tag(BnDTags.Items.SUSTAINS_SUNFLOWERS)

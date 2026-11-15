@@ -10,13 +10,12 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class SnowPeaModel<T extends SnowPea> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "snow_pea"), "main");
+            new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("snow_pea"), "main");
     private final ModelPart snow_pea;
     private final ModelPart body;
     private final ModelPart head;

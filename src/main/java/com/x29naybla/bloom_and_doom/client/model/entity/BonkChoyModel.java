@@ -10,12 +10,11 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class BonkChoyModel<T extends BonkChoy> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "bonk_choy"), "main");
+            new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("bonk_choy"), "main");
     private final ModelPart bonk_choy;
 
     public BonkChoyModel(ModelPart root) {

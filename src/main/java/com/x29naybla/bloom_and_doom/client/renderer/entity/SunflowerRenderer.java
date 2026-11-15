@@ -27,7 +27,7 @@ public class SunflowerRenderer extends MobRenderer<Sunflower, SunflowerModel<Sun
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Sunflower sunflower) {
-        if (sunflower.getSleeping()) return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/sunflower/sunflower_sleeping.png");
-        else return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/sunflower/sunflower.png");
+        if (sunflower.getSleeping()) return BloomAndDoom.locationWithBnDNamespace("textures/entity/sunflower/sunflower_sleeping.png");
+        else return BloomAndDoom.locationWithBnDNamespace("textures/entity/sunflower/sunflower.png");
     }
 }

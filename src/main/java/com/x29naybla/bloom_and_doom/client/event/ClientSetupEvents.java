@@ -2,20 +2,21 @@ package com.x29naybla.bloom_and_doom.client.event;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.client.model.entity.*;
-import com.x29naybla.bloom_and_doom.common.registry.BnDEntities;
-import com.x29naybla.bloom_and_doom.common.registry.BnDBlockEntities;
+import com.x29naybla.bloom_and_doom.common.registry.*;
 import com.x29naybla.bloom_and_doom.client.renderer.block.PlanterBlockEntityRenderer;
 import com.x29naybla.bloom_and_doom.client.renderer.entity.*;
-import com.x29naybla.bloom_and_doom.common.registry.BnDItemProperties;
-import com.x29naybla.bloom_and_doom.common.registry.BnDParticles;
 import com.x29naybla.bloom_and_doom.client.particle.SleepingParticles;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.WolfRenderer;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
 @EventBusSubscriber(modid = BloomAndDoom.MOD_ID, value = Dist.CLIENT)
@@ -74,5 +75,11 @@ public class ClientSetupEvents {
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(BnDParticles.SLEEPING_PARTICLES.get(), SleepingParticles.Provider::new);
+    }
+
+    @SubscribeEvent
+    public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(stack, DyeColor.WHITE.getTextureDiffuseColor())),
+                BnDItems.POTTED_MARIGOLD.get());
     }
 }

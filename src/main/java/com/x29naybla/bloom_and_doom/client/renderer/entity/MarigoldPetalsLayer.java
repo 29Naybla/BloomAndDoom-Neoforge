@@ -20,13 +20,13 @@ import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.NotNull;
 
 public class MarigoldPetalsLayer extends RenderLayer<Marigold, MarigoldModel<Marigold>> {
-    private static final ResourceLocation MARIGOLD_PETALS_LOCATION = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID,"textures/entity/marigold/marigold_petals.png");
+    private static final ResourceLocation MARIGOLD_PETALS_LOCATION = BloomAndDoom.locationWithBnDNamespace("textures/entity/marigold/marigold_petals.png");
     private final MarigoldPetalsModel<Marigold> model;
 
     public MarigoldPetalsLayer(RenderLayerParent<Marigold, MarigoldModel<Marigold>> renderer, EntityModelSet modelSet) {
         super(renderer);
         this.model = new MarigoldPetalsModel<>(modelSet.bakeLayer(
-                new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "marigold"), "main")));
+                new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("marigold"), "main")));
     }
 
     @Override

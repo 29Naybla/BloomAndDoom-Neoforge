@@ -27,7 +27,7 @@ public class PuffShroomRenderer extends MobRenderer<PuffShroom, PuffShroomModel<
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull PuffShroom puffShroom) {
-        if (puffShroom.getSleeping()) return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/puff_shroom/puff_shroom_sleeping.png"); else
-            return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/puff_shroom/puff_shroom.png");
+        if (puffShroom.getSleeping()) return BloomAndDoom.locationWithBnDNamespace("textures/entity/puff_shroom/puff_shroom_sleeping.png"); else
+            return BloomAndDoom.locationWithBnDNamespace("textures/entity/puff_shroom/puff_shroom.png");
     }
 }

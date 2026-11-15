@@ -6,7 +6,6 @@ import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
@@ -669,7 +668,7 @@ public class BnDRecipeProvider extends RecipeProvider implements IConditionBuild
     protected void stonecutterBuilder(RecipeOutput recipeOutput, RecipeCategory category, ItemLike result, ItemLike material, int resultCount){
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), category, result, resultCount)
                 .unlockedBy(getHasName(material), has(material))
-                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, getItemName(result) + "_from_" + getItemName(material) + "_stonecutting"));
+                .save(recipeOutput, BloomAndDoom.locationWithBnDNamespace(getItemName(result) + "_from_" + getItemName(material) + "_stonecutting"));
     }
 
     protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

@@ -27,6 +27,6 @@ public class SnowPeaRenderer extends MobRenderer<SnowPea, SnowPeaModel<SnowPea>>
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull SnowPea snowPea) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/snow_pea.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/peashooter/snow_pea.png");
     }
 }

@@ -27,8 +27,8 @@ public class WallNutRenderer extends MobRenderer<WallNut, WallNutModel<WallNut>>
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull WallNut wallNut) {
-        if (wallNut.getHealth() <= (wallNut.getMaxHealth()/3)) return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/wall_nut/wall_nut_dying.png");
-        else if (wallNut.getHealth() <= ((wallNut.getMaxHealth()/3)*2)) return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/wall_nut/wall_nut_hurt.png");
-        else return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/wall_nut/wall_nut_well.png");
+        if (wallNut.getHealth() <= (wallNut.getMaxHealth()/3)) return BloomAndDoom.locationWithBnDNamespace("textures/entity/wall_nut/wall_nut_dying.png");
+        else if (wallNut.getHealth() <= ((wallNut.getMaxHealth()/3)*2)) return BloomAndDoom.locationWithBnDNamespace("textures/entity/wall_nut/wall_nut_hurt.png");
+        else return BloomAndDoom.locationWithBnDNamespace("textures/entity/wall_nut/wall_nut_well.png");
     }
 }

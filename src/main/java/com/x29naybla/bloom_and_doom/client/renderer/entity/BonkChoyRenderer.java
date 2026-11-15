@@ -27,6 +27,6 @@ public class BonkChoyRenderer extends MobRenderer<BonkChoy, BonkChoyModel<BonkCh
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull BonkChoy bonkChoy) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/bonk_choy/bonk_choy.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/bonk_choy/bonk_choy.png");
     }
 }

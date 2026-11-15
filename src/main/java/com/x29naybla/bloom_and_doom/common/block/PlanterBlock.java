@@ -33,17 +33,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.util.TriState;
 import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.Configuration;
 import vectorwing.farmersdelight.common.registry.ModBlocks;
 import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.tag.ModTags;
-import vectorwing.farmersdelight.common.utility.MathUtils;
 
 import java.util.stream.Stream;
+
+import static vectorwing.farmersdelight.common.block.RichSoilBlock.tryBoostingPlantsAboveAndBelow;
 
 public class PlanterBlock extends BaseEntityBlock {
     public static final BooleanProperty FILLED = BooleanProperty.create("filled");
@@ -52,19 +50,21 @@ public class PlanterBlock extends BaseEntityBlock {
         return CODEC;
     }
 
-    public static final VoxelShape SHAPE_EMPTY  = Shapes.join(Stream.of(
-            Block.box(1, 0, 1, 15, 1, 15),
-            Block.box(2, 1, 1, 14, 12, 2),
-            Block.box(2, 1, 14, 14, 12, 15),
-            Block.box(1, 1, 1, 2, 12, 15),
-            Block.box(14, 1, 1, 15, 12, 15)
-            ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get(), Stream.of(
-            Block.box(2, 12, 0, 14, 16, 2),
-            Block.box(2, 12, 14, 14, 16, 16),
-            Block.box(0, 12, 0, 2, 16, 16),
-            Block.box(14, 12, 0, 16, 16, 16)
-            ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get(), BooleanOp.OR);
-    public static final VoxelShape SHAPE_FULL = Shapes.join(Block.box(1, 0, 1, 15, 12, 15), Block.box(0, 12, 0, 16, 16, 16), BooleanOp.OR);
+    public static final VoxelShape SHAPE_EMPTY  = Stream.of(
+            Block.box(0, 0, 0, 16, 1, 16),
+            Block.box(14, 1, 0, 16, 16, 16),
+            Block.box(0, 1, 0, 2, 16, 16),
+            Block.box(2, 1, 0, 14, 16, 2),
+            Block.box(2, 1, 14, 14, 16, 16)
+    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+    public static final VoxelShape SHAPE_FULL = Stream.of(
+            Block.box(0, 15, 0, 16, 16, 16),
+            Block.box(0, 0, 0, 16, 14, 16),
+            Block.box(15, 14, 0, 16, 15, 16),
+            Block.box(0, 14, 0, 1, 15, 16),
+            Block.box(1, 14, 0, 15, 15, 1),
+            Block.box(1, 14, 15, 15, 15, 16)
+    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
     public PlanterBlock(Properties properties) {
         super(properties);
@@ -117,13 +117,13 @@ public class PlanterBlock extends BaseEntityBlock {
                     BlockItem content = (BlockItem) stackOnPlanter.getItem();
                     level.playSound(null, pos, content.getBlock().getSoundType(content.getBlock().defaultBlockState(), level, pos, null).getBreakSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
 
-                    player.setItemInHand(InteractionHand.MAIN_HAND, stackOnPlanter);
+                    player.addItem(stackOnPlanter);
                     planter.clearContents();
 
                     if(!level.isClientSide()) level.setBlockAndUpdate(pos, state.setValue(FILLED, false));
                 } else
                     level.playSound(null, pos, SoundEvents.DECORATED_POT_INSERT_FAIL, SoundSource.BLOCKS, 1.0F, 1.0F);
-            } else if(!(itemStack.isEmpty() && substrate.isEmpty())) {
+            } else {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
 
@@ -150,13 +150,11 @@ public class PlanterBlock extends BaseEntityBlock {
 
             if (!state.getValue(FILLED) && (plant.is(Blocks.TWISTING_VINES) || plant.is(Blocks.TWISTING_VINES_PLANT)))
                 return TriState.FALSE;
-            if (!substrate.isEmpty() && !substrate.is(BnDTags.Items.SUSTAINS_MUSHROOMS)) {
-                if (plant.is(CommonTags.Blocks.MUSHROOMS)){
-                    return TriState.DEFAULT;
-                }
+            if (state.getValue(FILLED) && !substrate.is(BnDTags.Items.SUSTAINS_MUSHROOMS)) {
+                if (plant.is(CommonTags.Blocks.MUSHROOMS)) return TriState.DEFAULT;
             }
             if (substrate.is(ItemTags.DIRT) && plant.is(BnDTags.Blocks.DIRT_SUSTAINS)){
-                 return TriState.TRUE;
+                return TriState.TRUE;
             } else if (substrate.is(BnDTags.Items.SUSTAINS_MUSHROOMS) && plant.is(BnDTags.Blocks.MYCELIUM_SUSTAINS)){
                 return TriState.TRUE;
             } else if ((substrate.is(Items.SAND) || substrate.is(Items.RED_SAND)) && plant.is(BnDTags.Blocks.SAND_SUSTAINS)) {
@@ -180,49 +178,34 @@ public class PlanterBlock extends BaseEntityBlock {
 
             if(ModList.get().isLoaded(FarmersDelight.MODID)) {
                 if(substrate.is(ModItems.RICH_SOIL.get())) {
-                    if (!level.isClientSide) {
-                        BlockState aboveState = level.getBlockState(pos.above());
-                        Block aboveBlock = aboveState.getBlock();
-
-                        // Do nothing if the plant is unaffected by rich soil
-                        if (aboveState.is(ModTags.UNAFFECTED_BY_RICH_SOIL)) {
-                            return;
-                        }
-
-                        // Convert mushrooms to colonies if it's dark enough
-                        if (aboveBlock == Blocks.BROWN_MUSHROOM) {
-                            level.setBlockAndUpdate(pos.above(), ModBlocks.BROWN_MUSHROOM_COLONY.get().defaultBlockState());
-                            return;
-                        }
-                        if (aboveBlock == Blocks.RED_MUSHROOM) {
-                            level.setBlockAndUpdate(pos.above(), ModBlocks.RED_MUSHROOM_COLONY.get().defaultBlockState());
-                            return;
-                        }
-
-                        if (Configuration.RICH_SOIL_BOOST_CHANCE.get() == 0.0) {
-                            return;
-                        }
-
-                        // If all else fails, and it's a plant, give it a growth boost now and then!
-                        if (aboveBlock instanceof BonemealableBlock growable && MathUtils.RAND.nextFloat() <= Configuration.RICH_SOIL_BOOST_CHANCE.get()) {
-                            if (growable.isValidBonemealTarget(level, pos.above(), aboveState) && CommonHooks.canCropGrow(level, pos.above(), aboveState, true)) {
-                                growable.performBonemeal(level, level.random, pos.above(), aboveState);
-                                //level.levelEvent(1505, pos.above(), 0);
-                                CommonHooks.fireCropGrowPost(level, pos.above(), aboveState);
-                            }
-                        }
+                    BlockPos abovePos = pos.above();
+                    BlockState aboveState = level.getBlockState(abovePos);
+                    if (!this.convertMushroomToColony(aboveState, abovePos, level)) {
+                        tryBoostingPlantsAboveAndBelow(level, pos, random);
                     }
                 }
             }
         }
     }
 
+    public boolean convertMushroomToColony(BlockState targetState, BlockPos targetPos, ServerLevel level) {
+        if(ModList.get().isLoaded(FarmersDelight.MODID)) {
+            if (targetState.is(net.minecraft.world.level.block.Blocks.BROWN_MUSHROOM)) {
+                level.setBlockAndUpdate(targetPos, (ModBlocks.BROWN_MUSHROOM_COLONY.get()).defaultBlockState());
+                return true;
+            } else if (targetState.is(net.minecraft.world.level.block.Blocks.RED_MUSHROOM)) {
+                level.setBlockAndUpdate(targetPos, (ModBlocks.RED_MUSHROOM_COLONY.get()).defaultBlockState());
+                return true;
+            } else {
+                return false;
+            }
+        } else
+            return false;
+    }
+
     @Override
     protected @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        Boolean filled = state.getValue(FILLED);
-
-        if (filled) return SHAPE_FULL;
-        else return SHAPE_EMPTY;
+        if (state.getValue(FILLED)) return SHAPE_FULL; else return SHAPE_EMPTY;
     }
 
     @Override

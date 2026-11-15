@@ -28,6 +28,6 @@ public class MarigoldRenderer extends MobRenderer<Marigold, MarigoldModel<Marigo
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Marigold marigold) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/marigold/marigold.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/marigold/marigold.png");
     }
 }

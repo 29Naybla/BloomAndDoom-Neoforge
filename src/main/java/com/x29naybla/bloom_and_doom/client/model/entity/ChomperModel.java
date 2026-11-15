@@ -3,19 +3,19 @@ package com.x29naybla.bloom_and_doom.client.model.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
+import com.x29naybla.bloom_and_doom.client.animation.ChomperAnimation;
 import com.x29naybla.bloom_and_doom.common.entity.plant.Chomper;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
 public class ChomperModel<T extends Chomper> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "chomper"), "main");
+            new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("chomper"), "main");
     private final ModelPart chomper;
     private final ModelPart body;
     private final ModelPart neck;
@@ -80,6 +80,11 @@ public class ChomperModel<T extends Chomper> extends HierarchicalModel<T> {
     public void setupAnim(@NotNull Chomper chomper, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch);
+
+        this.animate(chomper.idleAnimationState, ChomperAnimation.CHOMPER_IDLE, ageInTicks);
+        this.animate(chomper.breathingAnimationState, ChomperAnimation.CHOMPER_BREATHE, ageInTicks);
+        this.animate(chomper.chompAnimationState, ChomperAnimation.CHOMPER_CHOMP, ageInTicks);
+        this.animate(chomper.chewAnimationState, ChomperAnimation.CHOMPER_CHEW, ageInTicks);
     }
 
     private void applyHeadRotation(float headYaw, float headPitch) {

@@ -1,0 +1,21 @@
+{
+  "values": [
+    "minecraft:grass_block",
+    {
+      "id": "grounded:grassy_silt",
+      "required": false
+    },
+    {
+      "id": "grounded:grassy_earthen_clay",
+      "required": false
+    },
+    {
+      "id": "grounded:grassy_sandy_dirt",
+      "required": false
+    },
+    {
+      "id": "grounded:grassy_permafrost",
+      "required": false
+    }
+  ]
+}

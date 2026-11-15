@@ -3,7 +3,6 @@ package com.x29naybla.bloom_and_doom.common.item;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.registry.BnDDataComponents;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.block.Blocks;
@@ -22,14 +21,6 @@ public class PottedPlantItemstacks {
     public static ItemStack PottedSunflowerInstance() {
         ItemStack itemStack = new ItemStack(BnDItems.POTTED_SUNFLOWER.get());
         itemStack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(Blocks.FLOWER_POT.asItem().getDefaultInstance())));
-        itemStack.set(BnDDataComponents.HEALTH, 16F);
-        return itemStack;
-    }
-
-    public static ItemStack PottedMarigoldInstance() {
-        ItemStack itemStack = new ItemStack(BnDItems.POTTED_MARIGOLD.get());
-        itemStack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(Blocks.FLOWER_POT.asItem().getDefaultInstance())));
-        itemStack.set(DataComponents.BASE_COLOR, DyeColor.WHITE);
         itemStack.set(BnDDataComponents.HEALTH, 16F);
         return itemStack;
     }

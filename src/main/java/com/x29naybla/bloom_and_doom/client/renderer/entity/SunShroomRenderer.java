@@ -27,7 +27,7 @@ public class SunShroomRenderer extends MobRenderer<SunShroom, SunShroomModel<Sun
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull SunShroom sunShroom) {
-        if (sunShroom.getSleeping()) return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/sun_shroom/sun_shroom_sleeping.png"); else
-            return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/sun_shroom/sun_shroom.png");
+        if (sunShroom.getSleeping()) return BloomAndDoom.locationWithBnDNamespace("textures/entity/sun_shroom/sun_shroom_sleeping.png"); else
+            return BloomAndDoom.locationWithBnDNamespace("textures/entity/sun_shroom/sun_shroom.png");
     }
 }

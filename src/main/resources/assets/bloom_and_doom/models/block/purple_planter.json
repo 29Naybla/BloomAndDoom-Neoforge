@@ -1,9 +1,9 @@
 {
 	"parent":"bloom_and_doom:block/planter",
 	"textures":{
-		"0": "bloom_and_doom:block/purple_planter_top",
-		"1": "bloom_and_doom:block/purple_planter_side",
-		"2": "bloom_and_doom:block/purple_planter_bottom",
+		"top": "bloom_and_doom:block/purple_planter_top",
+		"side": "bloom_and_doom:block/purple_planter_side",
+		"bottom": "bloom_and_doom:block/purple_planter_bottom",
 		"particle": "minecraft:block/purple_terracotta"
 	}
 }

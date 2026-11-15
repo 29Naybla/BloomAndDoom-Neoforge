@@ -3,7 +3,6 @@ package com.x29naybla.bloom_and_doom.data;
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.common.registry.BnDBlocks;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -53,69 +52,69 @@ public class BnDBlockStateProvider extends BlockStateProvider {
         stairsBlock(BnDBlocks.MAGENTA_PLASTIC_STAIRS.get(), blockTexture(BnDBlocks.MAGENTA_PLASTIC_BLOCK.get()));
         stairsBlock(BnDBlocks.PINK_PLASTIC_STAIRS.get(), blockTexture(BnDBlocks.PINK_PLASTIC_BLOCK.get()));
 
-        slabBlock(BnDBlocks.WHITE_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/white_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/white_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/white_plastic_slab_double")));
+        slabBlock(BnDBlocks.WHITE_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/white_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/white_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/white_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.LIGHT_GRAY_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/light_gray_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/light_gray_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/light_gray_plastic_slab_double")));
+        slabBlock(BnDBlocks.LIGHT_GRAY_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/light_gray_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/light_gray_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/light_gray_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.GRAY_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/gray_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/gray_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/gray_plastic_slab_double")));
+        slabBlock(BnDBlocks.GRAY_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/gray_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/gray_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/gray_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.BLACK_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/black_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/black_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/black_plastic_slab_double")));
+        slabBlock(BnDBlocks.BLACK_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/black_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/black_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/black_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.BROWN_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/brown_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/brown_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/brown_plastic_slab_double")));
+        slabBlock(BnDBlocks.BROWN_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/brown_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/brown_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/brown_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.RED_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/red_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/red_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/red_plastic_slab_double")));
+        slabBlock(BnDBlocks.RED_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/red_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/red_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/red_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.ORANGE_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/orange_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/orange_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/orange_plastic_slab_double")));
+        slabBlock(BnDBlocks.ORANGE_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/orange_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/orange_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/orange_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.YELLOW_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/yellow_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/yellow_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/yellow_plastic_slab_double")));
+        slabBlock(BnDBlocks.YELLOW_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/yellow_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/yellow_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/yellow_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.LIME_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/lime_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/lime_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/lime_plastic_slab_double")));
+        slabBlock(BnDBlocks.LIME_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/lime_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/lime_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/lime_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.GREEN_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/green_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/green_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/green_plastic_slab_double")));
+        slabBlock(BnDBlocks.GREEN_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/green_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/green_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/green_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.CYAN_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/cyan_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/cyan_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/cyan_plastic_slab_double")));
+        slabBlock(BnDBlocks.CYAN_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/cyan_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/cyan_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/cyan_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.LIGHT_BLUE_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/light_blue_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/light_blue_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/light_blue_plastic_slab_double")));
+        slabBlock(BnDBlocks.LIGHT_BLUE_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/light_blue_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/light_blue_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/light_blue_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.BLUE_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/blue_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/blue_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/blue_plastic_slab_double")));
+        slabBlock(BnDBlocks.BLUE_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/blue_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/blue_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/blue_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.PURPLE_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/purple_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/purple_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/purple_plastic_slab_double")));
+        slabBlock(BnDBlocks.PURPLE_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/purple_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/purple_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/purple_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.MAGENTA_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/magenta_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/magenta_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/magenta_plastic_slab_double")));
+        slabBlock(BnDBlocks.MAGENTA_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/magenta_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/magenta_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/magenta_plastic_slab_double")));
 
-        slabBlock(BnDBlocks.PINK_PLASTIC_SLAB.get(), models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/pink_plastic_slab")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/pink_plastic_slab_top")),
-                models().getExistingFile(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "block/pink_plastic_slab_double")));
+        slabBlock(BnDBlocks.PINK_PLASTIC_SLAB.get(), models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/pink_plastic_slab")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/pink_plastic_slab_top")),
+                models().getExistingFile(BloomAndDoom.locationWithBnDNamespace("block/pink_plastic_slab_double")));
 
         wallBlock(BnDBlocks.WHITE_PLASTIC_WALL.get(), blockTexture(BnDBlocks.WHITE_PLASTIC_BLOCK.get()));
         wallBlock(BnDBlocks.LIGHT_GRAY_PLASTIC_WALL.get(), blockTexture(BnDBlocks.LIGHT_GRAY_PLASTIC_BLOCK.get()));

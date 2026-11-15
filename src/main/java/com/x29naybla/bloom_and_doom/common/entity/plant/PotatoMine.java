@@ -8,11 +8,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class PotatoMine extends ExplosivePlant {
+    public AnimationState armingAnimationState = new AnimationState();
+    public AnimationState idleAnimationState = new AnimationState();
     protected static final EntityDataAccessor<Boolean> ARMED = SynchedEntityData.defineId(PotatoMine.class, EntityDataSerializers.BOOLEAN);
     public int armingTime = 0;
     public int maxArmingTime = 40;
@@ -42,17 +45,9 @@ public class PotatoMine extends ExplosivePlant {
     @Override
     public void aiStep() {
         super.aiStep();
+        this.armingAnimationState.animateWhen(!getArmed(), tickCount);
+        this.idleAnimationState.animateWhen(isAlive() && getArmed(), tickCount);
     }
-
-    //GeckoLib
-    /*
-    protected <E extends PotatoMine> PlayState animController(final AnimationState<E> event) {
-        if (!getArmed()){
-            event.setAnimation(ARMING);
-        }
-        return PlayState.CONTINUE;
-    }
-     */
 
     //Data
     public boolean getArmed(){

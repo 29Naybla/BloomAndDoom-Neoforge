@@ -27,6 +27,6 @@ public class RepeaterRenderer extends MobRenderer<Repeater, RepeaterModel<Repeat
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Repeater repeater) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/peashooter/repeater.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/peashooter/repeater.png");
     }
 }

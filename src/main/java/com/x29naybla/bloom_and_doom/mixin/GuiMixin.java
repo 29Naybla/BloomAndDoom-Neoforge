@@ -25,17 +25,17 @@ public class GuiMixin {
     private int tickCount;
 
     @Unique
-    private static final ResourceLocation FOOD_EMPTY_HUNGER_SPRITE_ZOMBIE = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "hud/z_food_empty_hunger");
+    private static final ResourceLocation FOOD_EMPTY_HUNGER_SPRITE_ZOMBIE = BloomAndDoom.locationWithBnDNamespace("hud/z_food_empty_hunger");
     @Unique
-    private static final ResourceLocation FOOD_HALF_HUNGER_SPRITE_ZOMBIE = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "hud/z_food_half_hunger");
+    private static final ResourceLocation FOOD_HALF_HUNGER_SPRITE_ZOMBIE = BloomAndDoom.locationWithBnDNamespace("hud/z_food_half_hunger");
     @Unique
-    private static final ResourceLocation FOOD_FULL_HUNGER_SPRITE_ZOMBIE = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "hud/z_food_full_hunger");
+    private static final ResourceLocation FOOD_FULL_HUNGER_SPRITE_ZOMBIE = BloomAndDoom.locationWithBnDNamespace("hud/z_food_full_hunger");
     @Unique
-    private static final ResourceLocation FOOD_EMPTY_SPRITE_ZOMBIE = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "hud/z_food_empty");
+    private static final ResourceLocation FOOD_EMPTY_SPRITE_ZOMBIE = BloomAndDoom.locationWithBnDNamespace("hud/z_food_empty");
     @Unique
-    private static final ResourceLocation FOOD_HALF_SPRITE_ZOMBIE = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "hud/z_food_half");
+    private static final ResourceLocation FOOD_HALF_SPRITE_ZOMBIE = BloomAndDoom.locationWithBnDNamespace("hud/z_food_half");
     @Unique
-    private static final ResourceLocation FOOD_FULL_SPRITE_ZOMBIE = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "hud/z_food_full");
+    private static final ResourceLocation FOOD_FULL_SPRITE_ZOMBIE = BloomAndDoom.locationWithBnDNamespace("hud/z_food_full");
 
 
     @Inject(method = {"renderFood"}, at = @At("HEAD"), cancellable = true)

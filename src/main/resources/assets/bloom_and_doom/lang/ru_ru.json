@@ -24,6 +24,7 @@
   "item.bloom_and_doom.seed_packet.bad_substrate": "This can't be planted here",
 
   "item.bloom_and_doom.potted_sprout": "Росток в горшке",
+  "item.bloom_and_doom.potted_sprout.random": "Random",
   "item.bloom_and_doom.potted_sunflower": "Подсолнух в горшке",
   "item.bloom_and_doom.potted_marigold": "Золотая Ромашка в горшке",
   "item.bloom_and_Doom.potted_marigold.white": "White Marigold",
@@ -334,6 +335,8 @@
   "effect.bloom_and_doom.zombification": "Зомбификация",
 
   "bloom_and_doom.description.seed_packets_sun_cost": "Стоимость в солнце: ",
+  "bloom_and_doom.description.potted_sprout_growth": "Will Grow Into:",
+  "bloom_and_doom.description.potted_marigold_color": "Color:",
 
   "tag.item.bloom_and_doom.planter_substrates": "Субстраты для горшков",
   "tag.item.bloom_and_doom.sustains_mushrooms": "Поддерживает грибы",

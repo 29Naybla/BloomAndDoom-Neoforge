@@ -10,12 +10,11 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class WallNutModel<T extends WallNut> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "wall_nut"), "main");
+            new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("wall_nut"), "main");
     private final ModelPart wall_nut;
 
     public WallNutModel(ModelPart root) {

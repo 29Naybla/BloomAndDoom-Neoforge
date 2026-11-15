@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "bloom_and_doom:item/potted_marigold"
+    "layer0": "bloom_and_doom:item/potted_marigold",
+    "layer1": "bloom_and_doom:item/potted_marigold_overlay"
   }
 }
