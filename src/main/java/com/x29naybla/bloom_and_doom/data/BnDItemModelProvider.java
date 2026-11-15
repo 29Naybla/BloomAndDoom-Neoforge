@@ -4,7 +4,6 @@ import com.x29naybla.bloom_and_doom.BloomAndDoom;
 import com.x29naybla.bloom_and_doom.common.registry.BnDBlocks;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -56,7 +55,6 @@ public class BnDItemModelProvider extends ItemModelProvider {
 
     public void wallItem(DeferredBlock<?> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
-                .texture("wall", ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID,
-                        "block/" + baseBlock.getId().getPath()));
+                .texture("wall", BloomAndDoom.locationWithBnDNamespace("block/" + baseBlock.getId().getPath()));
     }
 }

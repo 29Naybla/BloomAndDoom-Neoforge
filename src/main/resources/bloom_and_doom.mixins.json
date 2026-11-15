@@ -5,6 +5,7 @@
     "ArmadilloScaredByZombiePlayerMixin",
     "LivingEntityMixin",
     "PickedUpItemTriggerMixin",
+    "ServerPlayerMixin",
     "VillagerHostilesSensorMixin",
     "VillagerMixin",
     "WanderingTraderMixin",

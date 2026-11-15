@@ -24,6 +24,7 @@
   "item.bloom_and_doom.seed_packet.bad_substrate": "This can't be planted here",
 
   "item.bloom_and_doom.potted_sprout": "Chou de Bruxelles en pot",
+  "item.bloom_and_doom.potted_sprout.random": "Random",
   "item.bloom_and_doom.potted_sunflower": "Tournesol en pot",
   "item.bloom_and_doom.potted_marigold": "Souci en pot",
   "item.bloom_and_Doom.potted_marigold.white": "Souci blanche",
@@ -263,6 +264,7 @@
   "death.attack.frozen_pea": "%1$s got peapsicled",
   "death.attack.spore": "%1$s was sent to their spore-n point",
   "death.attack.plant_explosion": "%1$s got turned into mush",
+  "death.attack.plant_punch": "%1$s was punched into fertilizer",
 
   "creativetab.bloom_and_doom.blocks": "B&D blocs",
   "creativetab.bloom_and_doom.items": "B&D objets",
@@ -333,6 +335,8 @@
   "effect.bloom_and_doom.zombification": "Zombification",
 
   "bloom_and_doom.description.seed_packets_sun_cost": "Coût du soleil : ",
+  "bloom_and_doom.description.potted_sprout_growth": "Will Grow Into:",
+  "bloom_and_doom.description.potted_marigold_color": "Color:",
 
   "tag.item.bloom_and_doom.planter_substrates": "Planter Substrates",
   "tag.item.bloom_and_doom.sustains_mushrooms": "Sustains Mushrooms",

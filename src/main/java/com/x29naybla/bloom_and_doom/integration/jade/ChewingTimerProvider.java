@@ -20,7 +20,7 @@ public enum ChewingTimerProvider implements IEntityComponentProvider, IServerDat
         CompoundTag compound = entityAccessor.getServerData();
         Chomper chomper = (Chomper) entityAccessor.getEntity();
 
-        if (entityAccessor.getServerData().contains("Chewing") && !chomper.isBaby()) {
+        if (entityAccessor.getServerData().contains("Chewing") && compound.getInt("Chewing") != 0 && !chomper.isBaby()) {
             iTooltip.add(Component.translatable(BloomAndDoom.MOD_ID+".chew_timer", entityAccessor.getServerData().getInt("Chewing")));
             iTooltip.append(IThemeHelper.get().seconds(compound.getInt("Chewing"), 20));
         }

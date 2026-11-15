@@ -40,11 +40,11 @@ public class BnDSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> WATERING_CAN_USE = registerSoundEvent("watering_can_use");
 
     private static ResourceKey<JukeboxSong> createSong(String name){
-        return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, name));
+        return ResourceKey.create(Registries.JUKEBOX_SONG, BloomAndDoom.locationWithBnDNamespace(name));
     }
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name){
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, name);
+        ResourceLocation id = BloomAndDoom.locationWithBnDNamespace(name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));
     }
 

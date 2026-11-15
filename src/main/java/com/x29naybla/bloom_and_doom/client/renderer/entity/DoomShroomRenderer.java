@@ -27,7 +27,7 @@ public class DoomShroomRenderer extends MobRenderer<DoomShroom, DoomShroomModel<
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull DoomShroom doomShroom) {
-        if (doomShroom.getSleeping()) return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/doom_shroom/doom_shroom_sleeping.png"); else
-            return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/doom_shroom/doom_shroom.png");
+        if (doomShroom.getSleeping()) return BloomAndDoom.locationWithBnDNamespace("textures/entity/doom_shroom/doom_shroom_sleeping.png"); else
+            return BloomAndDoom.locationWithBnDNamespace("textures/entity/doom_shroom/doom_shroom.png");
     }
 }

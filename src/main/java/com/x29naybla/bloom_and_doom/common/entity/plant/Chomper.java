@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -17,6 +18,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class Chomper extends Plant {
+    public AnimationState idleAnimationState = new AnimationState();
+    public AnimationState breathingAnimationState = new AnimationState();
+    public AnimationState chompAnimationState = new AnimationState();
+    public AnimationState chewAnimationState = new AnimationState();
     public static final EntityDataAccessor<Integer> CHEWING = SynchedEntityData.defineId(Chomper.class, EntityDataSerializers.INT);
     public final int maxChewTime = 350;
 
@@ -39,6 +44,15 @@ public class Chomper extends Plant {
     }
 
     @Override
+    public void aiStep() {
+        super.aiStep();
+        this.idleAnimationState.animateWhen(isAlive(), tickCount);
+        this.breathingAnimationState.animateWhen(!isChewing(), tickCount);
+        this.chompAnimationState.animateWhen(getChewing()>=(15*20), tickCount);
+        this.chewAnimationState.animateWhen(getChewing()<(16*20) && getChewing()>0, tickCount);
+    }
+
+    @Override
     public void tick() {
         if (!level().isClientSide) {
             if (getChewing() >= 1) {
@@ -48,17 +62,6 @@ public class Chomper extends Plant {
         }
         super.tick();
     }
-
-    //GeckoLib
-    /*
-    protected <E extends Chomper> PlayState animController(final AnimationState<E> event) {
-        if (getChewing() > 15) {
-            event.setAnimation(CHOMP.thenLoop("animation.chomper.chew"));
-        } else
-            event.setAnimation(IDLE);
-        return PlayState.CONTINUE;
-    }
-     */
 
     //Data
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
@@ -88,7 +91,7 @@ public class Chomper extends Plant {
         entityData.set(CHEWING, chomping);
     }
 
-    public boolean isNotChewing() {
+    public boolean isChewing() {
         return entityData.get(CHEWING) == 0;
     }
 

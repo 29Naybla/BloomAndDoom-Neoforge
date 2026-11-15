@@ -9,12 +9,11 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class PuffShroomModel<T extends PuffShroom> extends HierarchicalModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION =
-            new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "puff_shroom"), "main");
+            new ModelLayerLocation(BloomAndDoom.locationWithBnDNamespace("puff_shroom"), "main");
     private final ModelPart puff_shroom;
 
     public PuffShroomModel(ModelPart root) {

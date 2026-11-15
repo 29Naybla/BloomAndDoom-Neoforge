@@ -32,7 +32,7 @@ public class BnDTags {
         public static final TagKey<Block> GRAVESTONES = createTag("gravestones");
 
         private static TagKey<Block> createTag(String name){
-            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, name));
+            return BlockTags.create(BloomAndDoom.locationWithBnDNamespace(name));
         }
 
         private static TagKey<Block> externalBlockTag(String modId, String path) {
@@ -43,9 +43,9 @@ public class BnDTags {
     public static class Items {
         public static final TagKey<Item> PLANTER_SUBSTRATES = createTag("planter_substrates");
         public static final TagKey<Item> SUSTAINS_MUSHROOMS = createTag("sustains_mushrooms");
+        public static final TagKey<Item> TINTED_GRASS_BLOCKS = createTag("tinted_grass_blocks");
 
         public static final TagKey<Item> SUSTAINS_SPROUTS = createTag("sustains_sprouts");
-
         public static final TagKey<Item> SUSTAINS_SUNFLOWERS = createTag("sustains_sunflowers");
         public static final TagKey<Item> SUSTAINS_MARIGOLDS = createTag("sustains_marigolds");
         public static final TagKey<Item> SUSTAINS_PEASHOOTERS = createTag("sustains_peashooters");
@@ -64,7 +64,7 @@ public class BnDTags {
         public static final TagKey<Item> ZOMBIE_ANTIDOTE = createTag("zombie_antidote");
 
         private static TagKey<Item> createTag(String name){
-            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, name));
+            return ItemTags.create(BloomAndDoom.locationWithBnDNamespace(name));
         }
 
         private static TagKey<Item> externalItemTag(String modId, String path) {
@@ -86,7 +86,7 @@ public class BnDTags {
         public static final TagKey<EntityType<?>> PLANT_ALLIES = createTag("plant_allies");
 
         private static TagKey<EntityType<?>> createTag(String name) {
-            return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, BloomAndDoom.locationWithBnDNamespace(name));
         }
     }
 
@@ -94,7 +94,7 @@ public class BnDTags {
         public static final TagKey<BannerPattern> BRAINZ = createTag("pattern_item/brainz");
 
         private static TagKey<BannerPattern> createTag(String name){
-            return TagKey.create(Registries.BANNER_PATTERN, ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, name));
+            return TagKey.create(Registries.BANNER_PATTERN, BloomAndDoom.locationWithBnDNamespace(name));
         }
     }
 

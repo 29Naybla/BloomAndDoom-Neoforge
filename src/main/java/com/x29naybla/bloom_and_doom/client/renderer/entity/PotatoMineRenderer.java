@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PotatoMineRenderer extends MobRenderer<PotatoMine, PotatoMineModel<PotatoMine>> {
     public PotatoMineRenderer(EntityRendererProvider.Context context) {
-        super(context, new PotatoMineModel<>(context.bakeLayer(PotatoMineModel.LAYER_LOCATION)), 0.4F);
+        super(context, new PotatoMineModel<>(context.bakeLayer(PotatoMineModel.LAYER_LOCATION)), 0.6F);
     }
 
     @Override
@@ -27,6 +27,6 @@ public class PotatoMineRenderer extends MobRenderer<PotatoMine, PotatoMineModel<
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull PotatoMine potatoMine) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/potato_mine/potato_mine.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/potato_mine/potato_mine.png");
     }
 }

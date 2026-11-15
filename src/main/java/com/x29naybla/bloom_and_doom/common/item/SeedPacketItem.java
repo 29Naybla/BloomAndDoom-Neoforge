@@ -84,19 +84,19 @@ public class SeedPacketItem extends PlantHolderItem {
                             entity.moveTo(entity.getX(), entity.getY(), entity.getZ(), 0, 0);
                             entity.setYRot(f);
                             entity.setXRot(0);
-                            if(entity instanceof Plant abstractPlant){
-                                if (abstractPlant.onRightSubstrate(level, blockpos)) {
-                                    if (stack.has(DataComponents.CUSTOM_NAME)) abstractPlant.setCustomName(stack.getHoverName());
+                            if(entity instanceof Plant plant){
+                                if (plant.onRightSubstrate(level, blockpos)) {
+                                    if (stack.has(DataComponents.CUSTOM_NAME)) plant.setCustomName(stack.getHoverName());
                                     if(onPlanter(level, blockpos)){
-                                        if(entity instanceof SunShroom) abstractPlant.setAge(-28800);
+                                        if(plant instanceof SunShroom) plant.setAge(-28800);
                                         else
-                                            abstractPlant.setBaby(true);
-                                        abstractPlant.fromPlanter = true;
-                                        abstractPlant.onPlanter = true;
-                                        if (abstractPlant instanceof Marigold) ((Marigold) abstractPlant).setColor(DyeColor.byId(level.getRandom().nextIntBetweenInclusive(0, 15)));
+                                            plant.setBaby(true);
+                                        plant.fromPlanter = true;
+                                        plant.onPlanter = true;
+                                        if (plant instanceof Marigold) ((Marigold) plant).setColor(DyeColor.byId(level.getRandom().nextIntBetweenInclusive(0, 15)));
                                     }else {
-                                        abstractPlant.fromPlanter = false;
-                                        if(entity instanceof SunShroom) abstractPlant.setAge(-4800);
+                                        plant.fromPlanter = false;
+                                        if(entity instanceof SunShroom) plant.setAge(-4800);
                                     }
                                 } else
                                     return InteractionResult.FAIL;

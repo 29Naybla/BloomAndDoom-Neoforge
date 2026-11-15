@@ -24,6 +24,7 @@
   "item.bloom_and_doom.seed_packet.bad_substrate": "Isto não pode ser plantado aqui",
 
   "item.bloom_and_doom.potted_sprout": "Broto Envasado",
+  "item.bloom_and_doom.potted_sprout.random": "Aleatório",
   "item.bloom_and_doom.potted_sunflower": "Girassol Envasado",
   "item.bloom_and_doom.potted_marigold": "Calêndula Envasada",
   "item.bloom_and_Doom.potted_marigold.white": "Calêndula Branca",
@@ -334,6 +335,8 @@
   "effect.bloom_and_doom.zombification": "Zumbificação",
 
   "bloom_and_doom.description.seed_packets_sun_cost": "Custo de sol: ",
+  "bloom_and_doom.description.potted_sprout_growth": "Will Grow Into:",
+  "bloom_and_doom.description.potted_marigold_color": "Cor:",
 
   "tag.item.bloom_and_doom.planter_substrates": "Substratos para germinadores",
   "tag.item.bloom_and_doom.sustains_mushrooms": "Sustentam cogumelos",

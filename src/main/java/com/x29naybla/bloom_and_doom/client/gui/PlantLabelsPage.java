@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class PlantLabelsPage extends AlmanacPage {
     private static final Rectangle PLANT_LABEL = new Rectangle(144, 1, 84, 14);
-    private static final ResourceLocation SUNFLOWER_ICON = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/gui/almanac/plant_icons/sunflower.png");
+    private static final ResourceLocation SUNFLOWER_ICON = BloomAndDoom.locationWithBnDNamespace("textures/gui/almanac/plant_icons/sunflower.png");
 
     public PlantLabelsPage(String ModID, String background) {
         super(ModID, background);

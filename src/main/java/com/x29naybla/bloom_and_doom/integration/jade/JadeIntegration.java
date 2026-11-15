@@ -10,13 +10,13 @@ import snownee.jade.api.*;
 @WailaPlugin
 public class JadeIntegration implements IWailaPlugin {
 
-    public static final ResourceLocation SUN_TIMER = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "sun_timer");
+    public static final ResourceLocation SUN_TIMER = BloomAndDoom.locationWithBnDNamespace("sun_timer");
 
-    public static final ResourceLocation REWARD_TIMER = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "reward_timer");
+    public static final ResourceLocation REWARD_TIMER = BloomAndDoom.locationWithBnDNamespace("reward_timer");
 
-    public static final ResourceLocation CHEWING_TIMER = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "chewing_timer");
+    public static final ResourceLocation CHEWING_TIMER = BloomAndDoom.locationWithBnDNamespace("chewing_timer");
 
-    public static final ResourceLocation SEED_PACKETS_TIMER = ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "seed_packets_timer");
+    public static final ResourceLocation SEED_PACKETS_TIMER = BloomAndDoom.locationWithBnDNamespace("seed_packets_timer");
 
     @Override
     public void register(IWailaCommonRegistration registration) {

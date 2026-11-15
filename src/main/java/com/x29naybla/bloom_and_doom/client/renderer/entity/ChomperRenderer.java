@@ -27,6 +27,6 @@ public class ChomperRenderer extends MobRenderer<Chomper, ChomperModel<Chomper>>
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Chomper chomper) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/chomper/chomper.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/chomper/chomper.png");
     }
 }

@@ -1,23 +1,42 @@
 package com.x29naybla.bloom_and_doom.common.entity.plant;
 
 import com.x29naybla.bloom_and_doom.common.entity.Plant;
-import com.x29naybla.bloom_and_doom.common.registry.BnDEntities;
+import com.x29naybla.bloom_and_doom.common.entity.SproutVariant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 public class Sprout extends Plant {
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Sprout.class, EntityDataSerializers.INT);
     private int age;
 
     //Properties
-    public Sprout(EntityType<? extends Plant> entityType, Level level) {
+    public Sprout(EntityType<? extends Sprout> entityType, Level level) {
         super(entityType, level, BnDTags.Items.SUSTAINS_SPROUTS, null, BnDItems.POTTED_SPROUT.toStack());
+    }
+
+    @Override
+    public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SproutVariant[] sproutVariant = Arrays.stream(SproutVariant.values()).toArray(SproutVariant[]::new);
+        SproutVariant randomVariant = Util.getRandom(sproutVariant, this.random);
+        if (this.getVariant() == null) this.setVariant(randomVariant);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     //Goals and AI
@@ -34,12 +53,32 @@ public class Sprout extends Plant {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setAge(compound.getInt("Age"));
+        this.entityData.set(VARIANT, compound.getInt("Variant"));
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Age", this.age);
+        compound.putInt("Variant", this.getTypeVariant());
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+    }
+
+    private int getTypeVariant(){
+        return this.entityData.get(VARIANT);
+    }
+
+    public SproutVariant getVariant(){
+        return SproutVariant.byId(this.getTypeVariant() & 255);
+    }
+
+    public void setVariant(SproutVariant variant){
+        this.entityData.set(VARIANT, variant.getId() & 255);
     }
 
     @Override
@@ -62,24 +101,23 @@ public class Sprout extends Plant {
 
     private void ageUp() {
         if (this.level() instanceof ServerLevel serverlevel) {
-            if (!net.neoforged.neoforge.event.EventHooks.canLivingConvert(this, EntityType.FROG, (timer) -> {})) return;
-            Sunflower sunflower = BnDEntities.SUNFLOWER.get().create(this.level());
-            if (sunflower != null) {
-                net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, sunflower);
-                sunflower.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
-                sunflower.finalizeSpawn(serverlevel, this.level().getCurrentDifficultyAt(sunflower.blockPosition()), MobSpawnType.CONVERSION, null);
-                sunflower.setNoAi(this.isNoAi());
+            Plant plant = (Plant) EntityType.byString(this.getVariant().getPlant()).get().create(this.level());
+            if (plant != null) {
+                net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, plant);
+                plant.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                plant.finalizeSpawn(serverlevel, this.level().getCurrentDifficultyAt(plant.blockPosition()), MobSpawnType.CONVERSION, null);
+                plant.setNoAi(this.isNoAi());
                 if (this.hasCustomName()) {
-                    sunflower.setCustomName(this.getCustomName());
-                    sunflower.setCustomNameVisible(this.isCustomNameVisible());
+                    plant.setCustomName(this.getCustomName());
+                    plant.setCustomNameVisible(this.isCustomNameVisible());
                 }
 
-                sunflower.setPersistenceRequired();
-                sunflower.fudgePositionAfterSizeChange(this.getDimensions(this.getPose()));
-                sunflower.setAge(BABY_START_AGE);
-                sunflower.fromPlanter = true;
+                plant.setPersistenceRequired();
+                plant.fudgePositionAfterSizeChange(this.getDimensions(this.getPose()));
+                plant.setAge(BABY_START_AGE);
+                plant.fromPlanter = true;
                 this.playSound(SoundEvents.TADPOLE_GROW_UP, 0.15F, 1.0F);
-                serverlevel.addFreshEntityWithPassengers(sunflower);
+                serverlevel.addFreshEntityWithPassengers(plant);
                 this.discard();
             }
         }

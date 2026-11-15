@@ -3,6 +3,7 @@ package com.x29naybla.bloom_and_doom.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.x29naybla.bloom_and_doom.common.block.entity.PlanterBlockEntity;
+import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -15,6 +16,8 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3f;
@@ -40,6 +43,7 @@ public class PlanterBlockEntityRenderer implements BlockEntityRenderer<PlanterBl
 
             pPoseStack.pushPose();
 
+            assert pBlockEntity.getLevel() != null;
             List<BakedQuad> bq = Minecraft.getInstance().getBlockRenderer()
                     .getBlockModel(blockItem.getBlock().defaultBlockState()).getQuads(blockItem.getBlock().defaultBlockState(),
                             Direction.UP, pBlockEntity.getLevel().random, ModelData.EMPTY, RenderType.cutout());
@@ -53,10 +57,20 @@ public class PlanterBlockEntityRenderer implements BlockEntityRenderer<PlanterBl
             Matrix3f matrix3f = posestack$pose.normal();
 
             buildPlane(new Vector3f((float) 2 /16,1, (float) 14 /16), new Vector3f((float) 14 /16,1, (float) 14 /16), new Vector3f((float) 14 /16,1, (float) 2 /16),  new Vector3f((float) 2 /16,1, (float) 2 /16),
-                    vertexconsumer, matrix4f, matrix3f, 0xFFFFFFFF, uv, Direction.UP.getNormal(), pPackedLight,
+                    vertexconsumer, matrix4f, matrix3f, getGrassColor(pBlockEntity), uv, Direction.UP.getNormal(), pPackedLight,
                     pPackedOverlay, pPoseStack);
             pPoseStack.popPose();
         }
+    }
+
+    private int getGrassColor(PlanterBlockEntity pBlockEntity) {
+        if (pBlockEntity.content.getStackInSlot(0).is(BnDTags.Items.TINTED_GRASS_BLOCKS)) {
+            Level level = pBlockEntity.getLevel();
+            assert level != null;
+            Biome biome = level.getBiome(pBlockEntity.getBlockPos()).value();
+
+            return biome.getGrassColor(pBlockEntity.getBlockPos().getX(), pBlockEntity.getBlockPos().getZ()) + 0xFF000000;
+        } else return 0xFFFFFFFF;
     }
 
     public static void buildPlane(Vector3f pos1, Vector3f pos2, Vector3f pos3, Vector3f pos4,

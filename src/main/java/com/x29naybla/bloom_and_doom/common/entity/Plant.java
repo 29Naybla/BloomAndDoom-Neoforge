@@ -24,6 +24,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -162,10 +164,11 @@ public class Plant extends TamableAnimal {
                         this.getZ(), 2, 0, 0, 0, 0);
             }
             return InteractionResult.SUCCESS;
-        } else if(playerHand.isEmpty() && this.fromPlanter && this.level().getBlockState(this.getOnPos()).is(CommonTags.Blocks.FLOWER_POTS)&& this.pottedItem != null) {
+        } else if(playerHand.isEmpty() && this.fromPlanter && this.level().getBlockState(this.getOnPos()).is(CommonTags.Blocks.FLOWER_POTS) && this.pottedItem != null) {
             saveDefaultDataToItemTag(this, this.pottedItem);
             this.pottedItem.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(this.level().getBlockState(this.getOnPos()).getBlock().asItem().getDefaultInstance())));
 
+            this.level().removeBlock(this.getOnPos(), false);
             if (!player.getInventory().add(this.pottedItem)) {
                 ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY() + 0.5, this.getZ(), this.pottedItem);
                 itemEntity.setPickUpDelay(0);
@@ -181,7 +184,6 @@ public class Plant extends TamableAnimal {
                 serverLevel.sendParticles(ParticleTypes.POOF, this.getX(), this.getY() + 0.5,
                         this.getZ(), 2, 0, 0, 0, 0);
             }
-            this.level().removeBlock(this.getOnPos(), false);
             return InteractionResult.SUCCESS;
         }
 
@@ -316,10 +318,13 @@ public class Plant extends TamableAnimal {
         compound.putInt("PacketTime", this.packetTime);
     }
 
-    private static void saveDefaultDataToItemTag(Plant abstractPlant, ItemStack itemStack) {
-        if (abstractPlant.hasCustomName()) itemStack.set(DataComponents.CUSTOM_NAME, abstractPlant.getCustomName());
-        if (abstractPlant instanceof Marigold marigold) itemStack.set(DataComponents.BASE_COLOR, marigold.getColor());
-        if (abstractPlant.isBaby()) itemStack.set(BnDDataComponents.AGE, abstractPlant.getAge());
-        itemStack.set(BnDDataComponents.HEALTH, abstractPlant.getHealth());
+    private static void saveDefaultDataToItemTag(Plant plant, ItemStack itemStack) {
+        if (plant.hasCustomName()) itemStack.set(DataComponents.CUSTOM_NAME, plant.getCustomName());
+        if (plant instanceof Marigold marigold) {
+            itemStack.set(DataComponents.BASE_COLOR, marigold.getColor());
+            itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(FastColor.ARGB32.color(1, marigold.getColor().getTextureDiffuseColor()), false));
+        }
+        if (plant.isBaby()) itemStack.set(BnDDataComponents.AGE, plant.getAge());
+        itemStack.set(BnDDataComponents.HEALTH, plant.getHealth());
     }
 }

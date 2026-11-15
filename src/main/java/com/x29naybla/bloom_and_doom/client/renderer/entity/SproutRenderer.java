@@ -22,6 +22,6 @@ public class SproutRenderer extends MobRenderer<Sprout, SproutModel<Sprout>> {
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull Sprout sprout) {
-        return ResourceLocation.fromNamespaceAndPath(BloomAndDoom.MOD_ID, "textures/entity/sprout/sprout.png");
+        return BloomAndDoom.locationWithBnDNamespace("textures/entity/sprout/sprout.png");
     }
 }

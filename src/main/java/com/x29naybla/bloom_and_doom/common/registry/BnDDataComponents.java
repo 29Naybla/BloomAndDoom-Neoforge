@@ -18,6 +18,8 @@ public class BnDDataComponents {
             builder -> builder.persistent(Codec.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> HEALTH = register("health",
             builder -> builder.persistent(Codec.FLOAT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SPROUT_VARIANT = register("sprout_variant",
+            builder -> builder.persistent(Codec.INT));
 
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                           UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

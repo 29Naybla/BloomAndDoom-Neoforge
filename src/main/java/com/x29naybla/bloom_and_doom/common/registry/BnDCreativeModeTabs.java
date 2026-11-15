@@ -1,14 +1,25 @@
 package com.x29naybla.bloom_and_doom.common.registry;
 
 import com.x29naybla.bloom_and_doom.BloomAndDoom;
+import com.x29naybla.bloom_and_doom.common.entity.SproutVariant;
 import com.x29naybla.bloom_and_doom.common.item.PottedPlantItemstacks;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackLinkedSet;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class BnDCreativeModeTabs {
@@ -153,8 +164,9 @@ public class BnDCreativeModeTabs {
                         output.accept(BnDItems.HYPNO_SHROOM_SEED_PACKET);
                         output.accept(BnDItems.DOOM_SHROOM_SEED_PACKET);
                         output.accept(PottedPlantItemstacks.PottedSproutInstance());
+                        generatePottedSprouts(output);
                         output.accept(PottedPlantItemstacks.PottedSunflowerInstance());
-                        output.accept(PottedPlantItemstacks.PottedMarigoldInstance());
+                        generatePottedMarigolds(output);
                         output.accept(PottedPlantItemstacks.PottedPeashooterInstance());
                         output.accept(PottedPlantItemstacks.PottedSnowPeaInstance());
                         output.accept(PottedPlantItemstacks.PottedRepeaterInstance());
@@ -204,4 +216,49 @@ public class BnDCreativeModeTabs {
                         output.accept(BnDItems.ZOMBIE_WOLF_SPAWN_EGG);
 
                     }).build());
+
+    private static void generatePottedSprouts(CreativeModeTab.Output output) {
+        List<SproutVariant> list = Arrays.stream(SproutVariant.values()).toList();
+        Set<ItemStack> set = ItemStackLinkedSet.createTypeAndComponentsSet();
+
+        for (SproutVariant variant : list) {
+            ItemStack itemStack = new ItemStack(BnDItems.POTTED_SPROUT.get());
+            itemStack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(Blocks.FLOWER_POT.asItem().getDefaultInstance())));
+            itemStack.set(BnDDataComponents.HEALTH, 16F);
+            itemStack.set(BnDDataComponents.SPROUT_VARIANT, variant.getId());
+            set.add(itemStack);
+        }
+        output.acceptAll(set, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+    }
+
+    private static void generatePottedMarigolds(CreativeModeTab.Output output) {
+        List<DyeColor> list = List.of(
+                DyeColor.WHITE,
+                DyeColor.LIGHT_GRAY,
+                DyeColor.GRAY,
+                DyeColor.BLACK,
+                DyeColor.BROWN,
+                DyeColor.RED,
+                DyeColor.ORANGE,
+                DyeColor.YELLOW,
+                DyeColor.LIME,
+                DyeColor.GREEN,
+                DyeColor.CYAN,
+                DyeColor.LIGHT_BLUE,
+                DyeColor.BLUE,
+                DyeColor.PURPLE,
+                DyeColor.MAGENTA,
+                DyeColor.PINK);
+        Set<ItemStack> set = ItemStackLinkedSet.createTypeAndComponentsSet();
+
+        for (DyeColor color : list) {
+            ItemStack itemStack = new ItemStack(BnDItems.POTTED_MARIGOLD.get());
+            itemStack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(List.of(Blocks.FLOWER_POT.asItem().getDefaultInstance())));
+            itemStack.set(DataComponents.BASE_COLOR, color);
+            itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(FastColor.ARGB32.color(1, color.getTextureDiffuseColor()), false));
+            itemStack.set(BnDDataComponents.HEALTH, 16F);
+            set.add(itemStack);
+        }
+        output.acceptAll(set, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+    }
 }
