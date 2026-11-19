@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class BnDTags {
     public static class Blocks {
@@ -95,6 +96,14 @@ public class BnDTags {
 
         private static TagKey<BannerPattern> createTag(String name){
             return TagKey.create(Registries.BANNER_PATTERN, BloomAndDoom.locationWithBnDNamespace(name));
+        }
+    }
+
+    public static class ConfiguredFeatures {
+        public static final TagKey<ConfiguredFeature<?, ?>> CANT_GROW_ON_PLANTERS = createTag("cant_grow_on_planters");
+
+        private static TagKey<ConfiguredFeature<?, ?>> createTag(String name){
+            return TagKey.create(Registries.CONFIGURED_FEATURE, BloomAndDoom.locationWithBnDNamespace(name));
         }
     }
 

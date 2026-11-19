@@ -20,7 +20,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -47,22 +46,22 @@ import static net.minecraft.world.entity.AgeableMob.BABY_START_AGE;
 
 public class PottedPlantItem extends PlantHolderItem {
     private static final Map<DyeColor, Component> MARIGOLD_COLORS = Util.make(Maps.newEnumMap(DyeColor.class), map -> {
-        map.put(DyeColor.WHITE, Component.translatable("color.minecraft.white"));
-        map.put(DyeColor.LIGHT_GRAY, Component.translatable("color.minecraft.light_gray"));
-        map.put(DyeColor.GRAY, Component.translatable("color.minecraft.gray"));
-        map.put(DyeColor.BLACK, Component.translatable("color.minecraft.black"));
-        map.put(DyeColor.BROWN, Component.translatable("color.minecraft.brown"));
-        map.put(DyeColor.RED, Component.translatable("color.minecraft.red"));
-        map.put(DyeColor.ORANGE, Component.translatable("color.minecraft.orange"));
-        map.put(DyeColor.YELLOW, Component.translatable("color.minecraft.yellow"));
-        map.put(DyeColor.LIME, Component.translatable("color.minecraft.lime"));
-        map.put(DyeColor.GREEN, Component.translatable("color.minecraft.green"));
-        map.put(DyeColor.CYAN, Component.translatable("color.minecraft.cyan"));
-        map.put(DyeColor.LIGHT_BLUE, Component.translatable("color.minecraft.light_blue"));
-        map.put(DyeColor.BLUE, Component.translatable("color.minecraft.blue"));
-        map.put(DyeColor.PURPLE, Component.translatable("color.minecraft.purple"));
-        map.put(DyeColor.MAGENTA, Component.translatable("color.minecraft.magenta"));
-        map.put(DyeColor.PINK, Component.translatable("color.minecraft.pink"));
+        map.put(DyeColor.WHITE, Component.translatable("item.bloom_and_Doom.potted_marigold.white"));
+        map.put(DyeColor.LIGHT_GRAY, Component.translatable("item.bloom_and_Doom.potted_marigold.light_gray"));
+        map.put(DyeColor.GRAY, Component.translatable("item.bloom_and_Doom.potted_marigold.gray"));
+        map.put(DyeColor.BLACK, Component.translatable("item.bloom_and_Doom.potted_marigold.black"));
+        map.put(DyeColor.BROWN, Component.translatable("item.bloom_and_Doom.potted_marigold.brown"));
+        map.put(DyeColor.RED, Component.translatable("item.bloom_and_Doom.potted_marigold.red"));
+        map.put(DyeColor.ORANGE, Component.translatable("item.bloom_and_Doom.potted_marigold.orange"));
+        map.put(DyeColor.YELLOW, Component.translatable("item.bloom_and_Doom.potted_marigold.yellow"));
+        map.put(DyeColor.LIME, Component.translatable("item.bloom_and_Doom.potted_marigold.lime"));
+        map.put(DyeColor.GREEN, Component.translatable("item.bloom_and_Doom.potted_marigold.green"));
+        map.put(DyeColor.CYAN, Component.translatable("item.bloom_and_Doom.potted_marigold.cyan"));
+        map.put(DyeColor.LIGHT_BLUE, Component.translatable("item.bloom_and_Doom.potted_marigold.light_blue"));
+        map.put(DyeColor.BLUE, Component.translatable("item.bloom_and_Doom.potted_marigold.blue"));
+        map.put(DyeColor.PURPLE, Component.translatable("item.bloom_and_Doom.potted_marigold.purple"));
+        map.put(DyeColor.MAGENTA, Component.translatable("item.bloom_and_Doom.potted_marigold.magenta"));
+        map.put(DyeColor.PINK, Component.translatable("item.bloom_and_Doom.potted_marigold.pink"));
     });
     private static final Map<SproutVariant, Component> SPROUT_PLANTS = Util.make(Maps.newEnumMap(SproutVariant.class), map -> {
         map.put(SproutVariant.SUNFLOWER, Component.translatable("entity.bloom_and_doom.sunflower"));
@@ -77,6 +76,10 @@ public class PottedPlantItem extends PlantHolderItem {
         map.put(SproutVariant.SUN_SHROOM, Component.translatable("entity.bloom_and_doom.sun_shroom"));
         map.put(SproutVariant.PUFF_SHROOM, Component.translatable("entity.bloom_and_doom.puff_shroom"));
         map.put(SproutVariant.DOOM_SHROOM, Component.translatable("entity.bloom_and_doom.doom_shroom"));
+        map.put(SproutVariant.FUME_SHROOM, Component.translatable("entity.bloom_and_doom.fume_shroom"));
+        map.put(SproutVariant.HYPNO_SHROOM, Component.translatable("entity.bloom_and_doom.hypno_shroom"));
+        map.put(SproutVariant.JALAPENO, Component.translatable("entity.bloom_and_doom.jalapeno"));
+        map.put(SproutVariant.COFFEE_BEAN, Component.translatable("entity.bloom_and_doom.coffee_bean"));
     });
 
     public PottedPlantItem(EntityType<? extends Plant> defaultType, Properties properties) {
@@ -85,11 +88,20 @@ public class PottedPlantItem extends PlantHolderItem {
 
     @Override
     public int getMaxStackSize(@NotNull ItemStack stack) {
+        if (stack.is(BnDItems.POTTED_SPROUT)) return 16;
         return 1;
     }
 
     public @NotNull String getDescriptionId() {
         return this.getOrCreateDescriptionId();
+    }
+
+    @Override
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        if (stack.is(BnDItems.POTTED_MARIGOLD)) {
+            return MARIGOLD_COLORS.get(stack.get(DataComponents.BASE_COLOR)).copy();
+        }
+        return super.getName(stack);
     }
 
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
@@ -99,22 +111,24 @@ public class PottedPlantItem extends PlantHolderItem {
             ItemStack flowerPot = bundlecontents.getItemUnsafe(0).getItem().getDefaultInstance();
             String flowerPotName = flowerPot.getDisplayName().getString().substring(1, flowerPot.getDisplayName().getString().length() - 1);
 
-            tooltipComponents.add(Component.translatable(flowerPotName).withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(CommonComponents.EMPTY);
+            tooltipComponents.add(Component.translatable("bloom_and_doom.description.potted_plant_planted_in").withStyle(ChatFormatting.GREEN));
+            tooltipComponents.add(CommonComponents.SPACE.copy().append(Component.translatable(flowerPotName).withStyle(ChatFormatting.GRAY)));
         }
 
-        if (stack.is(BnDItems.POTTED_MARIGOLD)) {
-            tooltipComponents.add(CommonComponents.EMPTY);
-            tooltipComponents.add(Component.translatable("bloom_and_doom.description.potted_marigold_color").withStyle(ChatFormatting.GREEN));
-            tooltipComponents.add(CommonComponents.SPACE.copy().append(MARIGOLD_COLORS.get(stack.get(DataComponents.BASE_COLOR)).copy().withStyle(ChatFormatting.GRAY)));
-        }
-
-        if (stack.is(BnDItems.POTTED_SPROUT) && tooltipFlag.isCreative()) {
-            tooltipComponents.add(CommonComponents.EMPTY);
-            tooltipComponents.add(Component.translatable("bloom_and_doom.description.potted_sprout_growth").withStyle(ChatFormatting.GREEN));
-            if (stack.get(BnDDataComponents.SPROUT_VARIANT) != null) {
+        if (stack.is(BnDItems.POTTED_SPROUT)) {
+            if (stack.get(BnDDataComponents.SPROUT_VARIANT) != null && stack.get(BnDDataComponents.SPROUT_VARIANT) >= 12) {
+                tooltipComponents.add(Component.translatable("item.bloom_and_doom.potted_sprout.not_added_yet").withStyle(ChatFormatting.RED));
+            } else if (stack.get(BnDDataComponents.SPROUT_VARIANT) != null && stack.get(BnDDataComponents.SPROUT_VARIANT) == 1) {
+                tooltipComponents.add(Component.translatable("item.bloom_and_doom.potted_sprout.growth_result").withStyle(ChatFormatting.GREEN));
                 tooltipComponents.add(CommonComponents.SPACE.copy().append((SPROUT_PLANTS.get(SproutVariant.byId(stack.get(BnDDataComponents.SPROUT_VARIANT))).copy().withStyle(ChatFormatting.GRAY))));
+            } else if (tooltipFlag.isCreative()) {
+                tooltipComponents.add(Component.translatable("item.bloom_and_doom.potted_sprout.growth_result").withStyle(ChatFormatting.GREEN));
+                if (stack.get(BnDDataComponents.SPROUT_VARIANT) != null) {
+                    tooltipComponents.add(CommonComponents.SPACE.copy().append((SPROUT_PLANTS.get(SproutVariant.byId(stack.get(BnDDataComponents.SPROUT_VARIANT))).copy().withStyle(ChatFormatting.GRAY))));
+                }
+                else tooltipComponents.add(CommonComponents.SPACE.copy().append(Component.translatable("item.bloom_and_doom.potted_sprout.random").withStyle(ChatFormatting.GRAY)));
             }
-            else tooltipComponents.add(CommonComponents.SPACE.copy().append(Component.translatable("item.bloom_and_doom.potted_sprout.random").withStyle(ChatFormatting.GRAY)));
         }
     }
 
@@ -122,11 +136,13 @@ public class PottedPlantItem extends PlantHolderItem {
     public @NotNull InteractionResult useOn(UseOnContext context){
         Level level = context.getLevel();
         Player player = context.getPlayer();
+        assert player != null;
         BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
         BlockPos blockpos = blockplacecontext.getClickedPos();
-        ItemStack stack = context.getItemInHand();
-
+        ItemStack stack = context.getItemInHand().copyWithCount(1);
+        ItemStack flowerPot = stack.get(DataComponents.BUNDLE_CONTENTS).getItemUnsafe(0);
         Direction direction = context.getClickedFace();
+
         if (level instanceof ServerLevel serverLevel) {
             Plant plant = (Plant) this.getType(stack).create(serverLevel, EntityType.createDefaultStackConfig(serverLevel, stack, context.getPlayer()), blockpos, MobSpawnType.BUCKET, false, false);
             Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
@@ -135,20 +151,19 @@ public class PottedPlantItem extends PlantHolderItem {
                 if(serverLevel.isEmptyBlock(blockpos)) {
                     if (direction == Direction.DOWN) {
                         return InteractionResult.FAIL;
-                    } else if (player != null && player.isCrouching()) {
-                        ItemStack flowerPot = stack.get(DataComponents.BUNDLE_CONTENTS).getItemUnsafe(0);
-                        BlockItem flowerPotBlock = (BlockItem) flowerPot.getItem();
-                        serverLevel.setBlock(blockpos, flowerPotBlock.getBlock().defaultBlockState(), 3);
-                        placePlant(stack, serverLevel, context, blockpos, true);
-                        if (!player.isCreative()) player.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);
-                        return InteractionResult.SUCCESS;
-                    } else if (plant.onRightSubstrate(serverLevel, blockpos)){
-                        placePlant(stack, serverLevel, context, blockpos, false);
-                        if (player != null && !player.isCreative()) {
-                            ItemStack flowerPot = stack.get(DataComponents.BUNDLE_CONTENTS).getItemUnsafe(0);
-                            player.setItemInHand(InteractionHand.MAIN_HAND, flowerPot);
+                    } else {
+                        if (player.isCrouching()) {
+                            BlockItem flowerPotBlock = (BlockItem) flowerPot.getItem();
+                            serverLevel.setBlock(blockpos, flowerPotBlock.getBlock().defaultBlockState(), 3);
+                            placePlant(stack, serverLevel, context, blockpos, true);
+                            context.getItemInHand().consume(1,player);
+                            return InteractionResult.SUCCESS;
+                        } else if (plant.onRightSubstrate(serverLevel, blockpos)){
+                            placePlant(stack, serverLevel, context, blockpos, false);
+                            if (!player.isCreative()) player.addItem(flowerPot.copy());
+                            context.getItemInHand().consume(1,player);
+                            return InteractionResult.SUCCESS;
                         }
-                        return InteractionResult.SUCCESS;
                     }
                 }
             }
@@ -177,9 +192,9 @@ public class PottedPlantItem extends PlantHolderItem {
                 } else if (plant instanceof Sprout) {
                     plant.setAge(BABY_START_AGE);
                     Integer plant_id = stack.get(BnDDataComponents.SPROUT_VARIANT);
-                    SproutVariant[] sproutVariant = Arrays.stream(SproutVariant.values()).toArray(SproutVariant[]::new);
+                    SproutVariant[] sproutVariant = Arrays.stream(SproutVariant.values()).filter(SproutVariant::accessibleRandom).toArray(SproutVariant[]::new);
                     SproutVariant randomVariant = Util.getRandom(sproutVariant, RandomSource.create());
-                    if (plant_id != null) {
+                    if (plant_id != null || SproutVariant.byId(plant_id).accessibleRandom()) {
                         ((Sprout) plant).setVariant(SproutVariant.byId(plant_id));
                     } else {
                         ((Sprout) plant).setVariant(randomVariant);

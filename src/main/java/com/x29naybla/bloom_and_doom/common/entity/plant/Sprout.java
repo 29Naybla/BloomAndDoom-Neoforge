@@ -33,9 +33,9 @@ public class Sprout extends Plant {
 
     @Override
     public @NotNull SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        SproutVariant[] sproutVariant = Arrays.stream(SproutVariant.values()).toArray(SproutVariant[]::new);
+        SproutVariant[] sproutVariant = Arrays.stream(SproutVariant.values()).filter(SproutVariant::accessibleRandom).toArray(SproutVariant[]::new);
         SproutVariant randomVariant = Util.getRandom(sproutVariant, this.random);
-        if (this.getVariant() == null) this.setVariant(randomVariant);
+        if (this.getVariant() == null || !this.getVariant().accessibleRandom()) this.setVariant(randomVariant);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
@@ -99,9 +99,18 @@ public class Sprout extends Plant {
         }
     }
 
+    private Plant checkPlantForGrowth() {
+        if (EntityType.byString(this.getVariant().getPlant()).isPresent()) {
+            return (Plant) EntityType.byString(this.getVariant().getPlant()).get().create(this.level());
+        }
+        SproutVariant[] sproutVariant = Arrays.stream(SproutVariant.values()).filter(SproutVariant::accessibleRandom).toArray(SproutVariant[]::new);
+        SproutVariant randomVariant = Util.getRandom(sproutVariant, this.random);
+        return EntityType.byString(randomVariant.getPlant()).isPresent() ? (Plant) EntityType.byString(randomVariant.getPlant()).get().create(this.level()) : null;
+    }
+
     private void ageUp() {
         if (this.level() instanceof ServerLevel serverlevel) {
-            Plant plant = (Plant) EntityType.byString(this.getVariant().getPlant()).get().create(this.level());
+            Plant plant = checkPlantForGrowth();
             if (plant != null) {
                 net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, plant);
                 plant.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());

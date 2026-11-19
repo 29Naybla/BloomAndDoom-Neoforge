@@ -17,9 +17,26 @@
                 "max": 2.0,
                 "type": "minecraft:uniform"
               }
+            },
+            {
+              "function": "minecraft:set_contents",
+              "component": "minecraft:bundle_contents",
+              "entries": [
+                {
+                  "type": "minecraft:item",
+                  "name": "minecraft:flower_pot"
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "bloom_and_doom:sprout_variant": 0,
+                "bloom_and_doom:health": 16
+              }
             }
           ],
-          "name": "bloom_and_doom:sunflower_seed_packet"
+          "name": "bloom_and_doom:potted_sprout"
         },
         {
           "type": "minecraft:item",
@@ -31,9 +48,26 @@
                 "max": 1.0,
                 "type": "minecraft:uniform"
               }
+            },
+            {
+              "function": "minecraft:set_contents",
+              "component": "minecraft:bundle_contents",
+              "entries": [
+                {
+                  "type": "minecraft:item",
+                  "name": "minecraft:flower_pot"
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "bloom_and_doom:sprout_variant": 2,
+                "bloom_and_doom:health": 16
+              }
             }
           ],
-          "name": "bloom_and_doom:peashooter_seed_packet"
+          "name": "bloom_and_doom:potted_sprout"
         },
         {
           "type": "minecraft:item",
@@ -45,9 +79,26 @@
                 "max": 1.0,
                 "type": "minecraft:uniform"
               }
+            },
+            {
+              "function": "minecraft:set_contents",
+              "component": "minecraft:bundle_contents",
+              "entries": [
+                {
+                  "type": "minecraft:item",
+                  "name": "minecraft:flower_pot"
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "bloom_and_doom:sprout_variant": 4,
+                "bloom_and_doom:health": 16
+              }
             }
           ],
-          "name": "bloom_and_doom:repeater_seed_packet"
+          "name": "bloom_and_doom:potted_sprout"
         },
         {
           "type": "minecraft:item",
@@ -59,9 +110,26 @@
                 "max": 1.0,
                 "type": "minecraft:uniform"
               }
+            },
+            {
+              "function": "minecraft:set_contents",
+              "component": "minecraft:bundle_contents",
+              "entries": [
+                {
+                  "type": "minecraft:item",
+                  "name": "minecraft:flower_pot"
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "bloom_and_doom:sprout_variant": 5,
+                "bloom_and_doom:health": 16
+              }
             }
           ],
-          "name": "bloom_and_doom:wall_nut_seed_packet"
+          "name": "bloom_and_doom:potted_sprout"
         }
       ]
     }

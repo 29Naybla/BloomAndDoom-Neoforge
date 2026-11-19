@@ -4,13 +4,19 @@ import com.x29naybla.bloom_and_doom.common.entity.ExplosivePlant;
 import com.x29naybla.bloom_and_doom.common.registry.BnDItems;
 import com.x29naybla.bloom_and_doom.common.tag.BnDTags;
 import com.x29naybla.bloom_and_doom.common.registry.BnDSounds;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PotatoMine extends ExplosivePlant {
@@ -38,8 +44,24 @@ public class PotatoMine extends ExplosivePlant {
                 this.armingTime = maxArmingTime;
                 setArmed(true);
             }
+            if (this.armingTime >= (maxArmingTime-2) && !getArmed()) this.clientDiggingParticles(this.armingAnimationState);
         }
         super.tick();
+    }
+
+    private void clientDiggingParticles(AnimationState animationState) {
+        if ((float)animationState.getAccumulatedTime() < 4500.0F) {
+            RandomSource randomsource = this.getRandom();
+            BlockState blockstate = this.getBlockStateOn();
+            if (blockstate.getRenderShape() != RenderShape.INVISIBLE) {
+                for (int i = 0; i < 30; i++) {
+                    double d0 = this.getX() + (double) Mth.randomBetween(randomsource, -0.7F, 0.7F);
+                    double d1 = this.getY();
+                    double d2 = this.getZ() + (double)Mth.randomBetween(randomsource, -0.7F, 0.7F);
+                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate), d0, d1, d2, 0.0, 0.0, 0.0);
+                }
+            }
+        }
     }
 
     @Override

@@ -15,6 +15,7 @@
     "bloom_and_doom:add_loot_abandoned_mineshaft",
     "bloom_and_doom:brains_from_tag",
     "bloom_and_doom:add_loot_bonus_chest",
+    "bloom_and_doom:add_loot_banner_zombie",
     "bloom_and_doom:add_loot_zombie"
   ]
 }
