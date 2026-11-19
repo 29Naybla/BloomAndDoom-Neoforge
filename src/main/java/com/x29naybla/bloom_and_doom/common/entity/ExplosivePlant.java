@@ -101,11 +101,10 @@ public class ExplosivePlant extends Plant {
 
         if (!this.level().isClientSide) {
             this.dead = true;
-            this.level().explode(this, this.damageSources().source(BnDDamageTypes.PLANT_EXPLOSION), damageCalculator, this.getX(), this.getY(), this.getZ(), this.explosionRadius, false, Level.ExplosionInteraction.NONE, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION, sound);
+            this.level().explode(this, this.level().damageSources().source(BnDDamageTypes.PLANT_EXPLOSION), damageCalculator, this.getX(), this.getY(), this.getZ(), this.explosionRadius, false, Level.ExplosionInteraction.NONE, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, sound);
             this.triggerOnDeathMobEffects(RemovalReason.KILLED);
             this.discard();
         }
-
     }
 
     //Data

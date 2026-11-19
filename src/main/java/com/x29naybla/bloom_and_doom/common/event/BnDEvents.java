@@ -44,6 +44,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -237,6 +238,14 @@ public class BnDEvents {
             if (!abstractPlants.isEmpty()) {
                 event.setCanceled(true);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void treeGrow(BlockGrowFeatureEvent event) {
+        assert event.getFeature() != null;
+        if (event.getFeature().is(BnDTags.ConfiguredFeatures.CANT_GROW_ON_PLANTERS) && event.getLevel().getBlockState(event.getPos().below()).is(BnDTags.Blocks.PLANTERS)) {
+            event.setCanceled(true);
         }
     }
 

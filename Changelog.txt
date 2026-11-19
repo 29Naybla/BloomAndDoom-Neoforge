@@ -94,3 +94,17 @@ changelog:
 * gave the Potted Marigold item a visual tint to match the plant
 * Potato mines now have a triggered animation
 * replaced "ResourceLocation.fromNamespaceAndPath" with a new "locationWithBnDNamespace" method in preparation for porting the mod for newer versions
+
+* Potato mines will spawn particles when coming out of the ground
+* fixed a game crashing bug involving plant explosions
+* fixed Doom-shrooms and Potato mines not swelling and getting a white overlay when preparing to explode
+* Potted Marigolds will now display the color in the item's name instead of in the tooltip
+* reworked how the type of flower pot used is displayed in the tooltip
+* Potted Sprouts are now stackable to 16
+* replaced most seed packets as loot for potted sprouts with the respective variant
+* Sprouts that would grow into a plant that is not added yet will grow into a random plant instead
+* Potted Sprouts that will grow into Marigolds always displays it in the tooltip
+* Potted Sprouts that would grow into a plant that is not added yet will display a warning in the tooltip
+* added the "bloom_and_doom:cant_grow_on_planters" configured feature tag
+* saplings will no longer grow on planters
+-- 0.1.0 pre-release 2--
